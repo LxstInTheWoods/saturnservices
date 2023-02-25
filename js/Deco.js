@@ -4,13 +4,13 @@ function loop()
 {
     console.log("Call")
     setTimeout(() => {
-       if (p1anim.textContent === ">_")
+       if (p1anim.textContent === "")
        {
-        p1anim.textContent = ">"
+        p1anim.textContent = "$$$"
        } 
-       else if (p1anim.textContent === ">")
+       else if (p1anim.textContent === "$$$")
        {
-        p1anim.textContent = ">_"
+        p1anim.textContent = ""
        }
        loop()
     }, 1000);
