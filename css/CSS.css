@@ -23,33 +23,23 @@ margin: 0;
     padding-right: 1em;
 }
 
-.dropdown {
-    position: relative;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    display: none;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    animation: dropdown-menu-animation 0.2s ease-out;
-  }
-  
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  @keyframes dropdown-menu-animation {
-    from {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+
+#amazondesc{
+  margin-top: 1%;
+  width: fit-content;
+  border:solid #7289da;
+}
+.amazondesc_boxes{
+  padding-top: 1%;
+  padding-left: 1%;
+  height: 17em;
+}
+
+
+#amazondesc_boxeselem{
+  display: inline-block;
+  vertical-align: middle;
+  font-family: monospace;
+  color:white;
+  font-size: 25px;
+}
