@@ -23,7 +23,6 @@ margin: 0;
     padding-right: 1em;
 }
 
-
 .amazondesc_boxes{
   padding-top: 1%;
   padding-left: 1%;
@@ -31,9 +30,10 @@ margin: 0;
 }
 
 #amazon_boxesandescholder{
-  text-align: center;
   margin:1rem;
   border:solid #7289da;
+  height: 30em;
+  width: 55em;
 }
 
 #amazondesc_boxeselem{
@@ -47,4 +47,39 @@ margin: 0;
 .amazondesc_boxestitle{
   position: relative;
   bottom: 5cm;
+}
+
+#amazondesc_description{
+  font-family: monospace;
+  color: white;
+  font-size: 17px;
+  width: 50%;
+  position: relative;
+  left: 23em;
+  bottom: 23em;
+}
+.joindiscord img{
+  height: 3em;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  font-family: monospace;
+  margin:0.5em;
+}
+.joindiscord label{
+  padding-left: 1em;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  font-family: monospace;
+  padding-right: 1em;
+}
+
+.joindiscord{
+  border:#7289da solid;
+  width: fit-content;
+  border-radius: 15px;
+  position: relative;
+  left: 28em;
+  bottom:20em;
 }
