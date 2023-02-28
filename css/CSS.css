@@ -84,32 +84,6 @@ margin: 0;
   bottom:20em;
 }
 
-.joindiscord_paste{
-  border:#7289da solid;
-  width: fit-content;
-  border-radius: 15px;
-  position: relative;
-  left: 28em;
-  bottom:20em;
-}
-
-.joindiscord_paste img{
-  height: 3em;
-  display: inline-block;
-  vertical-align: middle;
-  color: white;
-  font-family: monospace;
-  margin:0.5em;
-}
-
-.joindiscord_paste label{
-  padding-left: 1em;
-  display: inline-block;
-  vertical-align: middle;
-  color: white;
-  font-family: monospace;
-  padding-right: 1em;
-}
 
 #desctofaq_AZ{
   height: 20em;
