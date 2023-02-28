@@ -1,5 +1,8 @@
 const joindiscord = document.getElementsByClassName("joindiscord")
 
+
+
+
 for (const value of joindiscord)
 {
 
