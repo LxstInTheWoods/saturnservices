@@ -138,25 +138,27 @@ margin: 0;
   width: 100%;
 }
 #title_index>h1{
+  position: relative;
   text-align: center;
   vertical-align: middle;
   margin:0;
-  padding-top: 6%;
   color: white;
   font-family: monospace;
   font-size: 50px;
+
+  top: 35%;
    
 }
 
 #info_index{
   background-color: #181c1c;
   margin:0;
-  height: 14em;
+  height: max-content;
 }
 
 #titledesc_contact_index {
   border-right:#68b2d2 solid;
-height: 100%;
+  height: fit-content;
 }
 
 #titledesc_contact_index h1{
@@ -175,9 +177,13 @@ height: 100%;
 
 #handrawnarrowdownleft_index{
   height: 8em;
+  vertical-align: middle;
   position: relative;
-  left: 10%;
-  bottom: 10em;
+  bottom: 1rem;
+}
+.alignarrow_index{
+ display: flex;
+ height: 10%;
 }
 
 
@@ -189,11 +195,10 @@ padding-left: 2em;
 
 .sociallink{
   border:solid #7289da;
-  width: 10%;
+  width: 11em;
   border-radius: 15px;
   padding: 0.3em;
   margin-bottom: 0.7em;
-
 }
 .sociallink_image{
   height: 2em;
