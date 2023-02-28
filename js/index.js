@@ -19,3 +19,8 @@ for (const value of joindiscord)
         })
 
 }
+
+//footer
+
+
+document.getElementById("copyright").textContent += ` Saturn Services 2021-${new Date().getFullYear()}`
