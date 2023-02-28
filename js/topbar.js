@@ -1,10 +1,6 @@
 const topbar = document.getElementById("top")
 
-const links = {
-    Discord:"https://discord.gg/jYMwx7cGcg",
-    Amazon:"",
-    "Food Delivery":""
-}
+
 
 for (const value of topbar.getElementsByTagName("h1"))
 {
@@ -18,8 +14,9 @@ for (const value of topbar.getElementsByTagName("h1"))
         })
 
         value.addEventListener("click", ()=>{
-            const link = links[value.textContent]
-            if (link.length === 0){alert("No redirect set!"); return}
+            const link = social(value.textContent)
+            console.log(link)
+            if (link == undefined || link.length === 0 ) {alert("No redirect set!"); return}
             window.open(link)
         })
         

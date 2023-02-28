@@ -1,0 +1,107 @@
+.amazondesc_boxes{
+    padding-top: 1%;
+    padding-left: 1%;
+    height: 17em;
+  }
+  
+  #amazon_boxesandescholder{
+    margin:1rem;
+    border:solid #7289da;
+    height: 30em;
+    width: 55em;
+  }
+  
+  #amazondesc_boxeselem{
+    display: inline-block;
+    vertical-align: middle;
+    font-family: monospace;
+    color:white;
+    font-size: 25px;
+  }
+  
+  .amazondesc_boxestitle{
+    position: relative;
+    bottom: 5cm;
+  }
+  
+  #amazondesc_description{
+    font-family: monospace;
+    color: white;
+    font-size: 17px;
+    width: 50%;
+    position: relative;
+    left: 23em;
+    bottom: 23em;
+  }
+  .joindiscord img{
+    height: 3em;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    font-family: monospace;
+    margin:0.5em;
+  }
+  .joindiscord label{
+    padding-left: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    font-family: monospace;
+    padding-right: 1em;
+  }
+  
+  .joindiscord{
+    border:#7289da solid;
+    width: fit-content;
+    border-radius: 15px;
+    position: relative;
+    left: 28em;
+    bottom:20em;
+  }
+  
+  
+  #desctofaq_AZ{
+    height: 20em;
+    position: relative;
+    left: -5em;
+    bottom:4em;
+  }
+  
+  #amazonfaq  h1{
+    color: white;
+    font-family: monospace;
+  }
+  
+  #amazonfaq{
+    border:#7289da solid;
+    margin:0;
+    width: 50%;
+    position: relative;
+    left: 20em;
+    bottom:15em;
+  
+  }
+  
+  .QNA{
+    list-style: none;
+    padding-left: 1em;
+  }
+  .Question{
+    font-family: monospace;
+    font-size: 20px;
+    color:white;
+  }
+  .Answer{
+    font-family: monospace;
+    font-size: 15px;
+    color:white;
+    padding-top: 0.4em;
+    padding-left:1em;
+  }
+  
+  .qna_group{
+  
+    margin-bottom: 1em;
+    width: fit-content
+  }
+  

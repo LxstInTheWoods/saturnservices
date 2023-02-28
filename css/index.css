@@ -1,0 +1,83 @@
+
+#title_index{
+    background-image: url(../img/image2.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20em;
+    width: 100%;
+  }
+  #title_index>h1{
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    margin:0;
+    color: white;
+    font-family: monospace;
+    font-size: 50px;
+  
+    top: 35%;
+     
+  }
+  
+  #info_index{
+    background-color: #181c1c;
+    margin:0;
+    height: max-content;
+  }
+  
+  #titledesc_contact_index {
+    border-right:#68b2d2 solid;
+    height: fit-content;
+  }
+  
+  #titledesc_contact_index h1{
+    font-family: lato, sans-serif;
+    color:#68b2d2;
+    margin:0;
+  
+  }
+  
+  #titledesc_contact_index h2{
+    font-family: monospace;
+    color:white;
+    width: 25%;
+    margin:0;
+  }
+  
+  #handrawnarrowdownleft_index{
+    height: 8em;
+    vertical-align: middle;
+    position: relative;
+    bottom: 2em;
+  }
+  .alignarrow_index{
+   display: flex;
+   height: 10%;
+  }
+  
+  #titledesc_contact_index{
+  padding-left: 2em;
+  
+  }
+  .sociallink{
+    border:solid #7289da;
+    width: 11em;
+    border-radius: 15px;
+    padding: 0.2em;
+    margin-bottom: 0.7em;
+  }
+  .sociallink_telegramimg img{
+    height: 1.8em;
+    vertical-align: middle;
+  }
+  .sociallink_discordimg img{
+    height: 1.5em;
+    vertical-align: middle;
+  }
+  .sociallink_label{
+    font-family: monospace;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-left: 0.2em;
+  }

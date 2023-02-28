@@ -15,12 +15,11 @@ for (const value of joindiscord)
         })
 
         value.addEventListener("click", function(){
-            window.open("https://discord.gg/jYMwx7cGcg")
+            window.open(social("discord"))
         })
 
 }
 
 //footer
-
 
 document.getElementById("copyright").textContent += ` Saturn Services 2021-${new Date().getFullYear()}`

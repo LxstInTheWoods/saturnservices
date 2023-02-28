@@ -1,8 +1,14 @@
-const data = fetch('./data.json')
-const slinks = {
-    telegram:"https://t.me/+eOkB8WnJ5n40NDNh",
-    discord:data.yes
+function social(x)
+{
+    const data = {
+        discord:"https://discord.gg/jYMwx7cGcg",
+        telegram:"https://t.me/+eOkB8WnJ5n40NDNh",
+        amazon:"./amazon.html"
+    }
+    console.log(data[x.toLowerCase()])
+    return data[x.toLowerCase()]
 }
+
 
 for (const element of document.getElementsByClassName("sociallink"))
 {
@@ -13,6 +19,7 @@ for (const element of document.getElementsByClassName("sociallink"))
         element.animate([{borderColor:"#7289da"}], {duration:150, fill:"forwards"})
     })
     element.addEventListener("click", () =>{
-        console.log(element.value)
+        window.open(social(element.id))
     })
 }
+
