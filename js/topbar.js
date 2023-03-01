@@ -17,7 +17,7 @@ for (const value of topbar.getElementsByTagName("h1"))
             const link = social(value.textContent)
             console.log(link)
             if (link == undefined || link.length === 0 ) {alert("No redirect set!"); return}
-            window.open(link)
+            window.open(link, "_self")
         })
         
     }

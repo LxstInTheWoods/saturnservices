@@ -10,6 +10,7 @@ function social(x)
 }
 
 
+
 for (const element of document.getElementsByClassName("sociallink"))
 {
     element.addEventListener('mouseenter', () => {
