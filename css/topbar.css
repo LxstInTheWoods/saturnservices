@@ -4,9 +4,10 @@ body{
 }
 
 #top{
-
 margin: 0;
+position: sticky;
 }
+
 
 #top ul {
     text-decoration: none;

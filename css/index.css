@@ -5,6 +5,7 @@
     background-size: cover;
     height: 20em;
     width: 100%;
+    
   }
   #title_index>h1{
     position: relative;
@@ -33,6 +34,7 @@
   #titledesc_contact_index h1{
     font-family: lato, sans-serif;
     color:#68b2d2;
+    width: max-content;
     margin:0;
   
   }
@@ -42,6 +44,7 @@
     color:white;
     width: 25%;
     margin:0;
+
   }
   
   #handrawnarrowdownleft_index{

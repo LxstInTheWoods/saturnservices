@@ -14,10 +14,9 @@ for (const value of topbar.getElementsByTagName("h1"))
         })
 
         value.addEventListener("click", ()=>{
-            const link = social(value.textContent)
-            console.log(link)
-            if (link == undefined || link.length === 0 ) {alert("No redirect set!"); return}
-            window.open(link, "_self")
+            const link = social(value.textContent).split("|")
+            if (link[0] == undefined || link[0].length === 0 ) {alert("No redirect set!"); return}
+            window.open(link[0], link[1])
         })
         
     }

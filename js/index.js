@@ -1,8 +1,5 @@
 const joindiscord = document.getElementsByClassName("joindiscord")
 
-
-
-
 for (const value of joindiscord)
 {
 
@@ -15,7 +12,7 @@ for (const value of joindiscord)
         })
 
         value.addEventListener("click", function(){
-            window.open(social("discord"))
+            window.open(social("discord").split("|")[0], social("discord").split("|")[1])
         })
 
 }
