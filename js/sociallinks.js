@@ -3,7 +3,8 @@ function social(x)
     const data = {
         discord:["https://discord.gg/jYMwx7cGcg"],
         telegram:["https://t.me/+eOkB8WnJ5n40NDNh"],
-        amazon:["./amazon.html", "_self"]
+        amazon:["./amazon.html", "_self"],
+        home:["./index.html", "_self"]
     }
     console.log(`${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`)
     return `${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`
