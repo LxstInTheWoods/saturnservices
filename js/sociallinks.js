@@ -4,14 +4,16 @@ function social(x)
         discord:["https://discord.gg/jYMwx7cGcg"],
         telegram:["https://t.me/+eOkB8WnJ5n40NDNh"],
         amazon:["./amazon.html", "_self"],
-        home:["./index.html", "_self"]
+        home:["./index.html", "_self"],
+        "food delivery":["./js/b4u.js", "_self"]
     }
-    console.log(`${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`)
-    return `${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`
+
+    //return `${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`
 }
 
 
-
+if (document.getElementsByClassName("sociallink"))
+{
 for (const element of document.getElementsByClassName("sociallink"))
 {
     element.addEventListener('mouseenter', () => {
@@ -25,3 +27,4 @@ for (const element of document.getElementsByClassName("sociallink"))
     })
 }
 
+}
