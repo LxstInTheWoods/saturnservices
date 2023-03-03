@@ -5,11 +5,12 @@ function social(x)
         telegram:["https://t.me/+eOkB8WnJ5n40NDNh"],
         amazon:["./amazon.html", "_self"],
         home:["./index.html", "_self"],
-        "food delivery":["./js/b4u.js", "_self"]
+        "food delivery":["./b4u.html", "_self"]
     }
 
-    //return `${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`
+    return `${data[x.toLowerCase()][0]}|${data[x.toLowerCase()][1]}`
 }
+
 
 
 if (document.getElementsByClassName("sociallink"))

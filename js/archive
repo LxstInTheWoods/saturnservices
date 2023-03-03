@@ -1,0 +1,17 @@
+format: file:line[code]
+
+b4u.js:34 
+[
+    const request = new XMLHttpRequest();
+    
+    request.setRequestHeader('Content-type', 'application/json');
+
+    const params = {
+      username: "Test",
+      avatar_url: "",
+      content: Str
+    }
+
+    request.send(JSON.stringify(params));
+
+]

@@ -1,0 +1,56 @@
+#details {
+    font-family: monospace;
+    border:solid #7289da;
+    border-radius: 15px;
+}
+
+.listitem textarea{
+resize: none;
+width: 30em;
+padding:0;
+
+vertical-align: middle;
+
+}
+
+.listitem{
+    padding-left: 3em;
+    padding-right: 1em;
+    margin-bottom: 1em;
+}
+
+.cartItem textarea{
+    resize: none;
+    padding:0;
+}
+.cartItem label{
+    font-size: 15px;
+    vertical-align: middle;
+    color: white;
+}
+.cartItem{
+    padding-left: 3em;
+    padding-right: 1em;
+    margin-bottom: 2em;
+}
+
+#list{
+    padding: 0;
+
+}
+
+
+.listitem label{
+    font-size: 15px;
+    vertical-align: middle;
+    color: white;
+}
+
+#maindetailshead{
+    padding-left: 1em;
+    color: white;
+}
+
+.OrderDetails{
+    margin-bottom: 1em;
+}
