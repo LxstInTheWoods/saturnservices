@@ -1,5 +1,7 @@
 .main{
     width:100%;
+    display: table;
+    height: 100%;
   }
   #topinfopizza{
     position:relative;
@@ -22,6 +24,7 @@
   }
   .maininfo{
     width: 100%;
+    display: table-cell;
   }
 
   .hd{
@@ -70,6 +73,12 @@
   .item label{
     color: white;
     font-family: monospace;
+  }
 
-    
+  .Ordertab{
+  
+    height: 100%;
+    background-color: aliceblue;
+    display: table-cell;
+
   }
