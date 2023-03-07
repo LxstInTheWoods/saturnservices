@@ -1,56 +1,75 @@
-#details {
-    font-family: monospace;
-    border:solid #7289da;
+.main{
+    width:100%;
+  }
+  #topinfopizza{
+    position:relative;
+    left: 25%;
+    width:50%;
+    height: 15em;
+    border-radius: 20px;
+    border:solid white;
+  }
+  #imgandlogo{
+    margin-bottom: 3em;
+  }
+  #pizzalogo{
+    position: relative;
+    height: 5em;
+    border-radius: 100px;
+    left: -24%;
+    top:2.5em;
+    border:solid white;
+  }
+  .maininfo{
+    width: 100%;
+  }
+
+  .hd{
+    margin-left: 25%;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0em;
+    margin-bottom: 0;
+  }
+
+  #hours h1, #hours label{
+    margin:0;
+  }
+  #details h1, #details label{
+    margin:0;
+  }
+  #details h1{
+    margin-bottom: 1%;
+  }
+
+  .itemholder{
+    position: relative;
+    display: table;
+    width:50%;
+    left: 25%;
+    margin: 0;
+  }
+  .item{
+    display: table-cell;
+    height: min-content;
+  }
+  .item img{
+    height: 7em;
     border-radius: 15px;
-}
-
-.listitem textarea{
-resize: none;
-width: 30em;
-padding:0;
-
-vertical-align: middle;
-
-}
-
-.listitem{
-    padding-left: 3em;
-    padding-right: 1em;
-    margin-bottom: 1em;
-}
-
-.cartItem textarea{
-    resize: none;
-    padding:0;
-}
-.cartItem label{
+  }
+  .item button{
+    color:white;
+    background-color: #1c1c1c;
+    border: none;
+    position: relative;
+    left: -3.6em;
+    bottom: 0.3cm;
+    border-radius: 15px;
     font-size: 15px;
-    vertical-align: middle;
+  }
+  .item label{
     color: white;
-}
-.cartItem{
-    padding-left: 3em;
-    padding-right: 1em;
-    margin-bottom: 2em;
-}
+    font-family: monospace;
 
-#list{
-    padding: 0;
-
-}
-
-
-.listitem label{
-    font-size: 15px;
-    vertical-align: middle;
-    color: white;
-}
-
-#maindetailshead{
-    padding-left: 1em;
-    color: white;
-}
-
-.OrderDetails{
-    margin-bottom: 1em;
-}
+    
+  }

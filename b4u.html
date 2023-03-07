@@ -15,73 +15,47 @@
                     <h1 class="t_ign">|</h1>
                     <h1>Food Delivery</h1>                 
                 </ul>
-
             </nav>
-
-            <div class="createticket" style="width: fit-content;">
-                <div id="details" class="OrderDetails">
-                    <h1 id="maindetailshead">Order details</h1>
-                    <ul class="maindetailslist" id="list" style="list-style: none; width: fit-content;">
-                        <div class="listitem"> 
-                          <label></li>Name for the order</li></label>
-                          <li><textarea></textarea></li> 
-                        </div>
-
-                        <div class="listitem"> 
-                            <label><li>Delivery adress</li></label>
-                           <li><textarea></textarea></li> 
-                          </div>
-
-                          <div class="listitem"> 
-                            <label><li>Delivery Instructions</li></label>
-                           <li><textarea></textarea></li> 
-                          </div>
-
-                          <div class="listitem"> 
-                            <label><li>Phone Number</li></label>
-                           <li><textarea></textarea></li> 
-                          </div>
-
-                          <div class="listitem"> 
-                            <label><li>Restaurant name / link</li></label>
-                           <li><textarea></textarea></li> 
-                          </div>
-                        
-                    </ul>
+            
+            <div class="main">
+              
+              <div class="topinfo">
+                <div id="imgandlogo">
+                 <img id="topinfopizza" src="./img/tacos.png"> 
+                 <img id="pizzalogo" src="./img/SATURN_SERVICES.gif">
                 </div>
 
-                <div id="details" class="CartDetails">
-                    <h1 id="maindetailshead">Cart details</h1>
-                    <ul id="list" class="cartdetailslist" style="list-style: none; width: fit-content;">
+                <div class="maininfo" style="position: absolute;"> 
+                  <div id="details" class="hd">
+                  <h1>GrubHub</h1>
+                  <label><label style="color:#2fcdec"><strong>65% discount</strong></label> • Open until 10 CDT • Fast response</label>
+                  </div>
 
-                      
-                          
-                      </ul>
-
-                    <button id="AddItem" style="margin-left:1em ; border:solid white; border-radius: 15px; background-color:#7289da; margin-top: 0.5em;">Add an item</button>
-                    <button id="DeleteItem" style="border:solid white; border-radius: 15px; background-color:#7289da; margin-top: 0.5em;">Delete Item</button>
+                <div id="hours" class="hd">
+                  <label style="color:#54e091"><strong>Open now</strong></label> • Closes at 9:00 Central
                 </div>
+                </div>
+
+                <hr style="position: relative; top: 6em; width: 50%; border-color: gray; margin-bottom: 7em;">
+
+                <div class="itemholder">
+                  <div class="item">
+                    <img src="./img/fooditem.avif">
+                    <button><strong>ADD</strong></button>
+                    <br>
+                    <label>Food Item</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="Ordertab">
+
+              </div>
             </div>
 
-            <div class="cartItem" id="clonecartitem" style="display: none;"> 
-              <br>
-                <label></li>Item name</li></label>
-                <li><textarea></textarea></li> 
-                <ul>
-                  <div class="Addon" style="width: 50%; margin-top: 1em; margin-bottom: 1em; margin: 0; display: flex;"> 
-                      <label>Add on</label>
-                      <textarea style="width:16em"></textarea>
-                    </div>
-                </ul>
-                <button id="Addon" style="border:solid white; border-radius: 15px; background-color:#7289da; margin-top: 0.5em;">Add an add-on</button>
-                <button id="DeleteAddon" style="border:solid white; border-radius: 15px; background-color:#7289da; margin-top: 0.5em;">Delete add-on</button>
-              </div>
-              <button id="submit">Submit order</button>
             <script src="./js/b4u.js"></script>
             <script src="./js/sociallinks.js"></script>
             <script src="./js/topbar.js"></script>
-
-
 
         </body>
 </html>
