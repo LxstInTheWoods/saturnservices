@@ -28,7 +28,7 @@
   }
 
   .hd{
-    margin-left: 21.5%;
+    margin-left: 25%;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0em;
@@ -48,16 +48,13 @@
   .itemholder{
     position: relative;
     display: table;
-
     width:50%;
     left: 25%;
     margin: 0;
   }
   .item{
     display: table-cell;
-    margin:0em;
     height: min-content;
-    width: min-content;
   }
   .item img{
     height: 7em;
@@ -67,9 +64,9 @@
     color:white;
     background-color: #1c1c1c;
     border: none;
-    position: absolute;
-    left: 4em;
-    bottom: 0.7cm;
+    position: relative;
+    left: -3.6em;
+    bottom: 0.3cm;
     border-radius: 15px;
     font-size: 15px;
   }
@@ -79,10 +76,9 @@
   }
 
   .Ordertab{
+  
+    height: 100%;
+    background-color: aliceblue;
     display: table-cell;
-    background-color: #1d1d1d;
-    height: 66em;
-    width: 15em;
-    border-left: solid white;
 
   }
