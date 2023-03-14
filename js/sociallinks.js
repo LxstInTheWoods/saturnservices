@@ -1,7 +1,7 @@
 function social(x)
 {
     const data = {
-        discord:["https://discord.gg/jYMwx7cGcg"],
+        discord:["https://discord.gg/98ffr53ksK"],
         telegram:["https://t.me/+eOkB8WnJ5n40NDNh"],
         amazon:["./amazon.html", "_self"],
         home:["./index.html", "_self"],
