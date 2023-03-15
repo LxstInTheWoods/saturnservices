@@ -76,4 +76,5 @@ addtocart.addEventListener('click', ()=>{
     }
 
     coursemod.animate([{transform:"translateX(-400%"}], {duration:150, fill:"forwards"})
+    //code to clear form here
 })
