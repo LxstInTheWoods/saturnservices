@@ -5,8 +5,9 @@
         <link rel="stylesheet" href="./css/b4u.css">
         <link rel="stylesheet" href="./css/topbar.css">
     </head>
-    <body>
-      <div style="display:table; width: 100%;">
+    <body style="min-height:100vh">
+      <div style="min-height: 100vh;">
+      <div style="display:table; width: 100%; min-height: 100vh; position: relative;">
 
             <nav id="top">
                 <ul>
@@ -40,30 +41,93 @@
                 <hr style="position: relative; top: 6em; width: 50%; border-color: gray; margin-bottom: 7em;">
 
                 <div class="itemholder">
-                  <div class="item">
+                  <ul>
+                    <li>
+                  <div class="item" id="course">
                     <img src="./img/fooditem.avif">
-                    <button><strong>ADD</strong></button>
+                    <button id="coursebutton"><strong>ADD</strong></button>
                     <br>
                     <label>Food Item</label>
                   </div>
-                  <div class="item">
-                    <img src="./img/fooditem.avif">
-                    <button><strong>ADD</strong></button>
-                    <br>
-                    <label>Food Item</label>
-                  </div>
+                </li>
+              <li>
+                
+                  </ul>
+
                 </div>
               </div>
 
             </div>
+
+            <div class="coursemod" id="crsmd">
+              <div style="margin-left:3em; margin-right: 3em; height: 100%;">
+                <div style="position: relative; vertical-align: middle; text-align: center;">
+                  <h1>Modify Item</h1>
+                  <button class="closebutton">Close</button>
+                  </div>
+    
+                  <div class="iteminfo" id="itemname">
+                    <label>Item Name</label><br>
+                    <textarea></textarea>
+                  </div>
+                  <hr>
+                  <div class="iteminfo" id="itemprice">
+                    <label>price</label> <br>
+                    <textarea></textarea>
+                  </div>
+    
+                  <hr>
+                  <div id="AddonMenu">
+                    <div id="addonholder">
+                      <div class="jsignore" id="addonstorage" style="display: none;"><div class="iteminfo"> <label>Add on</label> <br> <textarea></textarea> </div></div>
+
+                    </div>
+                    <div style="width:fit-content; position: relative; left: 1.1em; margin-top: 1em;" id="addonbuttons">
+                    <button id="createaddon">add an add-on</button>  <button id="deleteaddon">delete addon</button>   
+                    </div>
+                  </div>
+                  <div style="margin: auto; width: fit-content; margin-bottom: 0.3em; margin-top: 0.5em;">
+                  <button id="additemtocart" style=" width: 10em; height: 2em; font-size: 15px; background:none; border-color: white; border-radius: 6px; color: white;">
+                    Add Item
+                  </button>                    
+                  </div>
+
+                </div>
+
+              </div>
+        
+
             <div class="Ordertab">
-              <label>item</label>
+              <div class="restyinfo">
+
+                  <div class="iteminfo">
+                    <label>Your name</label> <br>
+                    <textarea></textarea>
+                  </div>
+                  <div class="iteminfo">
+                    <label>Delivery Adress</label> <br>
+                    <textarea></textarea>
+                  </div>
+                  
+                  <div class="iteminfo">
+                    <label>Restaurant Name</label> <br>
+                    <textarea></textarea>
+                  </div>
+
+                  <div class="iteminfo">
+                    <label>Phone number</label> <br>
+                    <textarea></textarea>
+                  </div>
+                  <hr>
+
+                  <div style="display: none;" id="orderitemstorage"> <div class=orderitem> <label>Itemname • Itemprice</label> <ul> </ul> </div></div>
+                </div>
             </div>
           </div>
             <script src="./js/b4u.js"></script>
             <script src="./js/sociallinks.js"></script>
             <script src="./js/topbar.js"></script>
-
+          </div>
         </body>
 </html>
 <!--

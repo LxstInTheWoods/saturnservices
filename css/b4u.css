@@ -28,7 +28,7 @@
   }
 
   .hd{
-    margin-left: 25%;
+    margin-left: 23%;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0em;
@@ -47,14 +47,20 @@
 
   .itemholder{
     position: relative;
-    display: table;
     width:50%;
     left: 25%;
     margin: 0;
   }
+
+  .itemholder>ul{
+    list-style: none;
+    display: inline-flex;
+    padding-left: 0;
+  }
   .item{
-    display: table-cell;
     height: min-content;
+    position: relative;
+    margin-right: 2em;
   }
   .item img{
     height: 7em;
@@ -64,9 +70,9 @@
     color:white;
     background-color: #1c1c1c;
     border: none;
-    position: relative;
-    left: -3.6em;
-    bottom: 0.3cm;
+    position: absolute;
+    right: 5%;
+    bottom:21%;
     border-radius: 15px;
     font-size: 15px;
   }
@@ -78,7 +84,119 @@
   .Ordertab{
   
     height: 100%;
-    background-color: aliceblue;
+    background-color:#1c1c1c;
     display: table-cell;
+    border-left: solid white;
+    width: 12vw;
 
   }
+
+  .coursemod{
+    position: absolute;
+    background-color: #1c1c1c;
+    border:solid white;
+    height: fit-content;
+    width: max-content;
+
+    bottom: 25vh;
+    left:42.5%;
+    border-radius: 15px;
+
+  }
+  .coursemod>h1{
+    width: 100%;
+  }
+  .coursemod{
+    color: white;
+    font-family: monospace;
+  }
+
+   textarea{
+    background:none;
+    border-radius: 6px;
+    border-width: 1.4px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .iteminfo{
+    position: relative;
+    vertical-align: middle;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.2em;
+    border-radius: 5px;
+  }
+
+.iteminfo>textarea,label{
+  vertical-align: middle;
+}
+
+.coursemod hr{
+  padding: 0;
+  width: 75%;
+}
+
+.iteminfo>label{
+  text-align: center;
+  padding-right: 1em;
+}
+.iteminfo>textarea{
+  height: 1.2em;
+  text-align: left;
+}
+  .iteminfo>textarea{resize: none;}
+
+#AddonMenu{
+  border: solid white;
+  height: 20em;
+  width: 18em;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-bottom: 0.3em;
+  border-radius: 10px;
+}
+#AddonMenu::-webkit-scrollbar{
+  display: none;
+}
+.closebutton{
+  color: red;
+  background:none;
+  border: none;
+  position: absolute;
+  left: 96%;
+  bottom: 95%;
+}
+
+#addonbuttons button{
+  background: none;
+  color: white;
+  border-color: white;
+  border-radius: 6px;
+}
+.restyinfo label{
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+.restyinfo textarea{
+  border-color: white;
+  padding: 0.2em;
+}
+.restyinfo>.iteminfo{
+  margin-bottom: 0.3em;
+}
+
+.orderitem ul{
+  margin: 0;
+  list-style:square;
+}
+.orderitem li{
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.orderitem{
+  margin-left: 0.5em;
+  margin-bottom: 1em;
+}
