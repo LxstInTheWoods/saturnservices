@@ -128,11 +128,12 @@ textarea{
   }
 
   .iteminfo{
-    display: block;
+      width: fit-content;
+    display: inline-block;
     margin: auto;
+    margin-left: 2.6em;
     padding: 0.2em;
     border-radius: 5px;
-      width: fit-content;
   }
 
 
