@@ -1,3 +1,11 @@
+* {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+textarea{
+  resize: none;
+}
 .main{
     width:100%;
     display: table;
@@ -92,12 +100,12 @@
   }
 
   .coursemod{
+  
     position: absolute;
     background-color: #1c1c1c;
     border:solid white;
-    height: fit-content;
+    height: 38em;
     width: max-content;
-
     bottom: 25vh;
     left:42.5%;
     border-radius: 15px;
@@ -120,14 +128,13 @@
   }
 
   .iteminfo{
-    position: relative;
-    vertical-align: middle;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    display: block;
+    margin: auto;
     padding: 0.2em;
     border-radius: 5px;
+      width: fit-content;
   }
+
 
 .iteminfo>textarea,label{
   vertical-align: middle;
@@ -145,8 +152,10 @@
 .iteminfo>textarea{
   height: 1.2em;
   text-align: left;
+  text-align: center;
+  margin-top: 0.3em;
+
 }
-  .iteminfo>textarea{resize: none;}
 
 #AddonMenu{
   border: solid white;
@@ -185,6 +194,7 @@
   padding: 0.2em;
 }
 .restyinfo>.iteminfo{
+  margin: auto;
   margin-bottom: 0.3em;
 }
 

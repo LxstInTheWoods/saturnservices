@@ -1,5 +1,5 @@
 const coursemod = document.getElementById('crsmd')
-coursemod.style.transform = "translateX(-400%)"
+//coursemod.style.transform = "translateX(-400%)"
 const storageclone = document.getElementById('addonstorage')
 const addonHolder = document.getElementById('addonholder')
 const addtocart = document.getElementById("additemtocart")
