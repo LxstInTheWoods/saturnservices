@@ -1,21 +1,102 @@
-const joindiscord = document.getElementsByClassName("joindiscord")
 
-for (const value of joindiscord)
-{
+async function AboutSS(){
+    const aboutss = document.getElementById('aboutSS_index')
 
-        value.addEventListener("mouseenter", function(){
-        value.animate([{borderColor:"#FFFFFFFF"}], {duration:250, fill:"forwards"})
-        })
+    const original = "What is saturn services?"
+    const chars = [
+        "%",
+        "$",
+        "*",
+        "#",
+        "@"
+    ]
 
-        value.addEventListener("mouseleave", function(){
-            value.animate([{borderColor:"#7289da"}], {duration:250, fill:"forwards"})
-        })
+    var origintolist = []
 
-        value.addEventListener("click", function(){
-            window.open(social("discord").split("|")[0], social("discord").split("|")[1])
-        })
+    for (const x of original)
+    {
+        origintolist.push(x)
+    }
+
+
+    async function promiseawait()
+    {
+    for (const value in origintolist)
+    {
+        let p = new Promise( async (resolve) =>{
+
+            for (let k = 0; k < chars.length; k++)
+            { 
+
+                setTimeout(() => {
+                    resolve()
+                }, 50);
+
+                let internal = new Promise((resolveInt) =>{
+                    setTimeout(() => {
+                        origintolist[value] = chars[Math.floor(Math.random() * chars.length) + 1]
+                        aboutss.textContent = origintolist.join().replaceAll(",", "") 
+                        resolveInt()
+                    }, 10);
+
+                })
+
+                await internal.then((f) => {
+
+                })
+                }            
+
+            })
+
+            await p.then((f) =>{
+
+            })
+
+    
 
 }
+    }
+
+promiseawait()
+
+    await promiseawait()
+
+
+        var encrtolist = []
+
+        for (let c4c of original)
+        {
+            encrtolist.push(chars[Math.floor(Math.random() * chars.length) + 1])
+        }
+        
+        setTimeout( async() => {
+            for (const c43 in encrtolist)
+            {
+                let px2 = new Promise((r)=>{
+                    setTimeout(() => {
+                        encrtolist[c43] = original[c43]
+                        aboutss.textContent = encrtolist.join().replaceAll(",", "")
+                        r()
+                    }, 35);
+                })
+
+                await px2.then(()=>{})
+
+
+            }
+            setTimeout(() => {
+                AboutSS()
+            }, 2500);
+
+
+    
+        }, 200);
+
+
+}
+
+AboutSS()
+
 
 //footer
 

@@ -46,41 +46,51 @@
     margin:0;
 
   }
-  
-  #handrawnarrowdownleft_index{
-    height: 8em;
-    vertical-align: middle;
-    position: relative;
-    bottom: 2em;
+
+  .aboutme{
+    display: flex;
+    border-bottom: solid white;
   }
-  .alignarrow_index{
-   display: flex;
-   height: 10%;
+
+
+  .works_sect{
+    width: 40%;
+    border-left: solid white;
   }
-  
-  #titledesc_contact_index{
-  padding-left: 2em;
-  
+  .programming_sect{
+
+    width: max-content
+
   }
-  .sociallink{
-    border:solid #7289da;
-    width: 11em;
-    border-radius: 15px;
-    padding: 0.2em;
-    margin-bottom: 0.7em;
-  }
-  .sociallink_telegramimg img{
-    height: 1.8em;
-    vertical-align: middle;
-  }
-  .sociallink_discordimg img{
-    height: 1.5em;
-    vertical-align: middle;
-  }
-  .sociallink_label{
-    font-family: monospace;
+
+  #aboutSS_index{
     color: white;
+    width: fit-content;
+    margin: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    height: fit-content;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #desc_SSV{
+    width: fit-content;
+    color: white;
+    margin-left: 0.3em;
+    margin-right: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+  }
+  .ssindexholder{
+    display: flex; 
+    width: 80%; 
+    margin: auto; 
     vertical-align: middle;
-    text-align: center;
-    padding-left: 0.2em;
+  }
+  .ssindex_listitem{
+    color: white; 
+    width: min-content;
+     height: min-content; 
+     font-size: 320%; 
+     margin: 0; 
+     margin-top: 1%;
   }
