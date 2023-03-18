@@ -4,11 +4,10 @@ async function AboutSS(){
 
     const original = "What is saturn services?"
     const chars = [
-        "%",
-        "$",
-        "*",
-        "#",
-        "@"
+        "1",
+        "0",
+        "1",
+        "0"
     ]
 
     var origintolist = []
@@ -86,7 +85,7 @@ promiseawait()
             }
             setTimeout(() => {
                 AboutSS()
-            }, 2500);
+            }, 3500);
 
 
     
