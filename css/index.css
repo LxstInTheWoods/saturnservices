@@ -75,16 +75,19 @@
   #desc_SSV{
     width: fit-content;
     color: white;
+    margin: 0;
     margin-left: 0.3em;
     margin-right: 0;
     font-family: Arial, Helvetica, sans-serif;
     text-align: left;
+    padding-top: 0.5em;
   }
   .ssindexholder{
     display: flex; 
     width: 80%; 
     margin: auto; 
     vertical-align: middle;
+    margin-top: 1em;
   }
   .ssindex_listitem{
     color: white; 
@@ -92,5 +95,4 @@
      height: min-content; 
      font-size: 320%; 
      margin: 0; 
-     margin-top: 1%;
   }
