@@ -7,6 +7,8 @@ body{
 #top{
 margin: 0;
 position: sticky;
+display: flex;
+padding-top: 0.3em;
 }
 
 
@@ -21,6 +23,19 @@ position: sticky;
 #top h1{
     color: #FFFFFF;
     font-family: monospace;
-    font-size: 25px;
-    padding-right: 1em;
+    font-size: 40px;
+    margin-right: 1em;
+    margin: 0;
+}
+
+#top>div{
+    width: min-content;
+    height: min-content;
+}
+
+#top hr{
+    margin: auto;
+    margin-top: 0;
+    visibility: hidden;
+    width: 0%;
 }
