@@ -96,3 +96,39 @@
      font-size: 320%; 
      margin: 0; 
   }
+
+  .sociallink{
+    display: flex;
+    color: white;
+    margin: auto;
+    font-family: monospace;
+    font-size: 25px;
+    border: solid white;
+    width: 8em;
+    border-radius: 8px;
+    margin-bottom: 0.3em;
+  }
+.sociallink img{
+  margin: auto;
+  margin-right: 0.3em;
+  margin-left: 0.2em;
+
+}
+
+#discord img{
+  height: 1.5em;
+}
+#telegram img{
+  height: 1.8em;
+}
+
+.sociallink label, img{
+  padding: 0.1em;
+}
+
+.sociallink label{
+  margin: auto;
+  margin-left: 0;
+  margin-right: 0.2em;
+
+}
