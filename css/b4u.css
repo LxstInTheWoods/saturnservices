@@ -96,8 +96,16 @@ textarea{
     display: table-cell;
     border-left: solid white;
     width: 12vw;
+  }
+
+  #ORDERITMSHOLD{
+    overflow-y:scroll;
+    height: 45em;
+    scrollbar-width: thin;
+    scrollbar-color: #1c1c1c;
 
   }
+
 
   .coursemod{
   
@@ -128,10 +136,8 @@ textarea{
   }
 
   .iteminfo{
-      width: fit-content;
-    display: inline-block;
+    width: fit-content;
     margin: auto;
-    margin-left: 2.6em;
     padding: 0.2em;
     border-radius: 5px;
   }
@@ -194,20 +200,22 @@ textarea{
   border-color: white;
   padding: 0.2em;
 }
-.restyinfo>.iteminfo{
-  margin: auto;
-  margin-bottom: 0.3em;
-}
 
 .orderitem ul{
   margin: 0;
   list-style:square;
+  padding-left: 0.1em;
 }
+
 .orderitem li{
   color: white;
   font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 1em;
 }
 .orderitem{
-  margin-left: 0.5em;
+  width: 100%;
+  margin: auto;
   margin-bottom: 1em;
+  border-bottom: solid white;
+
 }

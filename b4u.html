@@ -79,13 +79,13 @@
                   <button class="closebutton">Close</button>
                   </div>
     
-                  <div class="iteminfo" id="itemname">
+                  <div class="iteminfo" id="itemname_ZXX">
                     <label>Item Name</label>
                     <br>
                     <textarea></textarea>
                   </div>
                   <hr>
-                  <div class="iteminfo" id="itemprice">
+                  <div class="iteminfo" id="itemprice_ZXX">
                     <label>price</label> 
                     <br>
                     <textarea></textarea>
@@ -114,31 +114,58 @@
 
             <div class="Ordertab">
               <div class="restyinfo">
-                  <ul style="padding:0; align-items: center;">
+                  <span>
                     <div class="iteminfo">
-                      <label>Your name</label> <br>
+                      <label id="RSINFO_NAME">Your name</label> <br>
                       <textarea></textarea>
                     </div>
                     <div class="iteminfo">
-                      <label>Delivery Adress</label> <br>
+                      <label id="RSINFO_ADDRESS">Delivery Adress</label> <br>
                       <textarea></textarea>
                     </div>
                     
                     <div class="iteminfo">
-                      <label>Restaurant Name</label> <br>
+                      <label id="RSINFO_RSTNAME">Restaurant Name</label> <br>
                       <textarea></textarea>
                     </div>
   
                     <div class="iteminfo">
-                      <label>Phone number</label> <br>
+                      <label id="RSINFO_PHN">Phone number</label> <br>
                       <textarea></textarea>
                     </div>
-                  </ul>
+                  </span>
+
 
                   <hr>
 
-                  <div style="display: none;" id="orderitemstorage"> <div class=orderitem> <label>Itemname • Itemprice</label> <ul> </ul> </div></div>
                 </div>
+
+                <div id="ORDERITMSHOLD">
+
+                  <div style="display: none;" id="orderitemstorage">
+                    <div class="orderitem" id="ORDERITEM">
+  
+                      <div style="display:flex">
+                        <button style="width:min-content; background:none; color: white; border: solid white; border-radius: 6px; margin-right: 0.5em;margin-left: 0.5em; margin-bottom: 0.5em;">Delete</button>
+                        
+                      <div>
+                        <label style="color:white; font-family: Arial, Helvetica, sans-serif;">Chicken • $4.99</label> 
+                        <hr>
+                        <ul id="sdasd"> 
+                          <li style="display: none;"></li>
+                        </ul> 
+                      </div>
+  
+                      </div>
+  
+                    
+                    </div>
+  
+                  </div>
+
+                </div>
+
+               <!--non storage portion-->
             </div>
           </div>
             <script src="./js/b4u.js"></script>
