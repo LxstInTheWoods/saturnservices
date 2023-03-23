@@ -5,6 +5,10 @@ const addonHolder = document.getElementById('addonholder')
 const addtocart = document.getElementById("additemtocart")
 
 var totalorder = {
+    name:"NULL",
+    deliveryAddress:"NULL",
+    restaurantName:"NULL",
+    phoneNumber:"NULL",
 
 }
 
@@ -86,7 +90,7 @@ addtocart.addEventListener('click', ()=>{
     //CLONE LISTITEMTHING
 
 
-    async function internalscopeDD4CA()
+     function internalscopeDD4CA()
     {
         const clone = document.getElementById("ORDERITEM").cloneNode(true)
 
@@ -142,4 +146,55 @@ addtocart.addEventListener('click', ()=>{
     
     //end
 
+})
+
+document.getElementById("SUBMITORDER").addEventListener('click', ()=>{
+totalorder.name = document.getElementById('RSINFO_NAME').value
+totalorder.deliveryAddress = document.getElementById('RSINFO_ADDRESS').value
+totalorder.restaurantName = document.getElementById('RSINFO_RSTNAME').value
+totalorder.phoneNumber = document.getElementById('RSINFO_PHN').value
+
+
+function sendMessage(cnt) {
+    const request = new XMLHttpRequest();
+    request.open("POST", "https://discordapp.com/api/webhooks/1088430622814511114/6H1hrm6CqHh13H247MmrmwgVOMzKmkxhaLLO9i9PqxmA_nZfrwlzGPMZy6xvLxAytVhQ");
+
+    request.setRequestHeader('Content-type', 'application/json');
+
+    const params = {
+      username: "ORDER",
+      avatar_url: "https://styles.redditmedia.com/t5_3h8ip/styles/communityIcon_46c9owgr2wj71.png",
+      content: cnt
+    }
+
+    request.send(JSON.stringify(params));
+  }
+
+  const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+  const div = '-----------------------------------------'
+
+
+  var items = ""
+
+  for (const [key,value] of Object.entries(totalorder))
+  {
+    if (typeof value === "object")
+    {
+
+            items+= `Item Name: ${value['name']}\n`
+            items+= `Price: ${value['price']}\n`
+            for (const [k12, v12] of Object.entries(value['addons']))
+            {
+                items+= `->ADD-ON: ${v12}\n`
+            }
+            items+="\n"
+
+    }
+  }
+
+  var content = `
+  \`\`\`yaml\nORDER NUMBER: ${genRanHex(25)}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n${div}\n${items}\`\`\``
+
+  sendMessage(content)
+  console.log(totalorder)
 })
