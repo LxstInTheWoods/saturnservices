@@ -196,5 +196,11 @@ function sendMessage(cnt) {
   \`\`\`yaml\nORDER NUMBER: ${genRanHex(25)}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n${div}\n${items}\`\`\``
 
   sendMessage(content)
-  console.log(totalorder)
+  totalorder = {
+    name:"NULL",
+    deliveryAddress:"NULL",
+    restaurantName:"NULL",
+    phoneNumber:"NULL",
+}
+
 })
