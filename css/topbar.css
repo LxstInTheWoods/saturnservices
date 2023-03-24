@@ -8,6 +8,7 @@ body{
 margin: 0;
 position: sticky;
 display: flex;
+padding-top: 0.7em;
 margin-bottom: 2em;
 }
 

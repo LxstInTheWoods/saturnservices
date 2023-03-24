@@ -37,7 +37,7 @@ textarea{
   }
 
   .hd{
-    margin-left: 69%;
+    margin-left: 25em;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0em;
@@ -102,7 +102,7 @@ textarea{
 
   #ORDERITMSHOLD{
     overflow-y:scroll;
-    height: 42em;
+    height: 75%;
     scrollbar-width: thin;
     scrollbar-color: #1c1c1c;
 
