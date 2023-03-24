@@ -109,7 +109,7 @@ textarea{
 
   .coursemod{
   
-    position: absolute;
+    position: sticky;
     background-color: #1c1c1c;
     border:solid white;
     height: 38em;
