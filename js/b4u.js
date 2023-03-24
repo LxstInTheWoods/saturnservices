@@ -23,7 +23,7 @@ document.getElementById('coursebutton').addEventListener("click", () =>{
 
 
 document.getElementsByClassName("closebutton")[0].addEventListener("click", () =>{
-    coursemod.animate([{transform:"translateX(-400%"}], {duration:150, fill:"forwards"})
+    coursemod.animate([{transform:"translateX(-700%"}], {duration:150, fill:"forwards"})
 
 })
 
@@ -173,7 +173,7 @@ function sendMessage(cnt) {
   const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
   const div = '-----------------------------------------'
 
-
+  const ordernum = genRanHex(25)
   var items = ""
 
   for (const [key,value] of Object.entries(totalorder))
@@ -193,7 +193,7 @@ function sendMessage(cnt) {
   }
 
   var content = `
-  \`\`\`yaml\nORDER NUMBER: ${genRanHex(25)}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n${div}\n${items}\`\`\``
+  \`\`\`yaml\nORDER NUMBER: ${ordernum}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n${div}\n${items}\`\`\``
 
   sendMessage(content)
   totalorder = {
@@ -202,5 +202,6 @@ function sendMessage(cnt) {
     restaurantName:"NULL",
     phoneNumber:"NULL",
 }
+alert(`Your order has been submitted, Please keep this order Number for reference: ${ordernum}`)
 
 })
