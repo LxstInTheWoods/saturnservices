@@ -37,7 +37,8 @@ textarea{
   }
 
   .hd{
-    margin-left: 25em;
+    position: relative;
+    margin-left: 22vw;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0em;

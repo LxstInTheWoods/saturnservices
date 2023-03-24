@@ -66,6 +66,12 @@ addtocart.addEventListener('click', ()=>{
     const itemName = document.getElementById("itemname_ZXX")
     const itemPrice = document.getElementById("itemprice_ZXX")
 
+    if (itemName.children[2].value.length < 1 || itemPrice.children[2].value.length < 1 )
+    {
+        alert("Fields cannot be left blank.")
+        return
+    }
+
     item["name"] = itemName.children[2].value
     item["price"] = itemPrice.children[2].value
     
@@ -76,6 +82,12 @@ addtocart.addEventListener('click', ()=>{
         if (item.className != "jsignore")
         {
             try{
+                if (document.getElementById(`TX${count}`).value.length < 1)
+                {
+                    alert("Fields cannot be left blank.")
+                    return
+                }
+
                 item.addons.push(document.getElementById(`TX${count}`).value)
             }
             catch(e){}
@@ -157,7 +169,7 @@ totalorder.phoneNumber = document.getElementById('RSINFO_PHN').value
 
 function sendMessage(cnt) {
     const request = new XMLHttpRequest();
-    request.open("POST", "https://discordapp.com/api/webhooks/1088430622814511114/6H1hrm6CqHh13H247MmrmwgVOMzKmkxhaLLO9i9PqxmA_nZfrwlzGPMZy6xvLxAytVhQ");
+    request.open("POST", "https://discord.com/api/webhooks/1088922722727374960/XQdR7ZYKdpQG0k6H2_wVPDS2H4X7A-OV06Y11Oa8Wf-B_79GUv3BMkNttUUlwpGQSgj1");
 
     request.setRequestHeader('Content-type', 'application/json');
 
