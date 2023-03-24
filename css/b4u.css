@@ -33,14 +33,16 @@ textarea{
   .maininfo{
     width: 100%;
     display: table-cell;
+    text-align: left;
   }
 
   .hd{
-    margin-left: 23%;
+    margin-left: 69%;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0em;
     margin-bottom: 0;
+    width: max-content;
   }
 
   #hours h1, #hours label{
@@ -90,7 +92,7 @@ textarea{
   }
 
   .Ordertab{
-  
+
     height: 100%;
     background-color:#1c1c1c;
     display: table-cell;
@@ -136,7 +138,7 @@ textarea{
   }
 
   .iteminfo{
-    width: fit-content;
+    width: 80%;
     margin: auto;
     padding: 0.2em;
     border-radius: 5px;
@@ -217,5 +219,14 @@ textarea{
   margin: auto;
   margin-bottom: 1em;
   border-bottom: solid white;
+
+}
+
+
+.iteminfo label, .iteminfo textarea{
+  margin-left: 12%;
+}
+
+#submitorder{
 
 }
