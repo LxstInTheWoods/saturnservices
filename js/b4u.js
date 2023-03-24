@@ -180,14 +180,16 @@ function sendMessage(cnt) {
   {
     if (typeof value === "object")
     {
-
-            items+= `Item Name: ${value['name']}\n`
-            items+= `Price: ${value['price']}\n`
-            for (const [k12, v12] of Object.entries(value['addons']))
+            if (value['name'].length > 1)
             {
-                items+= `->ADD-ON: ${v12}\n`
+                items+= `Item Name: ${value['name']}\n`
+                items+= `Price: ${value['price']}\n`
+                for (const [k12, v12] of Object.entries(value['addons']))
+                {
+                    items+= `->ADD-ON: ${v12}\n`
+                }
+                items+="\n"
             }
-            items+="\n"
 
     }
   }
@@ -203,5 +205,6 @@ function sendMessage(cnt) {
     phoneNumber:"NULL",
 }
 alert(`Your order has been submitted, Please keep this order Number for reference: ${ordernum}`)
+location.reload()
 
 })
