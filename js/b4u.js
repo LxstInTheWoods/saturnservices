@@ -17,13 +17,13 @@ var totalorder = {
 
 document.getElementById('coursebutton').addEventListener("click", () =>{
 
-        coursemod.animate([{transform:"translateX(0%"}], {duration:150, fill:"forwards"})
+        coursemod.animate([{transform:"translateX(0%"}], {duration:250, fill:"forwards"})
         
     })
 
 
 document.getElementsByClassName("closebutton")[0].addEventListener("click", () =>{
-    coursemod.animate([{transform:"translateX(-700%"}], {duration:150, fill:"forwards"})
+    coursemod.animate([{transform:"translateX(-700%"}], {duration:250, fill:"forwards"})
 
 })
 
