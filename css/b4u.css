@@ -115,7 +115,7 @@ textarea{
     position: sticky;
     background-color: #1c1c1c;
     border:solid white;
-    height: 38em;
+    height: max-content;
     width: max-content;
     bottom: 25vh;
     left:42.5%;

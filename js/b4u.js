@@ -64,10 +64,13 @@ addtocart.addEventListener('click', ()=>{
         ],
 
     }
+
+
     const itemName = document.getElementById("itemname_ZXX")
     const itemPrice = document.getElementById("itemprice_ZXX")
+    const itemQty = document.getElementById("itemqty_ZXX")
 
-    if (itemName.children[2].value.length < 1 || itemPrice.children[2].value.length < 1 )
+    if (itemName.children[2].value.length < 1 || itemPrice.children[2].value.length < 1 || itemQty.children[2].value.length < 1)
     {
         alert("Fields cannot be left blank.")
         return
@@ -75,6 +78,7 @@ addtocart.addEventListener('click', ()=>{
 
     item["name"] = itemName.children[2].value
     item["price"] = itemPrice.children[2].value
+    item["qty"] = itemQty.children[2].value
     
     var count = 0
     for (const CVALUE of document.getElementById('addonholder').children)
@@ -123,7 +127,7 @@ addtocart.addEventListener('click', ()=>{
 
         itemnameprice.style.color = "white"
         itemnameprice.style.fontFamily = 'Arial, Helvetica, sans-serif'
-        itemnameprice.textContent = `${item['name']} • $${item['price']}`
+        itemnameprice.textContent = `${item['qty']}x • ${item['name']} • $${item['price']}`
 
         for (const crv9 of item.addons)
         {
@@ -198,6 +202,7 @@ function sendMessage(cnt) {
             {
                 items+= `Item Name: ${value['name']}\n`
                 items+= `Price: ${value['price']}\n`
+                items+= `qty: ${value['qty']}\n`
                 for (const [k12, v12] of Object.entries(value['addons']))
                 {
                     items+= `->ADD-ON: ${v12}\n`
