@@ -9,6 +9,7 @@ var totalorder = {
     deliveryAddress:"NULL",
     restaurantName:"NULL",
     phoneNumber:"NULL",
+    discordUser:"NULL"
 
 }
 
@@ -165,6 +166,7 @@ totalorder.name = document.getElementById('RSINFO_NAME').value
 totalorder.deliveryAddress = document.getElementById('RSINFO_ADDRESS').value
 totalorder.restaurantName = document.getElementById('RSINFO_RSTNAME').value
 totalorder.phoneNumber = document.getElementById('RSINFO_PHN').value
+totalorder.discordUser = document.getElementById('RSINFO_DSCORD').value
 
 
 function sendMessage(cnt) {
@@ -206,8 +208,8 @@ function sendMessage(cnt) {
     }
   }
 
-  var content = `
-  \`\`\`yaml\nORDER NUMBER: ${ordernum}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n${div}\n${items}\`\`\``
+  var content = ` <@1088589225953337365>
+  \`\`\`yaml\nORDER NUMBER: ${ordernum}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n\nDiscord User: ${totalorder.discordUser}\n${div}\n${items}\n${div}\n${items}\`\`\``
 
   sendMessage(content)
   totalorder = {
@@ -215,6 +217,7 @@ function sendMessage(cnt) {
     deliveryAddress:"NULL",
     restaurantName:"NULL",
     phoneNumber:"NULL",
+    discordUser:"NULL"
 }
 alert(`Your order has been submitted, Please keep this order Number for reference: ${ordernum}`)
 location.reload()
