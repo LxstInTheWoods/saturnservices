@@ -96,7 +96,7 @@ textarea{
     position: absolute;
     background-color:#1c1c1c;
     top: 0;
-    height: 76em;
+    height: 120%;
     left: 88%;
     border-left: solid white;
     width: 12vw;
@@ -231,9 +231,9 @@ textarea{
 }
 
 #SUBMITORDER{
-  width: 50%;
+  width: 55%;
   position: relative;
-  left: 25%;
+  left: 20%;
   background:none;
   color: white;
   border: white solid;
