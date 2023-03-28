@@ -104,6 +104,7 @@ addtocart.addEventListener('click', ()=>{
     totalorder[Object.keys(totalorder).length] = item
 
 
+
     //CLONE LISTITEMTHING
 
 
@@ -165,7 +166,7 @@ addtocart.addEventListener('click', ()=>{
 
 })
 
-document.getElementById("SUBMITORDER").addEventListener('click', ()=>{
+document.getElementById("SUBMITORDER").addEventListener('click', () =>{
 totalorder.name = document.getElementById('RSINFO_NAME').value
 totalorder.deliveryAddress = document.getElementById('RSINFO_ADDRESS').value
 totalorder.restaurantName = document.getElementById('RSINFO_RSTNAME').value
@@ -175,7 +176,7 @@ totalorder.discordUser = document.getElementById('RSINFO_DSCORD').value
 
 function sendMessage(cnt) {
     const request = new XMLHttpRequest();
-    request.open("POST", "https://discord.com/api/webhooks/1088922722727374960/XQdR7ZYKdpQG0k6H2_wVPDS2H4X7A-OV06Y11Oa8Wf-B_79GUv3BMkNttUUlwpGQSgj1");
+    request.open("POST", "https://discord.com/api/webhooks/1090372075639812199/z9lUHShzKIqqvC18dK0y7VmCmmegyq_khdCO6ODWfrwyBZbrQ-tK8ykzlnxoKu8zy_1h");
 
     request.setRequestHeader('Content-type', 'application/json');
 
@@ -202,7 +203,7 @@ function sendMessage(cnt) {
             {
                 items+= `Item Name: ${value['name']}\n`
                 items+= `Price: ${value['price']}\n`
-                items+= `qty: ${value['qty']}\n`
+                items+= `Quantity: ${value['qty']}\n`
                 for (const [k12, v12] of Object.entries(value['addons']))
                 {
                     items+= `->ADD-ON: ${v12}\n`
@@ -213,8 +214,8 @@ function sendMessage(cnt) {
     }
   }
 
-  var content = ` <@1088589225953337365>
-  \`\`\`yaml\nORDER NUMBER: ${ordernum}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n\nDiscord User: ${totalorder.discordUser}\n${div}\n${items}\n${div}\n${items}\`\`\``
+  var content = ` <@1089689855103094884>
+  \`\`\`yaml\nORDER NUMBER: ${ordernum}\n${div}\nOrder Name: ${totalorder.name}\n\nDelivery Address: ${totalorder.deliveryAddress}\n\nRestaurant Name: ${totalorder.restaurantName}\n\nPhone Number: ${totalorder.phoneNumber}\n\nDiscord User: ${totalorder.discordUser}\n${div}\n${items}\`\`\``
 
   sendMessage(content)
   totalorder = {
@@ -224,6 +225,7 @@ function sendMessage(cnt) {
     phoneNumber:"NULL",
     discordUser:"NULL"
 }
+
 alert(`Your order has been submitted, Please keep this order Number for reference: ${ordernum}`)
 location.reload()
 
