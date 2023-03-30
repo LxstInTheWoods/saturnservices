@@ -140,11 +140,18 @@ textarea{
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  .iteminfo{
-    width: 100%;
+  #coursemodmaininfo>div{
+    width: 75%;
+    position: relative;
+
+    margin-bottom: 0.3em;
+    border-radius: 5px; 
+    
+  }
+
+  .RSDETAILS_FC>div{
+    width: max-content;
     margin: auto;
-    padding: 0.2em;
-    border-radius: 5px;
   }
 
 
@@ -159,7 +166,8 @@ textarea{
 
 .iteminfo>label{
   text-align: center;
-  padding-right: 1em;
+
+  width: 100%;
 }
 .iteminfo>textarea{
   height: 2em;
@@ -225,9 +233,9 @@ textarea{
 
 }
 
-
-.iteminfo label, .iteminfo textarea{
-  margin-left: 12%;
+#coursemodmaininfo>div{
+  width: min-content;
+  margin: auto;
 }
 
 #SUBMITORDER{

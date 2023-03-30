@@ -17,13 +17,14 @@ var totalorder = {
 
 
 document.getElementById('coursebutton').addEventListener("click", () =>{
-
+        coursemod.style.opacity = 1
         coursemod.animate([{transform:"translateX(0%"}], {duration:250, fill:"forwards"})
         
     })
 
 
 document.getElementsByClassName("closebutton")[0].addEventListener("click", () =>{
+    coursemod.style.opacity = 0
     coursemod.animate([{transform:"translateX(-700%"}], {duration:250, fill:"forwards"})
 
 })

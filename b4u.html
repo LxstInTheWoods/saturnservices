@@ -5,9 +5,7 @@
         <link rel="stylesheet" href="./css/b4u.css">
         <link rel="stylesheet" href="./css/topbar.css">
     </head>
-    <body style="min-height:100vh">
-      <div style="min-height: 100vh;">
-      <div style=" width: 100%;">
+    <body >
         <div style="width:fit-content; margin:auto; font-family: monospace; color: #DAA520;">This page is currently under development, please expect bugs and report them accordingly.</div>
 
             <nav id="top">
@@ -71,24 +69,27 @@
                   <h1>Modify Item</h1>
                   <button class="closebutton">Close</button>
                   </div>
+
+                  <div id="coursemodmaininfo" style="margin: auto; width: 100%;">
+                    <div class="iteminfo" id="itemname_ZXX">
+                      <label>Item Name</label>
+                      <br>
+                      <textarea></textarea>
+                    </div>
+  
+                    <div class="iteminfo" id="itemprice_ZXX">
+                      <label>Price</label> 
+                      <br>
+                      <textarea></textarea>
+                    </div>
+  
+                    <div class="iteminfo" id="itemqty_ZXX">
+                      <label>Quantity</label> 
+                      <br>
+                      <textarea></textarea>
+                    </div>
+                  </div>
     
-                  <div class="iteminfo" id="itemname_ZXX">
-                    <label>Item Name</label>
-                    <br>
-                    <textarea></textarea>
-                  </div>
-
-                  <div class="iteminfo" id="itemprice_ZXX">
-                    <label>Price</label> 
-                    <br>
-                    <textarea></textarea>
-                  </div>
-
-                  <div class="iteminfo" id="itemqty_ZXX">
-                    <label>Quantity</label> 
-                    <br>
-                    <textarea></textarea>
-                  </div>
     
                   <hr>
                   <div id="AddonMenu">
@@ -105,7 +106,6 @@
                     Add Item
                   </button>                    
                   </div>
-
                 </div>
 
               </div>
@@ -113,7 +113,7 @@
 
             <div class="Ordertab">
               <div class="restyinfo">
-                  <span>
+                  <span class="RSDETAILS_FC">
                     <div class="iteminfo">
                       <label>Your name</label> <br>
                       <textarea id="RSINFO_NAME"></textarea>
@@ -170,8 +170,6 @@
 
                <!--non storage portion-->
                <button  style="margin:auto;" id="SUBMITORDER">SUBMIT ORDER</button>
-            </div>
-          </div>
             <script src="./js/b4u.js"></script>
             <script src="./js/sociallinks.js"></script>
             <script src="./js/topbar.js"></script>
