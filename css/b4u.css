@@ -96,10 +96,10 @@ textarea{
     position: absolute;
     background-color:#1c1c1c;
     top: 0;
-    height: 120%;
-    left: 88%;
+    height: 140%;
+    left: 86.6%;
     border-left: solid white;
-    width: 12vw;
+    width: 13vw;
 
   }
 
@@ -150,7 +150,7 @@ textarea{
   }
 
   .RSDETAILS_FC>div{
-    width: max-content;
+    width: fit-content;
     margin: auto;
   }
 
@@ -247,6 +247,7 @@ textarea{
 #SUBMITORDER{
   width: 55%;
   margin: auto;
+  margin-left: 4.3em;
   background:none;
   color: white;
   border: white solid;
