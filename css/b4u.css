@@ -189,6 +189,12 @@ textarea{
 #AddonMenu::-webkit-scrollbar{
   display: none;
 }
+
+
+#addonholder div{
+  width: max-content;
+  margin: auto;
+}
 .closebutton{
   color: red;
   background:none;
@@ -240,8 +246,7 @@ textarea{
 
 #SUBMITORDER{
   width: 55%;
-  position: relative;
-  left: 20%;
+  margin: auto;
   background:none;
   color: white;
   border: white solid;
@@ -249,7 +254,16 @@ textarea{
 
 }
 
-#submitorderdiv{
+
+sub_price_DT{
+  display: block;
   width: 100%;
-  
+}
+
+#sub_price_DT label{
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
