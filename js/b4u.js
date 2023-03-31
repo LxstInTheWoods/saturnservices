@@ -168,6 +168,8 @@ addtocart.addEventListener('click', ()=>{
 })
 
 document.getElementById("SUBMITORDER").addEventListener('click', () =>{
+    try{
+
 totalorder.name = document.getElementById('RSINFO_NAME').value
 totalorder.deliveryAddress = document.getElementById('RSINFO_ADDRESS').value
 totalorder.restaurantName = document.getElementById('RSINFO_RSTNAME').value
@@ -177,7 +179,7 @@ totalorder.discordUser = document.getElementById('RSINFO_DSCORD').value
 
 function sendMessage(cnt) {
     const request = new XMLHttpRequest();
-    request.open("POST", "https://discord.com/api/webhooks/1090372075639812199/z9lUHShzKIqqvC18dK0y7VmCmmegyq_khdCO6ODWfrwyBZbrQ-tK8ykzlnxoKu8zy_1h");
+    request.open("POST", "MOVING TO SERVER LOL");
 
     request.setRequestHeader('Content-type', 'application/json');
 
@@ -229,5 +231,9 @@ function sendMessage(cnt) {
 
 alert(`Your order has been submitted, Please keep this order Number for reference: ${ordernum}`)
 location.reload()
+    }
+    catch(err){
+        sendMessage("An error occured: " + err)
+    }
 
 })
