@@ -1,134 +1,114 @@
 
-#title_index{
-    background-image: url(../img/image2.gif);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 20em;
+#TOP{
+    border: none;
     width: 100%;
-    
-  }
-  #title_index>h1{
-    position: relative;
-    text-align: center;
-    vertical-align: middle;
-    margin:0;
-    color: white;
-    font-family: monospace;
-    font-size: 50px;
-  
-    top: 20%;
-     
-  }
-  
-  #info_index{
-    background-color: #181c1c;
-    margin:0;
-    height: max-content;
-  }
-  
-  #titledesc_contact_index {
-    border-right:#68b2d2 solid;
-    height: fit-content;
-  }
-  
-  #titledesc_contact_index h1{
-    font-family: lato, sans-serif;
-    color:#68b2d2;
-    width: max-content;
-    margin:0;
-  
-  }
-  
-  #titledesc_contact_index h2{
-    font-family: monospace;
-    color:white;
-    width: 25%;
-    margin:0;
-
-  }
-
-  .aboutme{
-    display: flex;
-    border-bottom: solid white;
-  }
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    margin-top: 0px;
+}
 
 
-  .works_sect{
-    width: 40%;
-    border-left: solid white;
-  }
-  .programming_sect{
-
-    width: max-content
-
-  }
-
-  #aboutSS_index{
-    color: white;
-    width: fit-content;
+.SSINTRO{
+    width:fit-content;
     margin: auto;
-    margin-top: 0.5em;
-    margin-bottom: 0;
-    height: fit-content;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  #desc_SSV{
-    width: fit-content;
+    opacity: 0;
+}
+
+.SSINTRO iframe{
+    height: 25em;
+    width: 40em;
+}
+.SSINTRO *{
     color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
-    margin-left: 0.3em;
-    margin-right: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: left;
-    padding-top: 0.5em;
-  }
-  .ssindexholder{
-    display: flex; 
-    width: 80%; 
-    margin: auto; 
-    vertical-align: middle;
+}
+.SSINTRO #int_aqlx{
+    font-size: 50px;
+}
+
+#aqxh1h2{
+    position: relative;
+    margin-right: 1em;
+}
+#divid_top{
+    width: 0%;
     margin-top: 1em;
-  }
-  .ssindex_listitem{
-    color: white; 
-    width: min-content;
-     height: min-content; 
-     font-size: 320%; 
-     margin: 0; 
-  }
-
-  .sociallink{
-    display: flex;
+    margin-bottom: 1em;
+}
+h1{
     color: white;
+}
+
+.abtus{
     margin: auto;
-    font-family: monospace;
+    width: 100%;
+    padding-top: 1em;
+
+}
+
+.abdiv{
+    border: solid rgb(34,34,34);
+    border-radius: 9px;
+    height: 14.3em;
+    width: 14em;
+    background-color: rgb(24, 24, 24);
+    margin-left: .8em;
+    margin-right: .8em;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding-top: 2em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+}
+.abtus ul{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+}
+
+.abtus h1{
+    width:fit-content;
+    margin: auto;
+    position: relative;
     font-size: 25px;
-    border: solid white;
-    width: 8em;
-    border-radius: 8px;
     margin-bottom: 0.3em;
-  }
-.sociallink img{
-  margin: auto;
-  margin-right: 0.3em;
-  margin-left: 0.2em;
-
 }
 
-#discord img{
-  height: 1.5em;
+.abtus p{
+    color: rgb(179, 179, 179);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    margin:auto;
+    text-align: center;
+    position: relative;
+    margin-top: 6%;
+
 }
-#telegram img{
-  height: 1.8em;
+.abtus img{
+    display: block;
+    width: 25%;
+    margin: 0 auto;
+    justify-content: center;
+}
+.abtus li{
+    text-decoration: none;
 }
 
-.sociallink label, img{
-  padding: 0.1em;
+#aboutholder{
+    display: flex;
+    width: max-content;
+    margin: auto;
 }
+.download{
+box-shadow: 0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6;
 
-.sociallink label{
-  margin: auto;
-  margin-left: 0;
-  margin-right: 0.2em;
-
+width: 20vw;
+height: 10vh;
+font-size: 24px;
+font-weight: 700;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+border-radius: 6px;
+background-color: #115dd6;
+color: white;
+border:rgb(24, 24, 24);
 }
