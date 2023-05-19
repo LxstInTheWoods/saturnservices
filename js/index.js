@@ -13,7 +13,7 @@ setTimeout(() => {
     divid_top.animate([{width:"85%"}], {duration:450, fill:"forwards"})
     aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"})
 
-    const str = "Bringing unlimited customization to lego cheating.."
+    const str = "Where heaven and reality intersect."
     var cur = ""
     _ = async () =>{
     for (const x of str)
