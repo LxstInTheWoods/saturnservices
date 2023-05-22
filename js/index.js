@@ -1,102 +1,64 @@
+const thing = document.getElementById("SSINTRO")
 
-async function AboutSS(){
-    const aboutss = document.getElementById('aboutSS_index')
+const divid_top = document.getElementById("divid_top")
 
-    const original = "What is saturn services?"
-    const chars = [
-        "1",
-        "0",
-        "1",
-        "0"
-    ]
+const typewrite = document.getElementById("csttpwrt2")
 
-    var origintolist = []
+const aqhead = document.getElementById("aqhead")
 
-    for (const x of original)
+
+thing.animate([{opacity:1}], {duration:500, fill:'forwards'})
+
+setTimeout(() => {
+    divid_top.animate([{width:"85%"}], {duration:450, fill:"forwards"})
+    aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"})
+
+    const str = "Where heaven and reality intersect."
+    var cur = ""
+    _ = async () =>{
+    for (const x of str)
     {
-        origintolist.push(x)
-    }
 
 
-    async function promiseawait()
-    {
-    for (const value in origintolist)
-    {
-        let p = new Promise( async (resolve) =>{
-
-            for (let k = 0; k < chars.length; k++)
-            { 
-
+            let p = new Promise((r) =>{
                 setTimeout(() => {
-                    resolve()
-                }, 50);
-
-                let internal = new Promise((resolveInt) =>{
-                    setTimeout(() => {
-                        origintolist[value] = chars[Math.floor(Math.random() * chars.length) + 1]
-                        aboutss.textContent = origintolist.join().replaceAll(",", "") 
-                        resolveInt()
-                    }, 10);
-
-                })
-
-                await internal.then((f) => {
-
-                })
-                }            
-
+                    cur += x
+                    typewrite.textContent = cur
+                    r()
+                }, 7);
             })
-
-            await p.then((f) =>{
-
-            })
-
-    
-
-}
+            
+            await p.then(()=>{})
     }
-
-promiseawait()
-
-    await promiseawait()
-
-
-        var encrtolist = []
-
-        for (let c4c of original)
-        {
-            encrtolist.push(chars[Math.floor(Math.random() * chars.length) + 1])
-        }
-        
-        setTimeout( async() => {
-            for (const c43 in encrtolist)
-            {
-                let px2 = new Promise((r)=>{
-                    setTimeout(() => {
-                        encrtolist[c43] = original[c43]
-                        aboutss.textContent = encrtolist.join().replaceAll(",", "")
-                        r()
-                    }, 35);
-                })
-
-                await px2.then(()=>{})
-
-
-            }
-            setTimeout(() => {
-                AboutSS()
-            }, 3500);
+};  _()
 
 
     
-        }, 200);
+}, 500);
 
 
+
+for (const [x, v] of Object.entries(document.getElementById("aboutholder").children))
+{
+v.addEventListener("mouseenter", function(){
+    v.animate([{backgroundColor:"#343434", borderColor:"white"}], {duration:250, fill:"forwards"})
+})
+v.addEventListener("mouseleave", function(){
+    v.animate([{backgroundColor:"rgb(24,24,24)", borderColor:"rgb(24,24,24)"}], {duration:250, fill:"forwards"})
+
+})
 }
 
-AboutSS()
+const dnld = document.getElementsByClassName("download")[0]
+dnld.addEventListener("mouseenter", ()=>{
+dnld.animate([{boxShadow:"0 0 10px white, 0 0 30px white, 0 0 50px white"}], {duration:150, fill:"forwards"})
+})
+dnld.addEventListener("mouseleave", ()=>{
+    dnld.animate([{boxShadow:"0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6"}], {duration:150, fill:"forwards"})
+})
 
 
-//footer
 
-document.getElementById("copyright").textContent += ` Saturn Services 2021-${new Date().getFullYear()}`
+
+
+//basic af
