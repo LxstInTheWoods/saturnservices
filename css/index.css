@@ -117,3 +117,13 @@ background-color: #115dd6;
 color: white;
 border:rgb(24, 24, 24);
 }
+.HRSINFO{
+    width: 20%;
+    margin: auto;
+    
+}
+.HRSINFO *{
+    display: block;
+    width: max-content;
+    margin: auto;
+}
