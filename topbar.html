@@ -17,6 +17,47 @@
             <a href="./index.html" target="_top">Home</a>
              <a href="./themes.html" target="_top">Themes</a>
              <a href="https://t.me/+cOp54BQ6yAUzOWRh" target="_BLANK">Telegram</a>
+             <a id="SetOpening" class="jsignore"></a>
+             <script>
+
+
+                (async ()=>{
+                    
+                    const status = document.getElementById("SetOpening")
+
+                    function check(){
+                        let date = new Date().toString().split(" ")[4].split(":")
+
+                        date[0] = 18
+
+
+                                if (parseInt(date[0]) >= 16 && parseInt(date[0]) <= 21)
+                                {
+                                    status.textContent = "Open"
+                                    status.style.color = "rgb(0,145,0)"
+                                }
+                                else
+                                {
+                                    status.textContent = "Closed"
+                                    status.style.color = "rgb(190, 43, 43)"
+                                }
+
+                            }
+                    while (true != false)
+                    {
+                        let date = new Date().toString().split(" ")[4].split(":")
+                        let p = new Promise((r)=>{
+                            check()
+                            setTimeout(() => {
+                                r()
+                            }, 1000);
+                        })
+
+
+                        await p.then((r)=>{})
+                    }
+                })()
+             </script>
          </nav>
     </div>
     <script src="./js/topbar.js"></script>

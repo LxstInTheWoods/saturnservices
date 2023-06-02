@@ -2,7 +2,11 @@ const topbar = document.getElementById("topbar")
 
 for(const x of topbar.getElementsByTagName("a"))
 {
+    
+    if (x.className != "jsignore")
+    {
 
+    
     if (x.parentElement.children[0].tagName === "IMG")
     {  
         x.parentElement.children[0].addEventListener("mouseenter", ()=>{
@@ -23,6 +27,7 @@ for(const x of topbar.getElementsByTagName("a"))
     x.addEventListener("mouseleave", () =>{
         x.animate([{color:"#666666"}], {duration:150, fill:"forwards"})
     })
+}
 }
 
 
