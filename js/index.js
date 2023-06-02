@@ -1,6 +1,6 @@
 const thing = document.getElementById("SSINTRO")
 
-const divid_top = document.getElementById("divid_top")
+const divid_top = document.getElementsByClassName("divid_top")
 
 const typewrite = document.getElementById("csttpwrt2")
 
@@ -10,7 +10,10 @@ const aqhead = document.getElementById("aqhead")
 thing.animate([{opacity:1}], {duration:500, fill:'forwards'})
 
 setTimeout(() => {
-    divid_top.animate([{width:"85%"}], {duration:450, fill:"forwards"})
+    for (const x of divid_top)
+    {
+    x.animate([{width:"85%"}], {duration:450, fill:"forwards"})
+    }
     aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"})
 
     const str = "Where heaven and reality intersect."
