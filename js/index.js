@@ -52,7 +52,7 @@ v.addEventListener("mouseleave", function(){
 })
 }
 
-const dnld = document.getElementsByClassName("download")[0]
+const dnld = document.getElementsByClassName("order")[0]
 dnld.addEventListener("mouseenter", ()=>{
 dnld.animate([{boxShadow:"0 0 10px white, 0 0 30px white, 0 0 50px white"}], {duration:150, fill:"forwards"})
 })
