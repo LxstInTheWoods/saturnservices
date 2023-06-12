@@ -126,4 +126,5 @@ border:rgb(24, 24, 24);
     display: block;
     width: max-content;
     margin: auto;
+    text-align: center;
 }
