@@ -1,0 +1,50 @@
+body{
+    background-color: #2b2b2b;
+    margin: 0;
+}
+
+#sidebar{
+    height: 100vh;
+    border-right: solid white;
+    width: 20em;
+}
+
+#sidebar_header {
+    width: 100%;
+
+}
+
+#sidebar_header>h1{
+    padding-top: 0.2em;
+    display: block;
+    color: white;
+    font-size: 20px;
+    margin: auto;
+    text-align: center;
+    font-family: Arial;
+}
+#search{
+    display: block;
+    width: fit-content;
+    margin: auto;
+    background-color: #454545;
+    border-radius: 15px;
+    border: solid white;
+    border-width: 0.2em;
+    height:1.6em;
+    
+}
+
+#searchbarholder{
+    width:100%;
+    display: inline-flex;
+    height: max-content;
+}
+#searchbarholder *{
+height: fit-content;
+margin: auto;
+    
+}
+#searchbarholder input{
+    padding: 0;
+}
