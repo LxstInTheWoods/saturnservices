@@ -11,6 +11,8 @@ body{
 
 #sidebar_header {
     width: 100%;
+    display: block;
+    height: max-content;
 
 }
 
@@ -25,26 +27,38 @@ body{
 }
 #search{
     display: block;
-    width: fit-content;
+    width: 100%;
     margin: auto;
     background-color: #454545;
-    border-radius: 15px;
-    border: solid white;
-    border-width: 0.2em;
+    border: none;
+    outline: none;
+    color:white;
+    font-size: 20px;
     height:1.6em;
-    
 }
 
 #searchbarholder{
-    width:100%;
     display: inline-flex;
     height: max-content;
+    border:solid white; 
+    width:75%;
+    margin:0 auto;
+    border-radius:15px;
+    padding: 0.3em;
 }
 #searchbarholder *{
 height: fit-content;
 margin: auto;
     
 }
+#searchbarholder img{
+    margin-right: 0;
+    margin-left: 0;
+}
 #searchbarholder input{
     padding: 0;
+        margin-left: 0;
+}
+#searchbarholder{
+    background-color:#454545 ;
 }
