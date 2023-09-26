@@ -90,22 +90,25 @@ margin: auto;
 
 #querycontainer{
     display: inline-flex;
-    position:absolute;
-    top:90vh;
-    left: 27vw;
+    position:relative;
+    left: 18em;
     width:65%;
     height: 6%;
     border-radius:15px;
     background-color: #454544;
     border: none;
+    top:1.5em;
 }
 
 #querycontainer *{
     margin: auto;
 }
+
 #querycontainer img{
-    height: 60%;
+    height: 85%;
     margin-left: 0;
+    margin: auto;
+    padding-bottom: 0.3em;
 }
 #querycontainer input{
     height: 80%;
@@ -125,11 +128,12 @@ margin: auto;
 
 #gptresponse{
     position:relative;
-    top:1em;
-    height: 85%;
-    left:9vw;
-    width:77%;
+    margin-top: 1em;
+    height: 80%;
+    left:11em;
+    width:64vw;
     overflow-y: auto;
+
 }
 
 .GPTMSG{
@@ -152,11 +156,57 @@ margin: auto;
     margin: auto;
     color: #bfbfbf;
     font-size: 20px;
-    margin-top: 0.1em;
+    margin-top: 0.23em;
     font-family:Arial;
     line-height: 26pt;
 }
 .GPTMSG img{
-    height: 5%;
-    padding-bottom: 1em;
+    padding-bottom: 0.6em;
+}
+#lock{
+    display: inline-flex;
+    z-index: 12;
+    position:absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: .7;
+
+}
+
+#lock div{
+    max-width: max-content;
+margin: auto;
+}
+.gpticon{
+    height:2em;
+}
+#GPTMODEL{
+    display: inline-flex;
+    width:fit-content;
+    margin:auto;
+    margin-left: 37%;
+    border: solid #bfbfbf;
+    border-radius:9px;
+    
+}
+#GPTMODEL button{
+    font-family: Arial;
+    padding: 0
+    margin:0;
+    font-size: 20px;
+    background-color: #bfbfbf;
+    padding: 0.5em;
+    border-radius:0;
+    color:white;
+
+}
+#GPTMODEL button:hover{
+    cursor:pointer;
+    
+}
+#GPTMODEL label{
+    color:white;
+    font-size: 40px;
+    margin: auto;
 }
