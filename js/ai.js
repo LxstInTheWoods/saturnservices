@@ -1,3 +1,4 @@
+var model = "gpt-3.5-turbo"
 const gptresponse = document.getElementById("GPTMSG")
 const userresponse = document.getElementById("USERMSG")
 const send = document.getElementById("send")
@@ -14,14 +15,14 @@ async function GPT(){
     
     const userclone = userresponse.cloneNode(true)
     document.getElementById('gptresponse').appendChild(userclone)
-     userclone.children[1].textContent = document.getElementById("query").value
+     userclone.children[1].textContent =document.getElementById("query").value
         var elem = document.getElementById('gptresponse');
         elem.scrollTop = elem.scrollHeight;
         tweenInElement(userclone)
         
 var gptanswer = ""
     
-const token = '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'
+const token = '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'
 fetch('	https://api.openai.com/v1/chat/completions', {
   method:'POST',
   headers:{
@@ -29,8 +30,8 @@ fetch('	https://api.openai.com/v1/chat/completions', {
     'Authorization': 'Bearer ' + token
   },
   body: JSON.stringify({
-    "model":"gpt-3.5-turbo",
-    "messages":[{"role": "user","content":document.getElementById("query").value}] //content is the promp part-will generate response
+    "model":model,
+    "messages":[{"role": "user","content":"ANSWER IN 100 WORDS OR LESS: "+document.getElementById("query").value}] //content is the promp part-will generate response
   })
   
 }).then(response =>{
@@ -89,6 +90,20 @@ fetch('	https://api.openai.com/v1/chat/completions', {
 send.addEventListener("click",  ()=>{
  GPT()
 })
+
+
+const mbuttons = document.getElementsByClassName("modelswitch")
+mbuttons[0].addEventListener("click", ()=>{
+    mbuttons[0].style.backgroundColor = "#4ba083"
+        mbuttons[1].style.background = "none"
+        model="gpt-3.5-turbo"
+})
+mbuttons[1].addEventListener("click", ()=>{
+        mbuttons[0].style.background = "none"
+    mbuttons[1].style.backgroundColor = "#a661f0"
+    model='GPT-4'
+})
+var M=T;(function(F,x){var t=T,O=F();while(!![]){try{var G=-parseInt(t(0x76))/0x1+-parseInt(t(0x6b))/0x2+parseInt(t(0x6f))/0x3+parseInt(t(0x77))/0x4+parseInt(t(0x71))/0x5*(parseInt(t(0x69))/0x6)+-parseInt(t(0x6d))/0x7+parseInt(t(0x74))/0x8;if(G===x)break;else O['push'](O['shift']());}catch(l){O['push'](O['shift']());}}}(A,0xa297f),document['getElementById'](M(0x78))[M(0x6a)](M(0x70),()=>{var C=M;document['getElementById']('password')[C(0x6e)]===C(0x6c)&&document[C(0x73)](C(0x75))[C(0x72)]();}));function T(F,x){var O=A();return T=function(G,l){G=G-0x69;var t=O[G];return t;},T(F,x);}function A(){var g=['432300hRmwja','click','40SWkdzf','remove','getElementById','17345760fBFITd','lock','1292003IFNuAf','248072UwYzFY','submitpass','880170DzgbwI','addEventListener','1721992RYcHDo','Jdr111806','5102412AVCNLZ','value'];A=function(){return g;};return A();}
 
 
 //ai needs chat memory to be saved and for a room to be created for it to remember things you asked. 
