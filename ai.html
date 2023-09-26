@@ -3,20 +3,44 @@
   <head>
       <link rel='stylesheet' href="./css/ai.css">
   </head>
-  <body>
+   <body>
       <div id="sidebar">
-          <div id="sidebar_header">
-              <h1>Chats</h1>
-              <br>
-              <div style="" id="searchbarholder">
+         <div id="sidebar_header">
+            <div id='gptimgtxt'>
+               <img src="./img/GPT.svg">
+               <h1>ChatGPT Turbo</h1>
+            </div>
+            <br>
+            <div style="display:inline-flex;">
+               <div style="" id="searchbarholder">
                   <img src="./img/searchglass.png" style="height:1.5em; ">
-                <input id='search' placeholder="Search" >
+                  <input id='search' placeholder="Search" >
+               </div>
+            </div>
+            <hr id='splitter_1'>
+         </div>
+      </div>
+      <div id="chatframe">
+          <div id="gptresponse">
+              
+              
+              <div id='storage' style="display:none"> 
+               <div class="GPTMSG" id='USERMSG'>
+                  <img class='gpticon' src='./img/user.jpg' style="height:1.5em">
+                  <p>Yes</p>
+              </div>
+              <div class="GPTMSG" id='GPTMSG'>
+                  <img class='gpticon' src='./img/GPT.svg'>
+                  <p></p>
+              </div>
               </div>
           </div>
+          
+         <div id='querycontainer'> 
+            <input id='query' onkeypress="handle(event)">
+            <img id="send" src=./img/send.png>
+         </div>
       </div>
-      
-      <script>
-      </script>
-
-  </body>
+      <script src="./js/index.js"></script>
+   </body>
 </html>
