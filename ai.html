@@ -6,10 +6,19 @@
         <link rel="icon" type="image/x-icon" href="./img/GPT.svg">
   </head>
    <body>
+       
+       <div id="lock" style="display:none">
+            <div>
+             <input id="password" placeholder="Password">
+             <button id="submitpass">Log-In</button>
+
+            </div>
+            </div>
+
       <div id="sidebar">
          <div id="sidebar_header">
             <div id='gptimgtxt'>
-               <img src="./img/GPT.svg">
+               <img class='gpticon' src="./img/GPT.jpg">
                <h1>ChatGPT Turbo</h1>
             </div>
             <br>
@@ -23,6 +32,10 @@
          </div>
       </div>
       <div id="chatframe">
+          <div id="GPTMODEL">
+              <button class='modelswitch' style=" border-right:solid white; background-color:#4ba083">GPT 3.5 Turbo</button>
+              <button class='modelswitch' style="border-left:solid white; background:none;">GPT 4</button>
+          </div>
           <div id="gptresponse">
               
               
@@ -32,7 +45,7 @@
                   <p>Yes</p>
               </div>
               <div class="GPTMSG" id='GPTMSG'>
-                  <img class='gpticon' src='./img/GPT.svg'>
+                  <img class='gpticon' src='./img/GPT.jpg' style='height'>
                   <p></p>
               </div>
               </div>
