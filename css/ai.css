@@ -91,13 +91,13 @@ margin: auto;
 #querycontainer{
     display: inline-flex;
     position:relative;
-    left: 19.3em;
+    left: 12em;
     width:65%;
     height: 6%;
     border-radius:15px;
     background-color: #454544;
     border: 0.2em solid #55e078;
-    top:1.5em;
+    
 }
 
 #querycontainer *{
@@ -129,11 +129,12 @@ margin: auto;
 
 #gptresponse{
     position:relative;
-    margin-top: 1em;
+    margin-top: 0.3em;
     height: 80%;
-    left:13.5em;
+    left:6.5%;
     width:64vw;
     overflow-y: auto;
+    margin-bottom: 1em;
 }
 
 .GPTMSG{
@@ -185,7 +186,7 @@ margin: auto;
     display: inline-flex;
     width:fit-content;
     margin:auto;
-    margin-left: 40%;
+    margin-left: 27vw;   
     border:none;
     background-color:#4d4d4d;
     border-radius:9px;
@@ -197,6 +198,8 @@ margin: auto;
     margin:auto;
     font-size: 20px;
     padding: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0;
     border-radius:9px;
     text-align: center;
     border:none;
