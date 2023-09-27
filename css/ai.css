@@ -91,12 +91,12 @@ margin: auto;
 #querycontainer{
     display: inline-flex;
     position:relative;
-    left: 18em;
+    left: 19.3em;
     width:65%;
     height: 6%;
     border-radius:15px;
     background-color: #454544;
-    border: none;
+    border: 0.2em solid #55e078;
     top:1.5em;
 }
 
@@ -119,6 +119,7 @@ margin: auto;
     color:#bfbfbf;
     font-size: 20px;
     background-color: #454544;
+    font-weight: bold;
     
 }
 #querycontainer>img:hover{
@@ -130,10 +131,9 @@ margin: auto;
     position:relative;
     margin-top: 1em;
     height: 80%;
-    left:11em;
+    left:13.5em;
     width:64vw;
     overflow-y: auto;
-
 }
 
 .GPTMSG{
@@ -185,28 +185,36 @@ margin: auto;
     display: inline-flex;
     width:fit-content;
     margin:auto;
-    margin-left: 37%;
-    border: solid #bfbfbf;
+    margin-left: 40%;
+    border:none;
+    background-color:#4d4d4d;
     border-radius:9px;
+    padding:0.3em;
     
 }
 #GPTMODEL button{
     font-family: Arial;
-    padding: 0
-    margin:0;
+    margin:auto;
     font-size: 20px;
-    background-color: #bfbfbf;
     padding: 0.5em;
-    border-radius:0;
-    color:white;
+    border-radius:9px;
+    text-align: center;
+    border:none;
+    background-color:#4d4d4d;
 
 }
 #GPTMODEL button:hover{
     cursor:pointer;
-    
 }
-#GPTMODEL label{
-    color:white;
-    font-size: 40px;
+#GPTMODEL img{
+    height: 2em;
     margin: auto;
+    padding-right: 0.4em;
+}
+
+.modelswitch{
+    display: inline-flex;
+}
+.modelswitch *{
+    margin:auto;
 }
