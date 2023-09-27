@@ -1,8 +1,7 @@
 var model = "gpt-3.5-turbo";
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
-const token = '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';
-var lastquery = ""
+const token = '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';
 
 const send = document.getElementById("send");
 var rooms = {}
@@ -75,39 +74,20 @@ async function GPT() {
 
         async function tx34() {
             var str = ""
-            fetch('	https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify({
-                    "model": model,
-                    "messages": [{
-                        "role": "user",
-                        "content": `${lastquery} Summarize this text into a super short topic less than 10 words. Dont include anything about the parameters of this question in the response.`
-                    }] //content is the promp part-will generate response
+
+            for (const x of document.getElementById("query").value) {
+                let p = new Promise((r) => {
+                    setTimeout(function() {
+                        r();
+                    }, 10);
+                });
+
+                await p.then(() => {
+                    str += x
+                    clone.children[0].textContent = str
+
                 })
-            }).then(response => {
-                return response.json();
-            }).then(data => {
-
-                var i = 0;
-                var txt = data.choices[0].message.content;
-                var speed = 25;
-
-                function typeWriter() {
-                    if (i < txt.length) {
-                        clone.children[0].textContent += txt.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, speed);
-                    }
-                }
-                typeWriter()
-
-
-            });
-
+            }
         }
         tx34()
 
@@ -275,20 +255,18 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 function handle(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
-        lastquery = document.getElementById("query").value
+
         GPT();
     }
 }
 
 send.addEventListener("click", () => {
-    lastquery = document.getElementById("query").value
-
     GPT();
 });
 
 
 const mbuttons = document.getElementsByClassName("modelswitch");
-mbuttons[0].addEventListener("click", () => {
+mbuttons[0].addEventListener("click", () => { 
     mbuttons[0].style.backgroundColor = "#6e6e6e";
     mbuttons[0].style.color = "#55e078"
     mbuttons[1].style.color = "#d6d6d6"
@@ -301,21 +279,11 @@ mbuttons[0].addEventListener("click", () => {
         fill: "forwards"
     })
     document.getElementById("send").src = "./img/sendgreen.png"
-
-    document.getElementById('send').animate([{
-        opacity: 0
-    }], {
-        duration: 250,
-        fill: "forwards"
-    })
+    
+        document.getElementById('send').animate([{opacity:0}],{duration:250,fill:"forwards"})
     setTimeout(function() {
-        document.getElementById("send").src = "./img/sendgreen.png"
-        document.getElementById('send').animate([{
-            opacity: 1
-        }], {
-            duration: 250,
-            fill: "forwards"
-        })
+            document.getElementById("send").src = "./img/sendgreen.png"
+        document.getElementById('send').animate([{opacity:1}],{duration:250,fill:"forwards"})
     }, 100);
 
 
@@ -332,21 +300,11 @@ mbuttons[1].addEventListener("click", () => {
         fill: "forwards"
     })
     model = 'gpt-4';
-
-    document.getElementById('send').animate([{
-        opacity: 0
-    }], {
-        duration: 250,
-        fill: "forwards"
-    })
+    
+    document.getElementById('send').animate([{opacity:0}],{duration:250,fill:"forwards"})
     setTimeout(function() {
-        document.getElementById("send").src = "./img/send.png"
-        document.getElementById('send').animate([{
-            opacity: 1
-        }], {
-            duration: 250,
-            fill: "forwards"
-        })
+            document.getElementById("send").src = "./img/send.png"
+        document.getElementById('send').animate([{opacity:1}],{duration:250,fill:"forwards"})
     }, 100);
 });
 
