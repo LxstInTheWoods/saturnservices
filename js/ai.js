@@ -4,8 +4,8 @@ const userresponse = document.getElementById("USERMSG");
 const token = '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';
 
 const send = document.getElementById("send");
-var rooms = {}
-var currentroom = 0
+var rooms = {};
+var currentroom = 0;
 
 const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
@@ -23,21 +23,21 @@ async function GPT() {
 
     if (currentroom === 0 || document.getElementById(currentroom).children[0].textContent === "Untitled room") {
 
-        var clone
+        var clone;
         if (currentroom === 0) {
-            currentroom = genRanHex(12)
+            currentroom = genRanHex(12);
             rooms[currentroom] = {
 
-            }
+            };
 
-            clone = document.getElementById("cloneroom").cloneNode(true)
-            clone.id = currentroom
+            clone = document.getElementById("cloneroom").cloneNode(true);
+            clone.id = currentroom;
             clone.animate([{
                 borderColor: "white"
             }], {
                 duration: 250,
                 fill: "forwards"
-            })
+            });
 
             clone.addEventListener("click", () => {
                 for (const x of document.getElementById("chats").children) {
@@ -47,7 +47,7 @@ async function GPT() {
                         }], {
                             duration: 250,
                             fill: "forwards"
-                        })
+                        });
                     }
                 }
                 clone.animate([{
@@ -55,25 +55,25 @@ async function GPT() {
                 }], {
                     duration: 250,
                     fill: "forwards"
-                })
-                currentroom = clone.id
+                });
+                currentroom = clone.id;
 
-            })
+            });
 
-            document.getElementById("chats").appendChild(clone)
+            document.getElementById("chats").appendChild(clone);
             clone.animate([{
                 opacity: 1
             }], {
                 duration: 250,
                 fill: "forwards"
-            })
+            });
         } else {
-            clone = document.getElementById(currentroom)
+            clone = document.getElementById(currentroom);
         }
 
 
         async function tx34() {
-            var str = ""
+            var str = "";
 
             for (const x of document.getElementById("query").value) {
                 let p = new Promise((r) => {
@@ -83,13 +83,13 @@ async function GPT() {
                 });
 
                 await p.then(() => {
-                    str += x
-                    clone.children[0].textContent = str
+                    str += x;
+                    clone.children[0].textContent = str;
 
-                })
+                });
             }
         }
-        tx34()
+        tx34();
 
     }
 
@@ -107,14 +107,14 @@ async function GPT() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + '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'
         },
         body: JSON.stringify({
             "model": model,
             "messages": [{
                 "role": "user",
                 "content": "ANSWER IN 100 WORDS OR LESS: " + document.getElementById("query").value
-            }] //content is the promp part-will generate response
+            }]
         })
     }).then(response => {
         return response.json();
@@ -125,19 +125,19 @@ async function GPT() {
 
     const responseclone = gptresponse.cloneNode(true);
     document.getElementById('gptresponse').appendChild(responseclone);
-    responseclone.children[1].textContent = "loading...";
-    var elem = document.getElementById('gptresponse');
+    responseclone.children[1].textContent = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
+     elem = document.getElementById('gptresponse');
 
 
 
     if (model === "gpt-3.5-turbo") {
-        responseclone.style.borderColor = "#55e078"
+        responseclone.style.borderColor = "#55e078";
     } else {
-        responseclone.style.borderColor = "#bf95f0"
+        responseclone.style.borderColor = "#bf95f0";
     }
 
     setTimeout(function() {
-        tweenInElement(responseclone)
+        tweenInElement(responseclone);
     }, 250);
 
     elem.scrollTop = elem.scrollHeight;
@@ -177,8 +177,8 @@ async function GPT() {
 }
 
 document.getElementById("roomcreate").addEventListener("click", () => {
-    const hex = genRanHex(12)
-    currentroom = hex
+    const hex = genRanHex(12);
+    currentroom = hex;
     rooms[currentroom] = {
 
     }
@@ -253,9 +253,9 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 })
 
 function handle(e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 ) {
         e.preventDefault();
-
+        
         GPT();
     }
 }
@@ -344,7 +344,7 @@ function A() {
 }
 
 
-//ai needs chat memory to be saved and for a room to be created for it to remember things you asked.             for (const x of document.getElementById("chats").children)
+//ai needs chat memory to be saved and for a room to be created for it to remember things you asked.
 {
     if (x.className === "room") {
         x.animate([{
