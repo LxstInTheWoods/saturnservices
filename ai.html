@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <link rel='stylesheet' href="./css/ai.css">
-          <title>GPT 3.5</title>
-        <link rel="icon" type="image/x-icon" href="./img/GPT.svg">
-  </head>
-   <body>
+   <head>
+      <link rel='stylesheet' href="./css/ai">
+      <title>GPT TURBO</title>
+        <link rel="icon" type="image/x-icon" href="./img/GPT.jpg">
+        <link rel="stylesheet" href="./css/chats.css">
+
+   </head>
+   <body style="overflow-y:hidden;">
        
        <div id="lock" style="display:none">
             <div>
@@ -26,36 +28,51 @@
                <div style="" id="searchbarholder">
                   <img src="./img/searchglass.png" style="height:1.5em; ">
                   <input id='search' placeholder="Search" >
+                  
                </div>
             </div>
+                          <div class="room" id='roomcreate' style='opacity:1;'>
+                <label>New chat</label>
+            </div>    
             <hr id='splitter_1'>
          </div>
+         
+         <div id="chats">
+
+            
+             
+             <div id='chatstorage' style='display:none;'>
+                <div class="room" id='cloneroom' style='opacity:0;'>
+                <label></label>
+            </div>   
+             </div>
+            </div>
       </div>
       <div id="chatframe">
           <div id="GPTMODEL">
-              <button class='modelswitch' style=" border-right:solid white; background-color:#4ba083">GPT 3.5 Turbo</button>
-              <button class='modelswitch' style="border-left:solid white; background:none;">GPT 4</button>
+         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;"><img src='./img/gpt3.png'><strong>GPT-3.5</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6"><img src='./img/GPT4sparkles.png'><strong>GPT-4</strong></button>
           </div>
           <div id="gptresponse">
-              
-              
               <div id='storage' style="display:none"> 
                <div class="GPTMSG" id='USERMSG'>
                   <img class='gpticon' src='./img/user.jpg' style="height:1.5em">
-                  <p>Yes</p>
+                  <p style="font-weight:bold;"></p>
               </div>
               <div class="GPTMSG" id='GPTMSG'>
                   <img class='gpticon' src='./img/GPT.jpg' style='height'>
-                  <p></p>
+                  <p style="font-weight:bold;"></p>
               </div>
               </div>
           </div>
           
          <div id='querycontainer'> 
             <input id='query' onkeypress="handle(event)">
-            <img id="send" src=./img/send.png>
+            <img id="send" src=./img/sendgreen.png>
+            
          </div>
       </div>
+
       <script src="./js/ai.js"></script>
    </body>
 </html>
