@@ -87,16 +87,16 @@ margin: auto;
     margin-left: 20em;
 }
 
-#querycontainer{
+#querycontainer {
     display: inline-flex;
-    position:relative;
-    left: 12em;
-    width:65%;
+    position: fixed;
+    left: 28vw;
+    top: 90vh;
+    width: 65%;
     height: 6%;
-    border-radius:15px;
+    border-radius: 15px;
     background-color: #454544;
     border: 0.2em solid #55e078;
-    
 }
 
 #querycontainer *{
