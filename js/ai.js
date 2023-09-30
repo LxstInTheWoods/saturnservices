@@ -19,9 +19,41 @@ function tweenInElement(elem) {
     });
 }
 
+
+async function LogTable(TB, reloop, v) {
+    try {
+        for (let x in TB) {
+            var el = document.createElement("label");
+            if (reloop) {
+                el.textContent = `(table:${v} --> ${x}:${TB[x]}   )   `;
+
+            } else {
+                el.textContent = `(    ${x}:${TB[x]}   )   `;
+
+            }
+            el.style.color = "white";
+
+            if (typeof TB[x] === "object") {
+                LogTable(TB[x], true, x);
+            } else {
+                document.getElementById('gptresponse').appendChild(el);
+            }
+        }
+    } catch (err) {
+        alert(err);
+    }
+}
+
 async function GPT() {
 
     if (currentroom === 0 || document.getElementById(currentroom).children[0].textContent === "Untitled room") {
+
+const elements = [...document.getElementsByClassName('GPTMSG')];
+for (const x of elements) {
+    if (x.parentNode.id !== "storage") {
+        x.remove();
+    }
+}
 
         var clone;
         if (currentroom === 0) {
@@ -84,7 +116,7 @@ async function GPT() {
 
                 await p.then(() => {
                     str += x;
-                    clone.children[0].textContent = str;
+                    document.getElementById(currentroom).children[0].textContent = str;
 
                 });
             }
@@ -98,9 +130,12 @@ async function GPT() {
     userclone.children[1].textContent = document.getElementById("query").value;
     var elem = document.getElementById('gptresponse');
     rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
-
     elem.scrollTop = elem.scrollHeight;
     tweenInElement(userclone);
+    
+        const gptresponsehex = genRanHex(8)
+        rooms[currentroom]['gpt_' + gptresponsehex] = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
+
 
     var gptanswer = "";
     fetch('	https://api.openai.com/v1/chat/completions', {
@@ -120,13 +155,15 @@ async function GPT() {
         return response.json();
     }).then(data => {
         gptanswer = data.choices[0].message.content;
+        rooms[currentroom]['gpt_' + gptresponsehex] = gptanswer;
+
     });
 
 
     const responseclone = gptresponse.cloneNode(true);
     document.getElementById('gptresponse').appendChild(responseclone);
     responseclone.children[1].textContent = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
-     elem = document.getElementById('gptresponse');
+    elem = document.getElementById('gptresponse');
 
 
 
@@ -153,7 +190,7 @@ async function GPT() {
         await p.then(() => {})
     }
 
-    rooms[currentroom]['gpt_' + genRanHex(8)] = gptanswer;
+    rooms[currentroom]['gpt_' + gptresponsehex] = gptanswer;
     var str = "";
     for (const x of gptanswer) {
         let p = new Promise((r) => {
@@ -161,6 +198,8 @@ async function GPT() {
                 r();
             }, 2);
         });
+
+        LogTable(rooms)
 
         await p.then(() => {
             str += x;
@@ -177,6 +216,14 @@ async function GPT() {
 }
 
 document.getElementById("roomcreate").addEventListener("click", () => {
+
+const elements = [...document.getElementsByClassName('GPTMSG')];
+for (const x of elements) {
+    if (x.parentNode.id !== "storage") {
+        x.remove();
+    }
+}
+
     const hex = genRanHex(12);
     currentroom = hex;
     rooms[currentroom] = {
@@ -184,7 +231,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     }
 
     const clone = document.getElementById("cloneroom").cloneNode(true)
-    document.getElementById("chats").appendChild(clone)
+    document.getElementById("chats").appendChild(clone) 
     for (const x of document.getElementById("chats").children) {
         if (x.className === "room") {
             x.animate([{
@@ -210,8 +257,40 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         fill: "forwards"
     })
     clone.id = hex
+    currentroom = clone.id
 
     clone.addEventListener("click", () => {
+
+        if (currentroom != clone.id) {
+            
+const elements = [...document.getElementsByClassName('GPTMSG')];
+for (const x of elements) {
+    if (x.parentNode.id !== "storage") {
+        x.remove();
+    }
+}
+
+
+            for (let k of Object.keys(rooms[clone.id])) {
+                if (k.includes("user_")) //make the chatbox match the gpt purple based on 3.5 or 4 
+                {
+                var ucl = userresponse.cloneNode(true);
+                document.getElementById('gptresponse').appendChild(ucl);
+                ucl.children[1].textContent = rooms[clone.id][k];
+                tweenInElement(ucl)
+                }
+                else
+                {
+                const responseclone = gptresponse.cloneNode(true);
+                document.getElementById('gptresponse').appendChild(responseclone);
+                responseclone.children[1].textContent = rooms[clone.id][k];
+                tweenInElement(responseclone)
+                }
+            }
+            
+
+        } //else same room
+
         for (const x of document.getElementById("chats").children) {
             if (x.className === "room") {
                 x.animate([{
@@ -230,9 +309,13 @@ document.getElementById("roomcreate").addEventListener("click", () => {
             fill: "forwards"
         })
 
+        currentroom = clone.id
+
+
     })
 
     async function tx34() {
+        var currentroominternal = currentroom
         var str = ""
         for (const x of "Untitled room") {
             let p = new Promise((r) => {
@@ -243,7 +326,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 
             await p.then(() => {
                 str += x
-                clone.children[0].textContent = str
+                document.getElementById(currentroominternal).children[0].textContent = str
 
             })
         }
@@ -253,9 +336,9 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 })
 
 function handle(e) {
-    if (e.keyCode === 13 ) {
+    if (e.keyCode === 13) {
         e.preventDefault();
-        
+
         GPT();
     }
 }
@@ -266,7 +349,7 @@ send.addEventListener("click", () => {
 
 
 const mbuttons = document.getElementsByClassName("modelswitch");
-mbuttons[0].addEventListener("click", () => { 
+mbuttons[0].addEventListener("click", () => {
     mbuttons[0].style.backgroundColor = "#6e6e6e";
     mbuttons[0].style.color = "#55e078"
     mbuttons[1].style.color = "#d6d6d6"
@@ -279,11 +362,21 @@ mbuttons[0].addEventListener("click", () => {
         fill: "forwards"
     })
     document.getElementById("send").src = "./img/sendgreen.png"
-    
-        document.getElementById('send').animate([{opacity:0}],{duration:250,fill:"forwards"})
+
+    document.getElementById('send').animate([{
+        opacity: 0
+    }], {
+        duration: 250,
+        fill: "forwards"
+    })
     setTimeout(function() {
-            document.getElementById("send").src = "./img/sendgreen.png"
-        document.getElementById('send').animate([{opacity:1}],{duration:250,fill:"forwards"})
+        document.getElementById("send").src = "./img/sendgreen.png"
+        document.getElementById('send').animate([{
+            opacity: 1
+        }], {
+            duration: 250,
+            fill: "forwards"
+        })
     }, 100);
 
 
@@ -300,11 +393,21 @@ mbuttons[1].addEventListener("click", () => {
         fill: "forwards"
     })
     model = 'gpt-4';
-    
-    document.getElementById('send').animate([{opacity:0}],{duration:250,fill:"forwards"})
+
+    document.getElementById('send').animate([{
+        opacity: 0
+    }], {
+        duration: 250,
+        fill: "forwards"
+    })
     setTimeout(function() {
-            document.getElementById("send").src = "./img/send.png"
-        document.getElementById('send').animate([{opacity:1}],{duration:250,fill:"forwards"})
+        document.getElementById("send").src = "./img/send.png"
+        document.getElementById('send').animate([{
+            opacity: 1
+        }], {
+            duration: 250,
+            fill: "forwards"
+        })
     }, 100);
 });
 
@@ -345,15 +448,5 @@ function A() {
 
 
 //ai needs chat memory to be saved and for a room to be created for it to remember things you asked.
-{
-    if (x.className === "room") {
-        x.animate([{
-            borderColor: "#454545"
-        }], {
-            duration: 250,
-            fill: "forwards"
-        })
-    }
-}
 
-//current room prob needs to be uploaded to the web to actually script it bc it requires console
+//make chats deletable, make rooms clear and load the selected rooms messages
