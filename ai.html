@@ -1,223 +1,79 @@
-body{
-    background-color: #2b2b2b;
-    margin: 0;
-}
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel='stylesheet' href="./css/ai.css">
+      <title>GPT TURBO</title>
+        <link rel="icon" type="image/x-icon" href="./img/GPT.jpg">
+        <link rel="stylesheet" href="./css/chats.css">
 
-#sidebar{
-    height: 100vh;
-    border-right: solid #4d4d4d;
-    width: 20em;
-    position: absolute;
-}
+   </head>
+   <body style="overflow-y:hidden;">
+       
+       <div id="lock" style="display:none">
+            <div>
+             <input id="password" placeholder="Password">
+             <button id="submitpass">Log-In</button>
 
-#sidebar_header {
-    width: 100%;
-    display: block;
-    height: max-content;
+            </div>
+            </div>
 
-}
+      <div id="sidebar">
+         <div id="sidebar_header">
+            <div id='gptimgtxt'>
+               <img class='gpticon' src="./img/GPT.jpg">
+               <h1>ChatGPT Turbo</h1>
+            </div>
+            <br>
+            <div style="display:inline-flex;">
+               <div style="" id="searchbarholder">
+                  <img src="./img/searchglass.png" style="height:1.5em; ">
+                  <input id='search' placeholder="Search" >
+                  
+               </div>
+            </div>
+                          <div class="room" id='roomcreate' style='opacity:1;'>
+                <label>New chat</label>
+            </div>    
+            <hr id='splitter_1'>
+         </div>
+         
+         <div id="chats">
 
-#sidebar_header h1,img{
-    padding-top: 0.2em;
-    display: block;
-    color: white;
-    font-size: 20px;
-    text-align: center;
-    font-family: Arial;
-}
-#search{
-    display: block;
-    width: 100%;
-    margin: auto;
-    background-color: #454545;
-    border: none;
-    outline: none;
-    color:white;
-    font-size: 20px;
+            
+             
+             <div id='chatstorage' style='display:none;'>
+                <div class="room" id='cloneroom' style='opacity:0;'>
+                <label></label>
+            </div>   
+             </div>
+            </div>
+      </div>
+      <div id="chatframe">
+          <div id="GPTMODEL">
+         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6"><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
+          </div>
+          <div id="gptresponse">
+              <div id='storage' style="display:none"> 
+               <div class="GPTMSG" id='USERMSG'>
+                  <img class='gpticon' src='./img/user.jpg' style="height:1.5em">
+                  <p style="font-weight:bold;"></p>
+              </div>
+              <div class="GPTMSG" id='GPTMSG'>
+                  <img class='gpticon' src='./img/GPT.jpg' style='height'>
+                  <p style="font-weight:bold;"></p>
+              </div>
+              </div>
+          </div>
+          
+         <div id='querycontainer'> 
+         <div id='qcsubdiv'>
+            <input id='query' onkeypress="handle(event)">
+            <img id="send" src=./img/sendgreen.png>
+            </div>
+         </div>
+      </div>
 
-}
-
-#searchbarholder{
-    display: inline-flex;
-    height: max-content;
-    border:solid #757575; 
-    width:75%;
-    margin:0 auto;
-    border-radius:15px;
-    padding: 0.3em;
-}
-#searchbarholder *{
-height: fit-content;
-margin: auto;
-}
-#searchbarholder img{
-    margin-right: 0;
-    margin-left: 0;
-}
-#searchbarholder input{
-    padding: 0;
-    margin-left: 0;
-}
-#searchbarholder{
-    background-color:#454545 ;
-}
-#gptimgtxt{
-    display: inline-flex;
-    width:100%;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-#gptimgtxt *{
-    width:fit-content;
-    margin: auto;
-}
-#gptimgtxt img{
-    margin-right: 0;
-}
-#gptimgtxt h1{
-    margin-left: 0.5em;
-}
-#splitter_1{
-    max-width: 90%;
-    background-color: #757575;
-}
-
-#chatframe{
-    height: 100vh;
-    margin-left: 20.3em;
-}
-
-#querycontainer {
-    width: 80%;
-    height: 6%;
-    border-radius: 15px;
-    background-color: #454544;
-    border: 0.2em solid #55e078;
-    margin: auto;
-}
-#qcsubdiv{
-    display: inline-flex;
-    width:100%;
-    height:100%;
-}
-
-#querycontainer *{
-    margin: auto;
-}
-
-#querycontainer img{
-    height: 85%;
-    margin-left: 0;
-    margin: auto;
-    padding-bottom: 0.3em;
-}
-#querycontainer input{
-    height: 80%;
-    margin-right: 1em;
-    width:90%;
-    border: none;
-    outline:none;
-    color:#bfbfbf;
-    font-size: 20px;
-    background-color: #454544;
-    font-weight: bold;
-    
-}
-#querycontainer>img:hover{
-    cursor:pointer;
-    
-}
-
-#gptresponse{
-    position:relative;
-    margin: auto;
-    height: 79vh;
-    width:64vw;
-    overflow-y: auto;
-    margin-bottom: 1em;
-}
-
-.GPTMSG{
-    height: auto;
-    width: 94%;
-    display: inline-flex;
-    border: solid #bfbfbf;
-    margin: auto;
-    margin-left: 1.5em;
-    margin-top:1em;
-    padding: 0.3em;
-    border-radius:15px;
-    background-color: #454545;
-    opacity: 0;
-}
-.GPTMSG p{
-    width: 100%;
-    height:100%;
-    padding-left: 0.3em;
-    margin: auto;
-    color: #bfbfbf;
-    font-size: 20px;
-    margin-top: 0.23em;
-    font-family:Arial;
-    line-height: 26pt;
-}
-.GPTMSG img{
-    padding-bottom: 0.6em;
-}
-#lock{
-    display: inline-flex;
-    z-index: 12;
-    position:absolute;
-    height: 100vh;
-    width: 100vw;
-    background-color: black;
-    opacity: .7;
-
-}
-
-#lock div{
-    max-width: max-content;
-margin: auto;
-}
-.gpticon{
-    height:2em;
-}
-#GPTMODEL{
-    width:fit-content;
-    margin:auto;
-    border:none;
-    background-color:#4d4d4d;
-    border-radius:9px;
-    
-    
-}
-#GPTMODEL button{
-    font-family: Arial;
-    font-size: 17px;
-    padding-top:-0.4em;
-    padding-bottom:-0.5em;
-    border-radius:9px;
-    text-align: center;
-    outline: none;
-    border:none;
-    background-color:#4d4d4d;
-
-
-}
-#GPTMODEL button:hover{
-    cursor:pointer;
-}
-#GPTMODEL img{
-    height: 2em;
-    margin: auto;
-    padding: 0;
-    padding-right: 0.4em;
-    border: solid white;
-}
-
-.modelswitch{
-    display: inline-flex;
-}
-.modelswitch *{
-    margin:auto;
-}
+      <script src="./js/ai.js"></script>
+   </body>
+</html>
