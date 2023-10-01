@@ -1,7 +1,7 @@
 var model = "gpt-3.5-turbo";
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
-const token = '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';
+const token = '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';
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
     "gpt-4": '#bf95f0'
