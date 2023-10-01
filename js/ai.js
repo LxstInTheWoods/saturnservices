@@ -2,6 +2,10 @@ var model = "gpt-3.5-turbo";
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
 const token = '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';
+const modelcolor = {
+    "gpt-3.5-turbo": '#55e078',
+    "gpt-4": '#bf95f0'
+}
 
 const send = document.getElementById("send");
 var rooms = {};
@@ -48,12 +52,12 @@ async function GPT() {
 
     if (currentroom === 0 || document.getElementById(currentroom).children[0].textContent === "Untitled room") {
 
-const elements = [...document.getElementsByClassName('GPTMSG')];
-for (const x of elements) {
-    if (x.parentNode.id !== "storage") {
-        x.remove();
-    }
-}
+        const elements = [...document.getElementsByClassName('GPTMSG')];
+        for (const x of elements) {
+            if (x.parentNode.id !== "storage") {
+                x.remove();
+            }
+        }
 
         var clone;
         if (currentroom === 0) {
@@ -72,6 +76,30 @@ for (const x of elements) {
             });
 
             clone.addEventListener("click", () => {
+
+                //code for created room here
+
+                const elements = [...document.getElementsByClassName('GPTMSG')];
+                for (const x of elements) {
+                    if (x.parentNode.id !== "storage") {
+                        x.remove();
+                    }
+                }
+                for (let k of Object.keys(rooms[clone.id])) {
+                    if (k.includes("user_")) //make the chatbox match the gpt purple based on 3.5 or 4 
+                    {
+                        var ucl = userresponse.cloneNode(true);
+                        document.getElementById('gptresponse').appendChild(ucl);
+                        ucl.children[1].textContent = rooms[clone.id][k];
+                        tweenInElement(ucl)
+                    } else {
+                        const responseclone = gptresponse.cloneNode(true);
+                        document.getElementById('gptresponse').appendChild(responseclone);
+                        responseclone.children[1].textContent = rooms[clone.id][k];
+                        tweenInElement(responseclone)
+                    }
+                }
+
                 for (const x of document.getElementById("chats").children) {
                     if (x.className === "room") {
                         x.animate([{
@@ -132,9 +160,9 @@ for (const x of elements) {
     rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
     elem.scrollTop = elem.scrollHeight;
     tweenInElement(userclone);
-    
-        const gptresponsehex = genRanHex(8)
-        rooms[currentroom]['gpt_' + gptresponsehex] = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
+
+    const gptresponsehex = genRanHex(8)
+    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
 
 
     var gptanswer = "";
@@ -155,7 +183,7 @@ for (const x of elements) {
         return response.json();
     }).then(data => {
         gptanswer = data.choices[0].message.content;
-        rooms[currentroom]['gpt_' + gptresponsehex] = gptanswer;
+        rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
 
     });
 
@@ -190,7 +218,7 @@ for (const x of elements) {
         await p.then(() => {})
     }
 
-    rooms[currentroom]['gpt_' + gptresponsehex] = gptanswer;
+    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
     var str = "";
     for (const x of gptanswer) {
         let p = new Promise((r) => {
@@ -217,12 +245,12 @@ for (const x of elements) {
 
 document.getElementById("roomcreate").addEventListener("click", () => {
 
-const elements = [...document.getElementsByClassName('GPTMSG')];
-for (const x of elements) {
-    if (x.parentNode.id !== "storage") {
-        x.remove();
+    const elements = [...document.getElementsByClassName('GPTMSG')];
+    for (const x of elements) {
+        if (x.parentNode.id !== "storage") {
+            x.remove();
+        }
     }
-}
 
     const hex = genRanHex(12);
     currentroom = hex;
@@ -231,7 +259,7 @@ for (const x of elements) {
     }
 
     const clone = document.getElementById("cloneroom").cloneNode(true)
-    document.getElementById("chats").appendChild(clone) 
+    document.getElementById("chats").appendChild(clone)
     for (const x of document.getElementById("chats").children) {
         if (x.className === "room") {
             x.animate([{
@@ -262,32 +290,32 @@ for (const x of elements) {
     clone.addEventListener("click", () => {
 
         if (currentroom != clone.id) {
-            
-const elements = [...document.getElementsByClassName('GPTMSG')];
-for (const x of elements) {
-    if (x.parentNode.id !== "storage") {
-        x.remove();
-    }
-}
+
+            const elements = [...document.getElementsByClassName('GPTMSG')];
+            for (const x of elements) {
+                if (x.parentNode.id !== "storage") {
+                    x.remove();
+                }
+            }
 
 
             for (let k of Object.keys(rooms[clone.id])) {
                 if (k.includes("user_")) //make the chatbox match the gpt purple based on 3.5 or 4 
                 {
-                var ucl = userresponse.cloneNode(true);
-                document.getElementById('gptresponse').appendChild(ucl);
-                ucl.children[1].textContent = rooms[clone.id][k];
-                tweenInElement(ucl)
-                }
-                else
-                {
-                const responseclone = gptresponse.cloneNode(true);
-                document.getElementById('gptresponse').appendChild(responseclone);
-                responseclone.children[1].textContent = rooms[clone.id][k];
-                tweenInElement(responseclone)
+                    var ucl = userresponse.cloneNode(true);
+                    document.getElementById('gptresponse').appendChild(ucl);
+                    ucl.children[1].textContent = rooms[clone.id][k];
+                    tweenInElement(ucl)
+                } else {
+                    const responseclone = gptresponse.cloneNode(true);
+                    document.getElementById('gptresponse').appendChild(responseclone);
+                    responseclone.children[1].textContent = rooms[clone.id][k];
+                    responseclone.style.borderColor = modelcolor[k.split("_")[1]]
+
+                    tweenInElement(responseclone)
                 }
             }
-            
+
 
         } //else same room
 
@@ -411,6 +439,8 @@ mbuttons[1].addEventListener("click", () => {
     }, 100);
 });
 
+//make search bar work
+
 var M = T;
 (function(F, x) {
     var t = T,
@@ -450,3 +480,4 @@ function A() {
 //ai needs chat memory to be saved and for a room to be created for it to remember things you asked.
 
 //make chats deletable, make rooms clear and load the selected rooms messages
+//wwhen your ready to go live use heroku for nodejs backend
