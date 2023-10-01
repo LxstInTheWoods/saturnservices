@@ -24,22 +24,21 @@
                <h1>ChatGPT Turbo</h1>
             </div>
             <br>
-            <div style="display:inline-flex;">
+            <div style="display:flex;">
                <div style="" id="searchbarholder">
-                  <img src="./img/searchglass.png" style="height:1.5em; ">
+                  <img src="./img/searchglass.png" style="height:1em; ">
                   <input id='search' placeholder="Search" >
                   
                </div>
             </div>
-                          <div class="room" id='roomcreate' style='opacity:1;'>
+                        <hr class='splitter'>
+
+                 <div class="room" id='roomcreate' style='opacity:1;'>
                 <label>New chat</label>
             </div>    
-            <hr id='splitter_1'>
          </div>
          
          <div id="chats">
-
-            
              
              <div id='chatstorage' style='display:none;'>
                 <div class="room" id='cloneroom' style='opacity:0;'>
@@ -50,12 +49,13 @@
       </div>
       <div id="chatframe">
           <div id="GPTMODEL">
-         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
-         <button class='modelswitch' style="color:#d6d6d6"><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
+         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;     -webkit-border-top-right-radius: 0;-webkit-border-bottom-right-radius: 0;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6 ;-webkit-border-top-left-radius: 0;-webkit-border-bottom-left-radius: 0;"><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
           </div>
           <div id="gptresponse">
               <div id='storage' style="display:none"> 
                <div class="GPTMSG" id='USERMSG'>
+                   
                   <img class='gpticon' src='./img/user.jpg' style="height:1.5em">
                   <p style="font-weight:bold;"></p>
               </div>
@@ -68,7 +68,7 @@
           
          <div id='querycontainer'> 
          <div id='qcsubdiv'>
-            <input id='query' onkeypress="handle(event)">
+            <textarea id='query' onkeypress="handle(event)" placeholder="Send a message"></textarea>
             <img id="send" src=./img/sendgreen.png>
             </div>
          </div>
