@@ -28,6 +28,20 @@ const T1input = document.getElementById("query");
     T1input.addEventListener('input', adjustTextareaHeight)
     adjustTextareaHeight()
     
+    T1input.addEventListener('keydown', (event) => {
+  if (event.shiftKey && event.key === 'Enter') {
+    event.preventDefault();
+    const start = T1input.selectionStart;
+    const end = T1input.selectionEnd;
+    const value = T1input.value;
+    T1input.value = value.substring(0, start) + '\n' + value.substring(end);
+    T1input.selectionStart = T1input.selectionEnd = start + 1;
+    T1input.scrollTop = T1input.scrollHeight;
+    
+    
+  }
+});
+    
 function tweenInElement(elem) {
     elem.animate([{
         'opacity': 1
@@ -169,7 +183,7 @@ async function GPT() {
 
     const userclone = userresponse.cloneNode(true);
     document.getElementById('gptresponse').appendChild(userclone);
-    userclone.children[1].textContent = document.getElementById("query").value;
+    userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
     var elem = document.getElementById('gptresponse');
     rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
     elem.scrollTop = elem.scrollHeight;
@@ -464,6 +478,19 @@ mbuttons[1].addEventListener("click", () => {
 });
 
 //make search bar work
+document.getElementById("search").addEventListener("input", ()=>{
+    for (const x of [...document.getElementById("chats").children]){
+        if (x.id != 'chatstorage' && x.children[0].textContent.toLowerCase().includes(document.getElementById("search").value.toLowerCase())){
+        x.style.display = ""
+        x.animate([{opacity:1}], {duration:250, fill:"forwards"})
+        }else{
+            x.animate([{opacity:0}], {duration:250, fill:"forwards"})
+            setTimeout(function() {
+         x.style.display = "none"
+        },250);
+        }
+    }
+})
 
 var M = T;
 (function(F, x) {
@@ -501,7 +528,7 @@ function A() {
 }
 
 
-//ai needs chat memory to be saved and for a room to be created for it to remember things you asked.
+//make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions
 
-//make chats deletable, make rooms clear and load the selected rooms messages
-//wwhen your ready to go live use heroku for nodejs backend
+//make chats deletable
+//when your ready to go live use heroku for nodejs backend
