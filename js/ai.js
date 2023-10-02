@@ -13,7 +13,21 @@ var currentroom = 0;
 
 const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
-
+const T1input = document.getElementById("query");
+    
+    function adjustTextareaHeight(){
+        T1input.style.height = 'auto';
+        T1input.style.height = T1input.scrollHeight + 'px'
+        
+        if (T1input.scrollHeight > parseInt(getComputedStyle(T1input).maxHeight)){
+            T1input.style.overflowY = "scroll;"
+        }else{
+            T1input.style.overflowY = "auto"
+        }
+    }
+    T1input.addEventListener('input', adjustTextareaHeight)
+    adjustTextareaHeight()
+    
 function tweenInElement(elem) {
     elem.animate([{
         'opacity': 1
@@ -366,6 +380,11 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 function handle(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
+        setTimeout(function() {
+                    adjustTextareaHeight()
+
+        }, 100);
+    
 
         GPT();
     }
@@ -373,6 +392,11 @@ function handle(e) {
 
 send.addEventListener("click", () => {
     GPT();
+    adjustTextareaHeight()
+            setTimeout(function() {
+                    adjustTextareaHeight()
+
+        }, 100);
 });
 
 
