@@ -40,7 +40,7 @@ body{
 #searchbarholder{
     display: flex;
     height: fit-content;
-    border:solid #757575; 
+    border:solid 2px #757575; 
     width:75%;
     margin:auto;
     border-radius:9px;
@@ -103,8 +103,8 @@ margin: auto;
   justify-content: center;
   align-items: center;
   width: 60%;
-  border-radius: 15px;
-  background-color: #454544;
+  border-radius: 9px;
+  background-color: #383838;
   border: 0.2em solid #55e078;
   margin: auto;
   height: auto;
@@ -125,6 +125,7 @@ margin: auto;
     margin-left: 0;
     margin: auto;
     padding-bottom: 0.3em;
+    z-index:99;
 }
 #querycontainer textarea {
   margin-right: 1em;
@@ -132,20 +133,19 @@ margin: auto;
   border: none;
   outline: none;
   color: #fff;
-  font-size: 15px;
-  background-color: #454544;
+  font-size: 16px;
+  background:none;
   font-weight: bold;
-  border-radius: 15px;
+  border-radius: 9px;
   resize: none;
   max-height: 120px;
-
 }
 
 #querycontainer textarea:focus {
   height: auto; /* Allow the textarea to grow in height when focused */
 }
 
-#querycontainer>img:hover{
+#querycontainer img:hover{
     cursor:pointer;
     
 }
@@ -168,7 +168,7 @@ margin: auto;
     margin-top:1em;
     padding: 0.3em;
     border-radius:9px;
-    background-color: #454545;
+    background-color: #383838;
     opacity: 0;
 }
 .GPTMSG p {
@@ -245,4 +245,3 @@ margin: auto;
 .modelswitch *{
     margin:auto;
 }
-
