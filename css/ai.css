@@ -103,11 +103,12 @@ margin: auto;
   justify-content: center;
   align-items: center;
   width: 60%;
-  min-height: 6%;
   border-radius: 15px;
   background-color: #454544;
   border: 0.2em solid #55e078;
   margin: auto;
+  height: auto;
+
 }   
 #qcsubdiv{
     display: inline-flex;
@@ -126,21 +127,18 @@ margin: auto;
     padding-bottom: 0.3em;
 }
 #querycontainer textarea {
-  display: flex;
-  flex-grow: 1;
-  height: auto;
   margin-right: 1em;
   width: 90%;
   border: none;
   outline: none;
   color: #fff;
-  font-size: 12px;
+  font-size: 15px;
   background-color: #454544;
   font-weight: bold;
   border-radius: 15px;
   resize: none;
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  white-space: pre-wrap; /* Wrap long lines */
+  max-height: 120px;
+
 }
 
 #querycontainer textarea:focus {
@@ -247,3 +245,4 @@ margin: auto;
 .modelswitch *{
     margin:auto;
 }
+
