@@ -139,6 +139,7 @@ margin: auto;
   border-radius: 9px;
   resize: none;
   max-height: 120px;
+  padding-top: 5px;
 }
 
 #querycontainer textarea:focus {
