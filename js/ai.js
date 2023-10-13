@@ -1,7 +1,7 @@
-var model = "gpt-3.5-turbo";
+    var model = "gpt-3.5-turbo";
     const gptresponse = document.getElementById("GPTMSG");
     const userresponse = document.getElementById("USERMSG");
-    const token = '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';
+    const token = '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';
     const modelcolor = {
         "gpt-3.5-turbo": '#55e078',
         "gpt-4": '#bf95f0'
@@ -120,16 +120,19 @@ var model = "gpt-3.5-turbo";
                         }
                     }
                     for (let k of Object.keys(rooms[clone.id])) {
-                        if (k.includes("user_")) //make the chatbox match the gpt purple based on 3.5 or 4 
+                        if (k.includes("user_"))
                         {
                             var ucl = userresponse.cloneNode(true);
                             document.getElementById('gptresponse').appendChild(ucl);
                             ucl.children[1].textContent = rooms[clone.id][k];
+                            
                             tweenInElement(ucl)
+                            
                         } else {
                             const responseclone = gptresponse.cloneNode(true);
                             document.getElementById('gptresponse').appendChild(responseclone);
                             responseclone.children[1].textContent = rooms[clone.id][k];
+                            responseclone.style.borderColor = modelcolor[k.split("_")[1]]
                             tweenInElement(responseclone)
                         }
                     }
@@ -191,40 +194,63 @@ var model = "gpt-3.5-turbo";
         document.getElementById('gptresponse').appendChild(userclone);
         userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
         var elem = document.getElementById('gptresponse');
-        rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
+        rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value; 
         elem.scrollTop = elem.scrollHeight;
         tweenInElement(userclone);
     
         const gptresponsehex = genRanHex(8)
-        rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
-    
+        rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
     
         var gptanswer = "";
         fetch('	https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
+            method: ' ',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + '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'
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 "model": model,
                 "messages": [{
                     "role": "user",
-                    "content": "ANSWER IN 100 WORDS OR LESS: " + document.getElementById("query").value
+                    "content": "ANSWER WITH A SHORT RESPONSE: " + document.getElementById("query").value
                 }]
             })
         }).then(response => {
             return response.json();
         }).then(data => {
             gptanswer = data.choices[0].message.content;
+            async function r4(){
+            let str = ""
+            for (const x of data.choices[0].message.content){
+                let p = new Promise((r)=>{
+                    setTimeout(function() {r()}, 2);
+                })
+                
+                await p.then(()=>{
+                str += x
+                responseclone.children[1].textContent = str  
+                })
+            }
             rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
+            elem.scrollTop = elem.scrollHeight;
+            }; r4()
+
     
         });
     
     
         const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
-        responseclone.children[1].textContent = "Generating response...(if this takes too long api key may be expired or api connection is blocked)";
+        responseclone.children[1].textContent = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
+       if (model === "gpt-3.5-turbo"){
+                  responseclone.children[0].src = "./img/gptmint.png"
+
+       }
+       else
+       {
+        responseclone.children[0].src = "./img/GPT.png"
+
+       }
         elem = document.getElementById('gptresponse');
     
     
@@ -253,27 +279,7 @@ var model = "gpt-3.5-turbo";
         }
     
         rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
-        var str = "";
-        for (const x of gptanswer) {
-            let p = new Promise((r) => {
-                setTimeout(function() {
-                    r();
-                }, 2);
-            });
-    
-            LogTable(rooms)
-    
-            await p.then(() => {
-                str += x;
-                responseclone.children[1].textContent = str;
-                var elem = document.getElementById('gptresponse');
-                elem.scrollTop = elem.scrollHeight;
-    
-    
-    
-            });
-    
-        }
+
     }
     }
     
