@@ -5,7 +5,7 @@
     const modelcolor = {
         "gpt-3.5-turbo": '#55e078',
         "gpt-4": '#bf95f0'
-    }
+    };
     
     const send = document.getElementById("send");
     var rooms = {};
@@ -17,16 +17,16 @@
         
         function adjustTextareaHeight(){
             T1input.style.height = 'auto';
-            T1input.style.height = T1input.scrollHeight + 'px'
+            T1input.style.height = T1input.scrollHeight + 'px';
             
             if (T1input.scrollHeight > parseInt(getComputedStyle(T1input).maxHeight)){
-                T1input.style.overflowY = "scroll;"
+                T1input.style.overflowY = "scroll;";
             }else{
-                T1input.style.overflowY = "auto"
+                T1input.style.overflowY = "auto";
             }
         }
-        T1input.addEventListener('input', adjustTextareaHeight)
-        adjustTextareaHeight()
+        T1input.addEventListener('input', adjustTextareaHeight);
+        adjustTextareaHeight();
         
         T1input.addEventListener('keydown', (event) => {
       if (event.shiftKey && event.key === 'Enter') {
@@ -43,6 +43,7 @@
     });
         
     function tweenInElement(elem) {
+        //animate element to appear 
         elem.animate([{
             'opacity': 1
         }], {
@@ -53,14 +54,15 @@
     
     
     async function LogTable(TB, reloop, v) {
+        //print debugging when no access to console
         try {
             for (let x in TB) {
                 var el = document.createElement("label");
                 if (reloop) {
-                    el.textContent = `(table:${v} --> ${x}:${TB[x]}   )   `;
+                    el.innerHTML = `(table:${v} --> ${x}:${TB[x]}   )   `;
     
                 } else {
-                    el.textContent = `(    ${x}:${TB[x]}   )   `;
+                    el.innerHTML = `(    ${x}:${TB[x]}   )   `;
     
                 }
                 el.style.color = "white";
@@ -77,14 +79,15 @@
     }
     
     async function GPT() {
-        const tstring = document.getElementById("query").value
+        //begin function for query.
+    const tstring = document.getElementById("query").value;
     const hasLetters = /[a-zA-Z]/.test(tstring);
-      const hasNumbers = /\d/.test(tstring);
+    const hasNumbers = /\d/.test(tstring);
     
         if (hasLetters || hasNumbers)
         {
         
-        if (currentroom === 0 || document.getElementById(currentroom).children[0].textContent === "Untitled room") {
+        if (currentroom === 0 || document.getElementById(currentroom).children[0].innerHTML === "Untitled room") {
     
             const elements = [...document.getElementsByClassName('GPTMSG')];
             for (const x of elements) {
@@ -124,16 +127,16 @@
                         {
                             var ucl = userresponse.cloneNode(true);
                             document.getElementById('gptresponse').appendChild(ucl);
-                            ucl.children[1].textContent = rooms[clone.id][k];
+                            ucl.children[1].innerHTML = rooms[clone.id][k];
                             
-                            tweenInElement(ucl)
+                            tweenInElement(ucl);
                             
                         } else {
                             const responseclone = gptresponse.cloneNode(true);
                             document.getElementById('gptresponse').appendChild(responseclone);
-                            responseclone.children[1].textContent = rooms[clone.id][k];
-                            responseclone.style.borderColor = modelcolor[k.split("_")[1]]
-                            tweenInElement(responseclone)
+                            responseclone.children[1].innerHTML = rooms[clone.id][k];
+                            responseclone.style.borderColor = modelcolor[k.split("_")[1]];
+                            tweenInElement(responseclone);
                         }
                     }
     
@@ -181,7 +184,7 @@
     
                     await p.then(() => {
                         str += x;
-                        document.getElementById(currentroom).children[0].textContent = str;
+                        document.getElementById(currentroom).children[0].innerHTML = str;
     
                     });
                 }
@@ -194,9 +197,12 @@
         document.getElementById('gptresponse').appendChild(userclone);
         userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
         var elem = document.getElementById('gptresponse');
+        
         rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value; 
         elem.scrollTop = elem.scrollHeight;
         tweenInElement(userclone);
+        document.getElementById('gptresponse').scrollTop = document.getElementById('gptresponse').scrollHeight;
+
     
         const gptresponsehex = genRanHex(8)
         rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
@@ -228,7 +234,7 @@
                 
                 await p.then(()=>{
                 str += x
-                responseclone.children[1].textContent = str  
+                responseclone.children[1].innerHTML = str  
                 })
             }
             rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
@@ -241,7 +247,7 @@
     
         const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
-        responseclone.children[1].textContent = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
+        responseclone.children[1].innerHTML = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
        if (model === "gpt-3.5-turbo"){
                   responseclone.children[0].src = "./img/gptmint.png"
 
@@ -340,16 +346,16 @@
     
     
                 for (let k of Object.keys(rooms[clone.id])) {
-                    if (k.includes("user_")) //make the chatbox match the gpt purple based on 3.5 or 4 
+                    if (k.includes("user_"))
                     {
                         var ucl = userresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(ucl);
-                        ucl.children[1].textContent = rooms[clone.id][k];
+                        ucl.children[1].innerHTML = rooms[clone.id][k];
                         tweenInElement(ucl)
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(responseclone);
-                        responseclone.children[1].textContent = rooms[clone.id][k];
+                        responseclone.children[1].innerHTML = rooms[clone.id][k];
                         responseclone.style.borderColor = modelcolor[k.split("_")[1]]
     
                         tweenInElement(responseclone)
@@ -394,12 +400,16 @@
     
                 await p.then(() => {
                     str += x
-                    document.getElementById(currentroominternal).children[0].textContent = str
+                    document.getElementById(currentroominternal).children[0].innerHTML = str
     
                 })
             }
         }
         tx34()
+        
+         var elem = document.getElementById('gptresponse');
+        elem.scrollTop = elem.scrollHeight;
+
     
     })
     var debounce = true
@@ -497,7 +507,7 @@
     //make search bar work
     document.getElementById("search").addEventListener("input", ()=>{
         for (const x of [...document.getElementById("chats").children]){
-            if (x.id != 'chatstorage' && x.children[0].textContent.toLowerCase().includes(document.getElementById("search").value.toLowerCase())){
+            if (x.id != 'chatstorage' && x.children[0].innerHTML.toLowerCase().includes(document.getElementById("search").value.toLowerCase())){
             x.style.display = ""
             x.animate([{opacity:1}], {duration:250, fill:"forwards"})
             }else{
@@ -548,4 +558,5 @@
     //make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions
     
     //make chats deletable
-    //when your ready to go live use heroku for nodejs backend
+    //when your ready to go live use heroku for nodejs backend or digitalocean
+    //make it so when you click on a room it drops down to show a delete or selete option.
