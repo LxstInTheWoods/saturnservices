@@ -1,6 +1,7 @@
 body{
     background-color: #2b2b2b;
     margin: 0;
+    position: relative;
 }
 
 #sidebar{
@@ -9,7 +10,10 @@ body{
     width: 15em;
     position: absolute;
 }
-
+img {
+    user-select: none;
+    
+}
 #sidebar_header {
     width: 100%;
     display: block;
@@ -24,6 +28,8 @@ body{
     font-size: 20px;
     text-align: center;
     font-family: Arial;
+    user-select: none;
+
 }
 #search{
 
@@ -184,6 +190,7 @@ margin: auto;
   line-height: 15pt;
   overflow: hidden; /* Hide any overflowing text */
   word-wrap: break-word; /* Allow word wrapping */
+  white-space: pre-line;
 }
 .GPTMSG img{
     padding-bottom: 0.6em;
@@ -212,8 +219,14 @@ margin: auto;
     border:none;
     background-color:#4d4d4d;
     border-radius:9px;
+    user-select: none;
+
     
     
+}
+#GPTMODEL *{
+        user-select: none;
+
 }
 #GPTMODEL button{
     display: inline-flex;
@@ -245,4 +258,58 @@ margin: auto;
 }
 .modelswitch *{
     margin:auto;
+}
+
+/* Settings pannel*/
+#settingspannel{
+    position: absolute;
+    width:40vw;
+    height:40vh;
+    background-color:#4d4d4d;
+    margin: auto;
+    border-radius:9px;
+    border: solid white;
+
+}
+#settingspannel{
+    opacity:0;
+    z-index: 5;
+}
+#settingsTitle{
+    display: block;
+    width:fit-content;
+    color: white;
+    font-family: Arial;
+    margin-top: 0;
+    padding-top: 0.3em;
+    padding-left: 0.3em;
+    font-weight: bold;
+}
+#settingstuff{
+    width:100%;
+    flex: 1;
+    overflow-y: scroll;
+
+}
+.settingsCard{
+    width:max-content;
+}
+.settingsCard{
+    width:fit-content;
+    display: block;
+    margin: auto;
+}
+.settingsCard *{
+    color:white;
+    font-family: Arial;
+    font-weight: bold;
+}
+.settingsCard input{
+    border-radius:5px;
+    outline: none;
+    border: none;
+    background-color: #3d3d3d;
+}
+#openSettings:hover{
+    cursor:pointer;
 }
