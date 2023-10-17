@@ -2,7 +2,7 @@
 <html>
    <head>
       <link rel='stylesheet' href="./css/ai.css">
-      <title>GPT TURBO</title>
+      <title>AI TURBO</title>
         <link rel="icon" type="image/x-icon" href="./img/GPT.png">
         <link rel="stylesheet" href="./css/chats.css">
 
@@ -21,7 +21,7 @@
          <div id="sidebar_header">
             <div id='gptimgtxt'>
                <img class='gpticon' src="./img/GPT.png">
-               <h1>ChatGPT Turbo</h1>
+               <h1>AI Turbo</h1>
             </div>
             <br>
             <div style="display:flex;">
@@ -39,19 +39,40 @@
          </div>
          
          <div id="chats">
+
+             <div id='chatstorage' style='display:none;'>            
              
-             <div id='chatstorage' style='display:none;'>
-                <div class="room" id='cloneroom' style='opacity:0;'>
-                <label></label>
-            </div>   
+             <div class="room" id='cloneroom' style='opacity:1;'>
+                <label>A room</label>
+                <div class="roomoptions">
+                    <button class="roomselect">Select</button>
+                    <button class="roomdelete">Delete</button>
+                </div>
+            </div>
+            
              </div>
             </div>
       </div>
       <div id="chatframe">
+                <div id="settingspannel" style="opacity:0;">
+                    <h4 id="settingsTitle">user preferences</h4>
+                    <div id="settingstuff">
+                        <div class="settingsCard">
+                            <label>API key</label>
+                            <input id="apikeyset">
+                        </div>
+                        <div style="display:none;"></div>
+                    </div>
+                </div>
+                <span style='display:inline-flex'>
           <div id="GPTMODEL">
-         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;     -webkit-border-top-right-radius: 0;-webkit-border-bottom-right-radius: 0;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
-         <button class='modelswitch' style="color:#d6d6d6 ;-webkit-border-top-left-radius: 0;-webkit-border-bottom-left-radius: 0;"><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
+         <button class='modelswitch' style="background-color:#6e6e6e; color:#55e078;-webkit-border-top-right-radius: 0;-webkit-border-bottom-right-radius: 0;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6 ;-webkit-border-top-left-radius: 0;-webkit-border-bottom-left-radius: 0; -webkit-border-bottom-right-radius: 0;-webkit-border-top-right-radius: 0;  "><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6 ;-webkit-border-top-left-radius: 0;-webkit-border-bottom-left-radius: 0;"><img src='./img/Saturnai.png'><strong>SATURN</strong></button>
+                
           </div>
+          <img id="openSettings" style=" margin:auto; max-width: 100%; max-height:70% ;padding-left:0.3em;padding-bottom:0.15em" src="./img/settingsgear.png">
+          </span>
           <div id="gptresponse">
               <div id='storage' style="display:none"> 
                <div class="GPTMSG" id='USERMSG'>
@@ -73,6 +94,7 @@
             </div>
          </div>
       </div>
+      
 
       <script src="./js/ai.js"></script>
    </body>
