@@ -16,6 +16,8 @@
     outline:none;
     text-align: center;
     overflow-x: hidden;
+        user-select: none;
+
     
 }
 
@@ -25,4 +27,27 @@
     
 #chats{
     overflow-y: auto;
+}
+
+.roomoptions{
+    width:100%;
+    display: flex;
+}
+.roomoptions button{
+    width: 45%;
+    margin:auto;
+    border: none;
+    outline: none   ;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    border-radius:7px;
+    font-family: Arial;
+    color:white;
+    background-color:#2d2d2d;
+    padding: 0.3em;
+            user-select: none;
+
+}
+.roomoptions button:hover{
+    cursor:pointer;
 }
