@@ -211,6 +211,7 @@
     		const gptresponsehex = genRanHex(8)
     		rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
     		var gptanswer = "";
+    		
     		fetch('	https://api.openai.com/v1/chat/completions', {
     			method: ' ',
     			headers: {
@@ -335,15 +336,45 @@
     	})
     	clone.id = hex
     	currentroom = clone.id
-    	clone.children[1].children[1].addEventListener("click", () => {
+    	    
+    	const  delbutton = clone.children[1].children[1]
+    	const selbutton = clone.children[1].children[0]
+    	const prnt = delbutton.parentNode
+        //delbutton.offsetHeight + clone.offsetHeight
+        //%#($#)
+    	//animation
+    	clone.addEventListener("mouseenter", ()=>{
+    	    prnt.style.display = "flex"
+    	})
+    	clone.addEventListener("mouseleave", ()=>{
+    	    prnt.style.display = "none"
+    	})
+    	delbutton.addEventListener("mouseenter", ()=>{//in
+    	    delbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) 
+        })
+        delbutton.addEventListener("mouseleave", ()=>{//out
+    	    delbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) 
+
+        })
+        
+        
+        selbutton.addEventListener("mouseenter", ()=>{
+    	    selbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) 
+        })
+        selbutton.addEventListener("mouseleave", ()=>{
+    	    selbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) 
+        })
+        
+        
+    	delbutton.addEventListener("click", () => {
     		clone.remove()
     		currentroom = 0
     		rooms[clone.id] = null;
     		erasemsgs()
     	})
-    	clone.children[1].children[0].addEventListener("click", () => { //select
+    	
+    	selbutton.addEventListener("click", () => { //select
     		//clicked on created room.
-
     		if (currentroom != clone.id) {
 
     			erasemsgs()
@@ -682,8 +713,6 @@
     }
 
 
-    //make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions
-
-    //make chats deletable
-    //when your ready to go live use heroku for nodejs backend or digitalocean
-    //make it so when you click on a room it drops down to show a delete or s
+    //make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions and have a label under the sendbar that tells the user how many tokens/USD their query costs. should be model specific and can be found on openai's api page
+    //when you're ready to go live use heroku for nodejs backend or digitalocean
+    //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
