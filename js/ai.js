@@ -1,3 +1,18 @@
+// fix url
+const links = document.querySelectorAll('a');
+
+links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    let href = link.href;
+    if(href.includes('.html')) {
+      href = href.replace(/\.html$/, ''); 
+    }
+    window.location.href = href; 
+  });
+});
+
+
     var model = "gpt-3.5-turbo";
     const gptresponse = document.getElementById("GPTMSG");
     const userresponse = document.getElementById("USERMSG");
