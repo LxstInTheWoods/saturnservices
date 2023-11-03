@@ -1,3 +1,17 @@
+//fix url
+const links = document.querySelectorAll('a');
+
+links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    let href = link.href;
+    if(href.includes('.html')) {
+      href = href.replace(/\.html$/, ''); 
+    }
+    window.location.href = href; 
+  });
+});
+
 const thing = document.getElementById("SSINTRO")
 
 const divid_top = document.getElementsByClassName("divid_top")
