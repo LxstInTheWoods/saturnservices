@@ -1,16 +1,9 @@
 // fix url
-const links = document.querySelectorAll('a');
 
-links.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    let href = link.href;
-    if(href.includes('.html')) {
-      href = href.replace(/\.html$/, ''); 
-    }
-    window.location.href = href; 
-  });
-});
+const local = true
+if(!local){
+window.location.href = 'satvrnservices.com/ai'; 
+}
 
 
     var model = "gpt-3.5-turbo";
@@ -158,6 +151,14 @@ links.forEach(link => {
     							tweenInElement(responseclone);
     						}
     					}
+    					//
+    					   prnt.style.display = "none"
+                        	clone.addEventListener("mouseenter", ()=>{
+                        	    prnt.style.display = "flex"
+                        	})
+                        	clone.addEventListener("mouseleave", ()=>{
+                        	    prnt.style.display = "none"
+                        	})
 
     					for (const x of document.getElementById("chats").children) {
     						if (x.className === "room") {
@@ -358,6 +359,7 @@ links.forEach(link => {
         //delbutton.offsetHeight + clone.offsetHeight
         //%#($#)
     	//animation
+    	prnt.style.display = "none"
     	clone.addEventListener("mouseenter", ()=>{
     	    prnt.style.display = "flex"
     	})
@@ -731,3 +733,4 @@ links.forEach(link => {
     //make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions and have a label under the sendbar that tells the user how many tokens/USD their query costs. should be model specific and can be found on openai's api page
     //when you're ready to go live use heroku for nodejs backend or digitalocean
     //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
+    //TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed
