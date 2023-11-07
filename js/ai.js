@@ -1,9 +1,4 @@
-// fix url
 
-const local = true
-if(!local){
-window.location.href = 'satvrnservices.com/ai'; 
-}
 
 
     var model = "gpt-3.5-turbo";
