@@ -313,3 +313,6 @@ margin: auto;
 #openSettings:hover{
     cursor:pointer;
 }
+#apikeyset{
+    text-overflow: ellipsis;
+}
