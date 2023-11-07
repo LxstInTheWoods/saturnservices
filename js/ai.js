@@ -266,18 +266,22 @@
     		
     		
     		//testing backend requests
-    		const endpoint = 'http://165.232.158.233:3000'; // Replace with your backend endpoint
-    		
-    		// frontend.js
-            // frontend.js
-            fetch(endpoint+'/getValue')
-              .then(response => response.text())
-              .then(data => {
-                console.log(data); // Output: Hello, world!
-              })
-              .catch(error => {
-                alert('An error occurred: ' + error.message);
-              });
+    		const endpoint = 'http://165.232.158.233:3000';
+
+fetch(`${endpoint}/getValue`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Server error: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data.value); // Output: Hello, world!
+  })
+  .catch(error => {
+    alert('An error occurred: ' + error.message);
+  });
+
 
 
     		
@@ -762,4 +766,4 @@
     //when you're ready to go live use heroku for nodejs backend or digitalocean
     //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
     //TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed
-    alert("version 1")
+    alert("version 2")
