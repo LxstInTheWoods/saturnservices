@@ -1,4 +1,4 @@
-
+// fix url
 
 
     var model = "gpt-3.5-turbo";
@@ -89,7 +89,42 @@
     		alert(err);
     	}
     }
+    
+    function hoverStuff(clone){
+        const  delbutton = clone.children[1].children[1];
+    	const selbutton = clone.children[1].children[0];
+    	const prnt = delbutton.parentNode;
+    	
+    	clone.addEventListener("mouseenter", ()=>{
+    	    prnt.style.display = "flex";
+    	});
+    	clone.addEventListener("mouseleave", ()=>{
+    	    prnt.style.display = "none";
+    	});
+    	delbutton.addEventListener("mouseenter", ()=>{//in
+    	    delbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) ;
+        });
+        delbutton.addEventListener("mouseleave", ()=>{//out
+    	    delbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) ;
 
+        });
+        
+        
+        selbutton.addEventListener("mouseenter", ()=>{
+    	    selbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) ;
+        });
+        selbutton.addEventListener("mouseleave", ()=>{
+    	    selbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) ;
+        });
+        
+        
+    	delbutton.addEventListener("click", () => {
+    		clone.remove();
+    		currentroom = 0;
+    		rooms[clone.id] = null;
+    		erasemsgs();
+    	});
+    }
 
     async function GPT() {
 
@@ -107,8 +142,7 @@
     				currentroom = genRanHex(12);
     				rooms[currentroom] = {
 
-    				};
-
+    				};//BACK
     				clone = document.getElementById("cloneroom").cloneNode(true);
     				clone.id = currentroom;
     				clone.animate([{
@@ -118,13 +152,19 @@
     					fill: "forwards"
     				});
 
-    				clone.children[1].children[1].addEventListener("click", () => {
+    				clone.children[1].children[1].addEventListener("click", () => {//del`
     					clone.remove();
     					currentroom = 0;
     					rooms[clone.id] = null;
     					erasemsgs();
     				});
+    				
+                    	const  delbutton = clone.children[1].children[1];
+                    	const selbutton = clone.children[1].children[0];
+                    	const prnt = delbutton.parentNode;
+                        prnt.style.display = "none";
 
+                    hoverStuff(clone);
     				clone.children[1].children[0].addEventListener("click", () => { //select
 
     					//code for created room here
@@ -136,7 +176,7 @@
     							document.getElementById('gptresponse').appendChild(ucl);
     							ucl.children[1].innerHTML = rooms[clone.id][k];
 
-    							tweenInElement(ucl);
+    							tweenInElement(ucl);    
 
     						} else {
     							const responseclone = gptresponse.cloneNode(true);
@@ -147,13 +187,14 @@
     						}
     					}
     					//
-    					   prnt.style.display = "none"
+    					   prnt.style.display = "none";
                         	clone.addEventListener("mouseenter", ()=>{
-                        	    prnt.style.display = "flex"
-                        	})
+                        	    prnt.style.display = "flex";
+                        	    alert("enter")
+                        	});
                         	clone.addEventListener("mouseleave", ()=>{
-                        	    prnt.style.display = "none"
-                        	})
+                        	    prnt.style.display = "none";
+                        	});
 
     					for (const x of document.getElementById("chats").children) {
     						if (x.className === "room") {
@@ -223,7 +264,24 @@
     		rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
     		var gptanswer = "";
     		
-    		fetch('	https://api.openai.com/v1/chat/completions', {
+    		
+    		//testing backend requests
+    		const endpoint = 'http://165.232.158.233:3000'; // Replace with your backend endpoint
+    		
+    		// frontend.js
+            // frontend.js
+            fetch(endpoint+'/getValue')
+              .then(response => response.text())
+              .then(data => {
+                console.log(data); // Output: Hello, world!
+              })
+              .catch(error => {
+                alert('An error occurred: ' + error.message);
+              });
+
+
+    		
+    		fetch('https://api.openai.com/v1/chat/completions', {
     			method: ' ',
     			headers: {
     				'Content-Type': 'application/json',
@@ -355,35 +413,8 @@
         //%#($#)
     	//animation
     	prnt.style.display = "none"
-    	clone.addEventListener("mouseenter", ()=>{
-    	    prnt.style.display = "flex"
-    	})
-    	clone.addEventListener("mouseleave", ()=>{
-    	    prnt.style.display = "none"
-    	})
-    	delbutton.addEventListener("mouseenter", ()=>{//in
-    	    delbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) 
-        })
-        delbutton.addEventListener("mouseleave", ()=>{//out
-    	    delbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) 
-
-        })
-        
-        
-        selbutton.addEventListener("mouseenter", ()=>{
-    	    selbutton.animate([{borderColor:"white"}], {duration:250, fill:"forwards"}) 
-        })
-        selbutton.addEventListener("mouseleave", ()=>{
-    	    selbutton.animate([{borderColor:"#2e2e2e"}], {duration:250, fill:"forwards"}) 
-        })
-        
-        
-    	delbutton.addEventListener("click", () => {
-    		clone.remove()
-    		currentroom = 0
-    		rooms[clone.id] = null;
-    		erasemsgs()
-    	})
+    
+        hoverStuff(clone)
     	
     	selbutton.addEventListener("click", () => { //select
     		//clicked on created room.
@@ -674,6 +705,8 @@
 
     	requestAnimationFrame(updateOpacity);
     }
+    //preset
+    document.getElementById("apikeyset").value = token
     document.getElementById('apikeyset').addEventListener("input", () => {
     	token = document.getElementById('apikeyset').value
     })
@@ -723,9 +756,10 @@
     	};
     	return A();
     }
-
+    
 
     //make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions and have a label under the sendbar that tells the user how many tokens/USD their query costs. should be model specific and can be found on openai's api page
     //when you're ready to go live use heroku for nodejs backend or digitalocean
     //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
     //TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed
+    alert("version 1")
