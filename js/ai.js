@@ -266,7 +266,7 @@
     		
     		
     		//testing backend requests
-const endpoint = 'http://165.232.158.233:3000'; // Update the protocol to 'http'
+const endpoint = 'https://165.232.158.233:3000'; // Update the protocol to 'http'
 
 fetch(`${endpoint}/getGPTResponse`, {
   method: 'POST',
@@ -298,6 +298,7 @@ fetch(`${endpoint}/getGPTResponse`, {
         await p.then(() => {
           str += x
           responseclone.children[1].innerHTML = str
+          adjustTextareaHeight()
         })
       }
       rooms[currentroom][`gpt_${model}_` + gptresponsehex] = data.value; //this saves the gpt reply etc
