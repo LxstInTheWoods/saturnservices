@@ -4,7 +4,7 @@
     var model = "gpt-3.5-turbo";
     const gptresponse = document.getElementById("GPTMSG");
     const userresponse = document.getElementById("USERMSG");
-    var token = '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';
+    var token = '';
     const modelcolor = {
     	"gpt-3.5-turbo": '#55e078',
     	"gpt-4": '#bf95f0',
@@ -266,7 +266,7 @@
     		
     		
     		//testing backend requests
-    	const endpoint = 'http://165.232.158.233:3000'; // Update the protocol to 'http'
+const endpoint = 'http://165.232.158.233:3000'; // Update the protocol to 'http'
 
 fetch(`${endpoint}/getGPTResponse`, {
   method: 'POST',
@@ -274,7 +274,7 @@ fetch(`${endpoint}/getGPTResponse`, {
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({ prompt: document.getElementById("query").value, token: token }) // Pass the token and prompt
+  body: JSON.stringify({ prompt: document.getElementById("query").value, token: token ,gtp:model}) // Pass the token and prompt
 })
   .then(response => {
     if (!response.ok) {
@@ -310,6 +310,8 @@ fetch(`${endpoint}/getGPTResponse`, {
   });
 
 
+
+
     		/* 
     		fetch('https://api.openai.com/v1/chat/completions', {
     			method: ' ',
@@ -329,6 +331,7 @@ fetch(`${endpoint}/getGPTResponse`, {
     		}).then(data => {
     			gptanswer = data.choices[0].message.content;
     			alert(gptanswer)
+
 
 
     		})
@@ -775,4 +778,3 @@ fetch(`${endpoint}/getGPTResponse`, {
     //when you're ready to go live use heroku for nodejs backend or digitalocean
     //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
     //TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed
-    alert("version 2")
