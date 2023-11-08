@@ -266,9 +266,16 @@
     		
     		
     		//testing backend requests
-    		const endpoint = 'http://165.232.158.233:3000';
+    	const endpoint = 'http://165.232.158.233:3000'; // Update the protocol to 'http'
 
-fetch(`${endpoint}/getValue`)
+fetch(`${endpoint}/getGPTResponse`, {
+  method: 'POST',
+  mode: 'cors', // Ensure CORS mode is set to 'cors'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ prompt: document.getElementById("query").value, token: token }) // Pass the token and prompt
+})
   .then(response => {
     if (!response.ok) {
       throw new Error('Server error: ' + response.status);
@@ -276,15 +283,34 @@ fetch(`${endpoint}/getValue`)
     return response.json();
   })
   .then(data => {
-    console.log(data.value); // Output: Hello, world!
+
+    async function r4() {
+      gptanswer = data.value
+
+      let str = ""
+      for (const x of gptanswer) {
+        let p = new Promise((r) => {
+          setTimeout(function() {
+            r()
+          }, 2);
+        })
+
+        await p.then(() => {
+          str += x
+          responseclone.children[1].innerHTML = str
+        })
+      }
+      rooms[currentroom][`gpt_${model}_` + gptresponsehex] = data.value; //this saves the gpt reply etc
+      elem.scrollTop = elem.scrollHeight;
+    };
+    r4()
   })
   .catch(error => {
     alert('An error occurred: ' + error.message);
   });
 
 
-
-    		
+    		/* 
     		fetch('https://api.openai.com/v1/chat/completions', {
     			method: ' ',
     			headers: {
@@ -303,27 +329,10 @@ fetch(`${endpoint}/getValue`)
     		}).then(data => {
     			gptanswer = data.choices[0].message.content;
     			alert(gptanswer)
-    			async function r4() {
-    				let str = ""
-    				for (const x of data.choices[0].message.content) {
-    					let p = new Promise((r) => {
-    						setTimeout(function() {
-    							r()
-    						}, 2);
-    					})
-
-    					await p.then(() => {
-    						str += x
-    						responseclone.children[1].innerHTML = str
-    					})
-    				}
-    				rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer; //this saves the gpt reply etc
-    				elem.scrollTop = elem.scrollHeight;
-    			};
-    			r4()
 
 
     		})
+    		*/
 
 
     		const responseclone = gptresponse.cloneNode(true);
