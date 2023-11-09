@@ -563,7 +563,7 @@ send.addEventListener("click", () => {
 
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
-    mbuttons[0].style.borderColor = "55e078";
+    mbuttons[0].style.borderColor = "#55e078";
     mbuttons[0].style.color = "#55e078"
     mbuttons[1].style.color = "#d6d6d6"
     mbuttons[1].style.borderColor = "#1c1c1c";
@@ -600,7 +600,7 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-    mbuttons[1].style.borderColor = "bf95f0";
+    mbuttons[1].style.borderColor = "#bf95f0";
     mbuttons[1].style.color = "#bf95f0"
     mbuttons[0].style.color = "#d6d6d6"
     mbuttons[0].style.borderColor = "#1c1c1c";
