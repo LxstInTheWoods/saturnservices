@@ -296,6 +296,7 @@ margin: auto;
     width:fit-content;
     display: block;
     margin: auto;
+    margin-bottom: 1em;
 }
 .settingsCard *{
     color:white;
