@@ -564,14 +564,23 @@ send.addEventListener("click", () => {
 });
 
 
+function animateProperty(element, property, value){
+    if (property === "b"){
+            element.animate([{'borderColor':value}], {duration:150, fill:"forwards"})
+
+    }else{
+    element.animate([{'color':value}], {duration:150, fill:"forwards"})
+
+    }
+}
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
-    mbuttons[0].style.borderColor = "#55e078";
-    mbuttons[0].style.color = "#55e078"
-    mbuttons[1].style.color = "#d6d6d6"
-    mbuttons[1].style.borderColor = "#1c1c1c";
-    mbuttons[2].style.color = "#d6d6d6"
-    mbuttons[2].style.borderColor = "#1c1c1c";
+    animateProperty(mbuttons[0], "b", "#55e078")
+    animateProperty(mbuttons[0], "b", "#55e078") 
+    animateProperty(mbuttons[1],"c", "#d6d6d6") 
+    animateProperty(mbuttons[2], "c", "#d6d6d6") 
+    animateProperty(mbuttons[1], "b", "#1c1c1c") 
+    animateProperty(mbuttons[2], "b", "#1c1c1c")
     model = "gpt-3.5-turbo";
     aiturboicon.src = "./img/gptmint.png"
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
@@ -603,12 +612,12 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-    mbuttons[1].style.borderColor = "#bf95f0";
-    mbuttons[1].style.color = "#bf95f0"
-    mbuttons[0].style.color = "#d6d6d6"
-    mbuttons[0].style.borderColor = "#1c1c1c";
-    mbuttons[2].style.color = "#d6d6d6"
-    mbuttons[2].style.borderColor = "#1c1c1c";
+animateProperty(mbuttons[1], "b", "#bf95f0")
+animateProperty(mbuttons[1], "c", "#bf95f0")
+animateProperty(mbuttons[0], "c", "#d6d6d6")
+animateProperty(mbuttons[0], "b", "#1c1c1c")
+animateProperty(mbuttons[2], "c", "#d6d6d6")
+animateProperty(mbuttons[2], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
         borderColor: "#bf95f0"
     }], {
@@ -638,12 +647,12 @@ mbuttons[1].addEventListener("click", () => {
 });
 
 mbuttons[2].addEventListener("click", () => {
-    mbuttons[2].style.borderColor = "white";
-    mbuttons[2].style.color = "white"
-    mbuttons[1].style.color = "#d6d6d6"
-    mbuttons[1].style.borderColor = "#1c1c1c";
-    mbuttons[0].style.color = "#d6d6d6"
-    mbuttons[0].style.borderColor = "#1c1c1c";
+animateProperty(mbuttons[2], "b", "white")
+animateProperty(mbuttons[2], "c", "white")
+animateProperty(mbuttons[1], "c", "#d6d6d6")
+animateProperty(mbuttons[1], "b", "#1c1c1c")
+animateProperty(mbuttons[0], "c", "#d6d6d6")
+animateProperty(mbuttons[0], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
         borderColor: "white"
     }], {
