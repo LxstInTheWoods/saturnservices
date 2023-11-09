@@ -371,7 +371,7 @@ async function GPT() {
         */
 
 
-        const responseclone = gptresponse.cloneNode(true);
+               const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
         responseclone.children[1].innerHTML = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
         if (model === "gpt-3.5-turbo") {
