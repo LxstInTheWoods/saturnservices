@@ -289,7 +289,7 @@ async function GPT() {
 
 
         const gptresponsehex = genRanHex(8)
-        rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
+        rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response...";
         var gptanswer = "";
 
         //testing backend requests
@@ -355,7 +355,7 @@ async function GPT() {
 
         const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
-        responseclone.children[1].innerHTML = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
+        responseclone.children[1].innerHTML = "generating response...";
         if (model === "gpt-3.5-turbo") {
             responseclone.children[0].src = "./img/gptmint.png"
         } else if (model === 'gpt-4') {
