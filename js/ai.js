@@ -292,9 +292,9 @@ async function GPT() {
         rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response\n\nif this takes too long api key may be expired or api connection is blocked";
         var gptanswer = "";
 
-
         //testing backend requests
-        const endpoint = 'https://api.satvrnservices.com:443'; // Update the protocol to 'http'
+        //dont even try spamming it lol backend will blacklist ur device and ip
+        const endpoint = 'https://api.satvrnservices.com:443';
 
         fetch(`${endpoint}/getGPTResponse`, {
                 method: 'POST',
@@ -305,7 +305,8 @@ async function GPT() {
                 body: JSON.stringify({
                     prompt: document.getElementById("query").value,
                     token: token,
-                    gtp: model
+                    gtp: model,
+                    history:rooms[currentroom],
                 }) // Pass the token and prompt
             })
             .then(response => {
