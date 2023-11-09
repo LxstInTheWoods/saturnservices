@@ -294,6 +294,28 @@ async function GPT() {
 
         //testing backend requests
         //dont even try spamming it lol backend will blacklist ur device and ip
+        
+                    async function r4(value) {
+                        try{
+                    let str = ""
+                    for (const x of value) {
+                        let p = new Promise((r) => {
+                            setTimeout(function() {
+                                r()
+                            }, 2);
+                        })
+
+                        await p.then(() => {
+                            str += x
+                            responseclone.children[1].innerHTML = str
+                            adjustTextareaHeight()
+                        })
+                    }
+                    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
+                    elem.scrollTop = elem.scrollHeight;
+                        }catch(err){console.log(err)}
+                };
+                
         const endpoint = 'https://api.satvrnservices.com:443';
 
         fetch(`${endpoint}/getGPTResponse`, {
@@ -311,36 +333,16 @@ async function GPT() {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Server error: ' + response.status);
+                    r4('Server error: ' + response.status)
                 }
                 return response.json();
             })
             .then(data => {
-
-                async function r4() {
-                    gptanswer = data.value
-
-                    let str = ""
-                    for (const x of gptanswer) {
-                        let p = new Promise((r) => {
-                            setTimeout(function() {
-                                r()
-                            }, 2);
-                        })
-
-                        await p.then(() => {
-                            str += x
-                            responseclone.children[1].innerHTML = str
-                            adjustTextareaHeight()
-                        })
-                    }
-                    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = data.value; //this saves the gpt reply etc
-                    elem.scrollTop = elem.scrollHeight;
-                };
-                r4()
+                gptanswer = data.value
+                r4(data.value)
             })
             .catch(error => {
-                alert('An error occurred: ' + error.message);
+                r4("ERROR: "+ error)
             });
 
 
