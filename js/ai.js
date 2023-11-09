@@ -317,7 +317,11 @@ async function GPT() {
                 };
                 
         const endpoint = 'https://api.satvrnservices.com:443';
-
+        if(model === "SATURN"){
+            
+            r4("This model has not yet been configured. It is a chatbot developed by saturn services, and is still in production.")
+        }
+        else{
         fetch(`${endpoint}/getGPTResponse`, {
                 method: 'POST',
                 mode: 'cors', // Ensure CORS mode is set to 'cors'
@@ -344,6 +348,7 @@ async function GPT() {
             .catch(error => {
                 r4("ERROR: "+ error)
             });
+        }
 
 
 
@@ -558,12 +563,12 @@ send.addEventListener("click", () => {
 
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
-    mbuttons[0].style.backgroundColor = "#6e6e6e";
+    mbuttons[0].style.borderColor = "white";
     mbuttons[0].style.color = "#55e078"
     mbuttons[1].style.color = "#d6d6d6"
-    mbuttons[1].style.backgroundColor = "#4d4d4d";
+    mbuttons[1].style.borderColor = "#1c1c1c";
     mbuttons[2].style.color = "#d6d6d6"
-    mbuttons[2].style.backgroundColor = "#4d4d4d";
+    mbuttons[2].style.borderColor = "#1c1c1c";
     model = "gpt-3.5-turbo";
     aiturboicon.src = "./img/gptmint.png"
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
@@ -595,12 +600,12 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-    mbuttons[1].style.backgroundColor = "#6e6e6e";
+    mbuttons[1].style.borderColor = "white";
     mbuttons[1].style.color = "#bf95f0"
     mbuttons[0].style.color = "#d6d6d6"
-    mbuttons[0].style.backgroundColor = "#4d4d4d";
+    mbuttons[0].style.borderColor = "#1c1c1c";
     mbuttons[2].style.color = "#d6d6d6"
-    mbuttons[2].style.backgroundColor = "#4d4d4d";
+    mbuttons[2].style.borderColor = "#1c1c1c";
     document.getElementById("querycontainer").animate([{
         borderColor: "#bf95f0"
     }], {
@@ -630,12 +635,12 @@ mbuttons[1].addEventListener("click", () => {
 });
 
 mbuttons[2].addEventListener("click", () => {
-    mbuttons[2].style.backgroundColor = "#6e6e6e";
+    mbuttons[2].style.borderColor = "white";
     mbuttons[2].style.color = "white"
     mbuttons[1].style.color = "#d6d6d6"
-    mbuttons[1].style.backgroundColor = "#4d4d4d";
+    mbuttons[1].style.borderColor = "#1c1c1c";
     mbuttons[0].style.color = "#d6d6d6"
-    mbuttons[0].style.backgroundColor = "#4d4d4d";
+    mbuttons[0].style.borderColor = "#1c1c1c";
     document.getElementById("querycontainer").animate([{
         borderColor: "white"
     }], {
