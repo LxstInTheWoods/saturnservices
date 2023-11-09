@@ -345,33 +345,7 @@ async function GPT() {
 
 
 
-        /* 
-        fetch('https://api.openai.com/v1/chat/completions', {
-        	method: ' ',
-        	headers: {
-        		'Content-Type': 'application/json',
-        		'Authorization': 'Bearer ' + token
-        	},
-        	body: JSON.stringify({
-        		"model": model,
-        		"messages": [{
-        			"role": "user",
-        			"content": "ANSWER WITH A SHORT RESPONSE: " + document.getElementById("query").value
-        		}]
-        	})
-        }).then(response => {
-        	return response.json();
-        }).then(data => {
-        	gptanswer = data.choices[0].message.content;
-        	alert(gptanswer)
-
-
-
-        })
-        */
-
-
-               const responseclone = gptresponse.cloneNode(true);
+        const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
         responseclone.children[1].innerHTML = "generating response \n \nif this takes too long api key may be expired or api connection is blocked";
         if (model === "gpt-3.5-turbo") {
