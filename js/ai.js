@@ -332,7 +332,7 @@ async function GPT() {
                     prompt: document.getElementById("query").value,
                     token: token,
                     gtp: model,
-                    history:rooms[currentroom],
+                    history:JSON.stringiftrooms[currentroom],
                 }) // Pass the token and prompt
             })
             .then(response => {
@@ -563,7 +563,7 @@ send.addEventListener("click", () => {
 
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
-    mbuttons[0].style.borderColor = "white";
+    mbuttons[0].style.borderColor = "55e078";
     mbuttons[0].style.color = "#55e078"
     mbuttons[1].style.color = "#d6d6d6"
     mbuttons[1].style.borderColor = "#1c1c1c";
@@ -600,7 +600,7 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-    mbuttons[1].style.borderColor = "white";
+    mbuttons[1].style.borderColor = "bf95f0";
     mbuttons[1].style.color = "#bf95f0"
     mbuttons[0].style.color = "#d6d6d6"
     mbuttons[0].style.borderColor = "#1c1c1c";
@@ -797,6 +797,7 @@ function A() {
 }
 
 
-//make chat's saved messages compile into a string for the ai to have memory of the conversation for relevance questions and have a label under the sendbar that tells the user how many tokens/USD their query costs. should be model specific and can be found on openai's api page
+
+
 //search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
 //TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed (partially complete)
