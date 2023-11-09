@@ -294,7 +294,7 @@ async function GPT() {
 
 
         //testing backend requests
-        const endpoint = 'http://165.232.158.233:3000'; // Update the protocol to 'http'
+        const endpoint = 'https://api.satvrnservices.com:443'; // Update the protocol to 'http'
 
         fetch(`${endpoint}/getGPTResponse`, {
                 method: 'POST',
