@@ -321,6 +321,9 @@ async function GPT() {
             
             r4("This model has not yet been configured. It is a chatbot developed by saturn services, and is still in production.")
         }
+        else if(token.length === 0){
+            r4("Please provide a token by opening settings and pasting it into the API key field.")
+        }
         else{
         fetch(`${endpoint}/getGPTResponse`, {
                 method: 'POST',
