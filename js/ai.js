@@ -111,7 +111,7 @@ function hoverStuff(clone) {
     });
     delbutton.addEventListener("mouseleave", () => { //out
         delbutton.animate([{
-            borderColor: "#2e2e2e"
+            borderColor: "grey"
         }], {
             duration: 250,
             fill: "forwards"
@@ -128,7 +128,7 @@ function hoverStuff(clone) {
     });
     selbutton.addEventListener("mouseleave", () => {
         selbutton.animate([{
-            borderColor: "#2e2e2e"
+            borderColor: "grey"
         }], {
             duration: 250,
             fill: "forwards"
@@ -164,7 +164,7 @@ async function GPT() {
                 clone = document.getElementById("cloneroom").cloneNode(true);
                 clone.id = currentroom;
                 clone.animate([{
-                    borderColor: "white"
+                    borderRight: "solid 5px #55e078"
                 }], {
                     duration: 250,
                     fill: "forwards"
@@ -228,7 +228,7 @@ async function GPT() {
                     for (const x of document.getElementById("chats").children) {
                         if (x.className === "room") {
                             x.animate([{
-                                borderColor: "#454545"
+                                borderRight: "solid 5px #454545"
                             }], {
                                 duration: 250,
                                 fill: "forwards"
@@ -236,7 +236,7 @@ async function GPT() {
                         }
                     }
                     clone.animate([{
-                        borderColor: "white"
+                        borderRight: "solid 5px #55e078"
                     }], {
                         duration: 250,
                         fill: "forwards"
@@ -440,7 +440,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     for (const x of document.getElementById("chats").children) {
         if (x.className === "room") {
             x.animate([{
-                borderColor: "#454545"
+                borderRight: "solid 5px #454545"
             }], {
                 duration: 250,
                 fill: "forwards"
@@ -449,7 +449,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     }
 
     clone.animate([{
-        borderColor: "white"
+        borderRight: "solid 5px #55e078"
     }], {
         duration: 250,
         fill: "forwards"
@@ -512,7 +512,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         for (const x of document.getElementById("chats").children) {
             if (x.className === "room") {
                 x.animate([{
-                    borderColor: "#454545"
+                    borderRight: "#454545 solid 5px"
                 }], {
                     duration: 250,
                     fill: "forwards"
@@ -521,7 +521,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         }
 
         clone.animate([{
-            borderColor: "white"
+            borderRight: "solid 5px #55e078"
         }], {
             duration: 250,
             fill: "forwards"
@@ -620,7 +620,7 @@ mbuttons[0].addEventListener("click", () => {
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
 
     document.getElementById("querycontainer").animate([{
-        borderColor: "#55e078"
+        borderBottomColor: "#55e078"
     }], {
         duration: 350,
         fill: "forwards"
@@ -653,7 +653,7 @@ mbuttons[1].addEventListener("click", () => {
     animateProperty(mbuttons[2], "c", "#d6d6d6")
     animateProperty(mbuttons[2], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
-        borderColor: "#bf95f0"
+        borderBottomColor: "#bf95f0"
     }], {
         duration: 350,
         fill: "forwards"
@@ -688,7 +688,7 @@ mbuttons[2].addEventListener("click", () => {
     animateProperty(mbuttons[0], "c", "#d6d6d6")
     animateProperty(mbuttons[0], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
-        borderColor: "white"
+        borderBottomColor: "white"
     }], {
         duration: 350,
         fill: "forwards"
