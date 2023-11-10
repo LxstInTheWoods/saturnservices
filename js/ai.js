@@ -316,53 +316,41 @@ async function GPT() {
                         }catch(err){console.log(err)}
                 };
                 
-if (model === "SATURN") {
-    r4("This model has not yet been configured. It is a chatbot developed by saturn services, and is still in production.")
-} else if (token.length === 0) {
-    r4("Please provide a token by opening settings and pasting it into the API key field.")
-} else {
-    fetch(`${endpoint}/getGPTResponse`, {
-        method: 'POST',
-        mode: 'cors', // Ensure CORS mode is set to 'cors'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: document.getElementById("query").value,
-            token: token,
-            gtp: model,
-            history:JSON.stringify(rooms[currentroom]),
-        }) // Pass the token and prompt
-    })
-    .then(response => {
-        if (!response.ok) {
-            r4('Server error: ' + response.status)
+        if(model === "SATURN"){
+            
+            r4("This model has not yet been configured. It is a chatbot developed by saturn services, and is still in production.")
         }
-        return response.json();
-    })
-    .then(data => {
-        gptanswer = data.value
-        r4(data.value)
-
-        const responseclone = gptresponse.cloneNode(true);
-        document.getElementById('gptresponse').appendChild(responseclone);
-        responseclone.children[1].innerHTML = "generating response...";
-        if (model === "gpt-3.5-turbo") {
-            responseclone.children[0].src = "./img/gptmint.png"
-        } else if (model === 'gpt-4') {
-            responseclone.children[0].src = "./img/GPT.png"
-        } else {
-            responseclone.children[0].src = './img/Saturnai.png'
+        else if(token.length === 0){
+            r4("Please provide a token by opening settings and pasting it into the API key field.")
         }
-        elem = document.getElementById('gptresponse');
-    })
-    .catch(error => {
-        r4("ERROR: " + error);
-    });
-}
+        else{
+        fetch(`${endpoint}/getGPTResponse`, {
+                method: 'POST',
+                mode: 'cors', // Ensure CORS mode is set to 'cors'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: document.getElementById("query").value,
+                    token: token,
+                    gtp: model,
+                    history:JSON.stringify(rooms[currentroom]),
+                }) // Pass the token and prompt
+            }).then(response => {
+                if (!response.ok) {
+                    r4('Server error: ' + response.status)
+                }
+                return response.json();
+            })
+            .then(data => {
+                gptanswer = data.value
+                r4(data.value)
+            })
+            .catch(error => {
+                r4("ERROR: "+ error)
+            });
+        }
 
-
-        //this isnt able to run for some reason, it only runs if the SATURN or no token condition is true. Why is that?
         const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
         responseclone.children[1].innerHTML = "generating response...";
