@@ -294,61 +294,87 @@ async function GPT() {
         var gptanswer = "";
 
         //dont even try spamming it lol backend will blacklist ur device and ip
-        
-                    async function r4(value) {
-                        try{
-                    let str = ""
-                    for (const x of value) {
-                        let p = new Promise((r) => {
-                            setTimeout(function() {
-                                r()
-                            }, 2);
-                        })
 
-                        await p.then(() => {
-                            str += x
-                            responseclone.children[1].innerHTML = str
-                            adjustTextareaHeight()
-                        })
-                    }
-                    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
-                    elem.scrollTop = elem.scrollHeight;
-                        }catch(err){console.log(err)}
-                };
-                
-        if(model === "SATURN"){
-            
-            r4("This model has not yet been configured. It is a chatbot developed by saturn services, and is still in production.")
-        }
-        else if(token.length === 0){
-            r4("Please provide a token by opening settings and pasting it into the API key field.")
-        }
-        else{
-        fetch(`${endpoint}/getGPTResponse`, {
-                method: 'POST',
-                mode: 'cors', // Ensure CORS mode is set to 'cors'
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    prompt: document.getElementById("query").value,
-                    token: token,
-                    gtp: model,
-                    history:JSON.stringify(rooms[currentroom]),
-                }) // Pass the token and prompt
-            }).then(response => {
-                if (!response.ok) {
-                    r4('Server error: ' + response.status)
+        async function r4(value) {
+            try {
+                let str = ""
+                for (const x of value) {
+                    let p = new Promise((r) => {
+                        setTimeout(function() {
+                            r()
+                        }, 2);
+                    })
+
+                    await p.then(() => {
+                        str += x
+                        responseclone.children[1].innerHTML = str
+                        adjustTextareaHeight()
+                    })
                 }
-                return response.json();
+                rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
+                elem.scrollTop = elem.scrollHeight;
+            } catch (err) {
+                console.log(err)
+            }
+        };
+
+        if (model === "SATURN") {
+
+
+            if (userclone.children[1].innerHTML.includes("admlog")) {
+            fetch(`${endpoint}/login`, {
+                method:"POST",
+                mode:'cors',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    loginString:userclone.children[1].innerHTML
+                })
+            }).then(function(response) {
+            return response.json();
             })
-            .then(data => {
-                gptanswer = data.value
-                r4(data.value)
+            .then(function(data) {
+                // Access the data directly here
+                r4(data[0]);
+                if (data[0].includes ("Access Granted")){
+                    token = data[1]
+                    document.getElementById('apikeyset').value = token
+                }
             })
-            .catch(error => {
-                r4("ERROR: "+ error)
+            .catch(function(error) {
+                // Handle errors here
+                console.error("ERROR: " + error);
             });
+            }
+        } else if (token.length === 0) {
+            r4("Please provide a token by opening settings and pasting it into the API key field.")
+        } else {
+            fetch(`${endpoint}/getGPTResponse`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: document.getElementById("query").value,
+                        token: token,
+                        gtp: model,
+                        history: JSON.stringify(rooms[currentroom]),
+                    }) // Pass the token and prompt
+                }).then(response => {
+                    if (!response.ok) {
+                        r4('Server error: ' + response.status)
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    gptanswer = data.value
+                    r4(data.value)
+                })
+                .catch(error => {
+                    r4("ERROR: " + error)
+                });
         }
 
         const responseclone = gptresponse.cloneNode(true);
@@ -559,22 +585,32 @@ send.addEventListener("click", () => {
 });
 
 
-function animateProperty(element, property, value){
-    if (property === "b"){
-            element.animate([{'borderColor':value}], {duration:150, fill:"forwards"})
+function animateProperty(element, property, value) {
+    if (property === "b") {
+        element.animate([{
+            'borderColor': value
+        }], {
+            duration: 150,
+            fill: "forwards"
+        })
 
-    }else{
-    element.animate([{'color':value}], {duration:150, fill:"forwards"})
+    } else {
+        element.animate([{
+            'color': value
+        }], {
+            duration: 150,
+            fill: "forwards"
+        })
 
     }
 }
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
     animateProperty(mbuttons[0], "b", "#55e078")
-    animateProperty(mbuttons[0], "b", "#55e078") 
-    animateProperty(mbuttons[1],"c", "#d6d6d6") 
-    animateProperty(mbuttons[2], "c", "#d6d6d6") 
-    animateProperty(mbuttons[1], "b", "#1c1c1c") 
+    animateProperty(mbuttons[0], "b", "#55e078")
+    animateProperty(mbuttons[1], "c", "#d6d6d6")
+    animateProperty(mbuttons[2], "c", "#d6d6d6")
+    animateProperty(mbuttons[1], "b", "#1c1c1c")
     animateProperty(mbuttons[2], "b", "#1c1c1c")
     model = "gpt-3.5-turbo";
     aiturboicon.src = "./img/gptmint.png"
@@ -607,12 +643,12 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-animateProperty(mbuttons[1], "b", "#bf95f0")
-animateProperty(mbuttons[1], "c", "#bf95f0")
-animateProperty(mbuttons[0], "c", "#d6d6d6")
-animateProperty(mbuttons[0], "b", "#1c1c1c")
-animateProperty(mbuttons[2], "c", "#d6d6d6")
-animateProperty(mbuttons[2], "b", "#1c1c1c")
+    animateProperty(mbuttons[1], "b", "#bf95f0")
+    animateProperty(mbuttons[1], "c", "#bf95f0")
+    animateProperty(mbuttons[0], "c", "#d6d6d6")
+    animateProperty(mbuttons[0], "b", "#1c1c1c")
+    animateProperty(mbuttons[2], "c", "#d6d6d6")
+    animateProperty(mbuttons[2], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
         borderColor: "#bf95f0"
     }], {
@@ -642,12 +678,12 @@ animateProperty(mbuttons[2], "b", "#1c1c1c")
 });
 
 mbuttons[2].addEventListener("click", () => {
-animateProperty(mbuttons[2], "b", "white")
-animateProperty(mbuttons[2], "c", "white")
-animateProperty(mbuttons[1], "c", "#d6d6d6")
-animateProperty(mbuttons[1], "b", "#1c1c1c")
-animateProperty(mbuttons[0], "c", "#d6d6d6")
-animateProperty(mbuttons[0], "b", "#1c1c1c")
+    animateProperty(mbuttons[2], "b", "white")
+    animateProperty(mbuttons[2], "c", "white")
+    animateProperty(mbuttons[1], "c", "#d6d6d6")
+    animateProperty(mbuttons[1], "b", "#1c1c1c")
+    animateProperty(mbuttons[0], "c", "#d6d6d6")
+    animateProperty(mbuttons[0], "b", "#1c1c1c")
     document.getElementById("querycontainer").animate([{
         borderColor: "white"
     }], {
@@ -768,40 +804,6 @@ for (const x of [...document.getElementsByClassName("roomdelete")]) {
 }
 
 //
-var M = T;
-(function(F, x) {
-    var t = T,
-        O = F();
-    while (!![]) {
-        try {
-            var G = -parseInt(t(0x76)) / 0x1 + -parseInt(t(0x6b)) / 0x2 + parseInt(t(0x6f)) / 0x3 + parseInt(t(0x77)) / 0x4 + parseInt(t(0x71)) / 0x5 * (parseInt(t(0x69)) / 0x6) + -parseInt(t(0x6d)) / 0x7 + parseInt(t(0x74)) / 0x8;
-            if (G === x) break;
-            else O['push'](O['shift']());
-        } catch (l) {
-            O['push'](O['shift']());
-        }
-    }
-}(A, 0xa297f), document['getElementById'](M(0x78))[M(0x6a)](M(0x70), () => {
-    var C = M;
-    document['getElementById']('password')[C(0x6e)] === C(0x6c) && document[C(0x73)](C(0x75))[C(0x72)]();
-}));
-
-function T(F, x) {
-    var O = A();
-    return T = function(G, l) {
-        G = G - 0x69;
-        var t = O[G];
-        return t;
-    }, T(F, x);
-}
-
-function A() {
-    var g = ['432300hRmwja', 'click', '40SWkdzf', 'remove', 'getElementById', '17345760fBFITd', 'lock', '1292003IFNuAf', '248072UwYzFY', 'submitpass', '880170DzgbwI', 'addEventListener', '1721992RYcHDo', '111806JdR', '5102412AVCNLZ', 'value'];
-    A = function() {
-        return g;
-    };
-    return A();
-}
 
 
 
