@@ -322,6 +322,7 @@ async function GPT() {
 
 
             if (userclone.children[1].innerHTML.includes("admlog")) {
+                
             fetch(`${endpoint}/login`, {
                 method:"POST",
                 mode:'cors',
@@ -346,14 +347,13 @@ async function GPT() {
                 // Handle errors here
                 console.error("ERROR: " + error);
             });
-            }
-            else if (userclone.children[1].innerHTML.includes("help"))
-            {
+            }else if (userclone.children[1].innerHTML.includes("help")){
                 r4("Welcome to Saturn, This is the official console for our AI application. There are currently 2 commands: \n\n -help [returns info about console and commands]\n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]")
             }else{r4("Command not found.")}
         } else if (token.length === 0) {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
+            responseclone.children[1].innerHTML = "generating response...";
             fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -383,7 +383,6 @@ async function GPT() {
 
         const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
-        responseclone.children[1].innerHTML = "generating response...";
         if (model === "gpt-3.5-turbo") {
             responseclone.children[0].src = "./img/gptmint.png"
         } else if (model === 'gpt-4') {
