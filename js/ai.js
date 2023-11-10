@@ -294,6 +294,7 @@ async function GPT() {
         var gptanswer = "";
 
         //dont even try spamming it lol backend will blacklist ur device and ip
+        const responseclone = gptresponse.cloneNode(true);
 
         async function r4(value) {
             try {
@@ -353,6 +354,7 @@ async function GPT() {
         } else if (token.length === 0) {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
+            try{
             responseclone.children[1].innerHTML = "generating response...";
             fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
@@ -379,9 +381,8 @@ async function GPT() {
                 .catch(error => {
                     r4("ERROR: " + error)
                 });
+            }catch(err){alert(err)}
         }
-
-        const responseclone = gptresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(responseclone);
         if (model === "gpt-3.5-turbo") {
             responseclone.children[0].src = "./img/gptmint.png"
