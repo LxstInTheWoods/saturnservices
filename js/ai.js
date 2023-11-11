@@ -170,6 +170,9 @@ async function GPT() {
                     fill: "forwards"
                 });
 
+                //set room title 
+
+
                 clone.children[1].children[1].addEventListener("click", () => { //del`
                     clone.remove();
                     currentroom = 0;
@@ -256,11 +259,12 @@ async function GPT() {
                 clone = document.getElementById(currentroom);
             }
 
+            document.getElementById(currentroom).children[0].innerHTML = "Untitled room"
 
-            async function tx34() {
+            async function tx34(response) {
                 var str = "";
 
-                for (const x of document.getElementById("query").value) {
+                for (const x of response) {
                     let p = new Promise((r) => {
                         setTimeout(function() {
                             r();
@@ -270,14 +274,38 @@ async function GPT() {
                     await p.then(() => {
                         str += x;
                         document.getElementById(currentroom).children[0].innerHTML = str;
-
                     });
                 }
             }
-            tx34();
+
+            fetch(`${endpoint}/getGPTResponse`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: "(do not wrap in quotes): create a formal chat name describing this. It should not be robotic. For example: what are prairie dogs -> prairie dog discussion" + document.getElementById("query").value,
+                        token: token,
+                        gtp: model,
+                        history: JSON.stringify(rooms[currentroom]),
+                    }) // Pass the token and prompt
+                }).then(response => {
+                    if (!response.ok) {
+                        r4('Server error: ' + response.status)
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    gptanswer = data.value;
+                    // Call typewriter function with the response
+                    tx34(data.value);
+                })
+                .catch(error => {
+                    r4("ERROR: " + error)
+                });
 
         }
-
         const userclone = userresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(userclone);
         userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
@@ -293,7 +321,6 @@ async function GPT() {
         rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response...";
         var gptanswer = "";
 
-        //dont even try spamming it lol backend will blacklist ur device and ip
         const responseclone = gptresponse.cloneNode(true);
 
         async function r4(value) {
@@ -323,65 +350,69 @@ async function GPT() {
 
 
             if (userclone.children[1].innerHTML.includes("admlog")) {
-                
-            fetch(`${endpoint}/login`, {
-                method:"POST",
-                mode:'cors',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({
-                    loginString:userclone.children[1].innerHTML
-                })
-            }).then(function(response) {
-            return response.json();
-            })
-            .then(function(data) {
-                // Access the data directly here
-                r4(data[0]);
-                if (data[0].includes ("Access Granted")){
-                    token = data[1]
-                    document.getElementById('apikeyset').value = token
-                }
-            })
-            .catch(function(error) {
-                // Handle errors here
-                console.error("ERROR: " + error);
-            });
-            }else if (userclone.children[1].innerHTML.includes("help")){
+
+                fetch(`${endpoint}/login`, {
+                        method: "POST",
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            loginString: userclone.children[1].innerHTML
+                        })
+                    }).then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        // Access the data directly here
+                        r4(data[0]);
+                        if (data[0].includes("Access Granted")) {
+                            token = data[1]
+                            document.getElementById('apikeyset').value = token
+                        }
+                    })
+                    .catch(function(error) {
+                        // Handle errors here
+                        console.error("ERROR: " + error);
+                    });
+            } else if (userclone.children[1].innerHTML.includes("help")) {
                 r4("Welcome to Saturn, This is the official console for our AI application. There are currently 2 commands: \n\n -help [returns info about console and commands]\n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]")
-            }else{r4("Command not found.")}
+            } else {
+                r4("Command not found.")
+            }
         } else if (token.length === 0) {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
-            try{
-            responseclone.children[1].innerHTML = "generating response...";
-            fetch(`${endpoint}/getGPTResponse`, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        prompt: document.getElementById("query").value,
-                        token: token,
-                        gtp: model,
-                        history: JSON.stringify(rooms[currentroom]),
-                    }) // Pass the token and prompt
-                }).then(response => {
-                    if (!response.ok) {
-                        r4('Server error: ' + response.status)
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    gptanswer = data.value
-                    r4(data.value)
-                })
-                .catch(error => {
-                    r4("ERROR: " + error)
-                });
-            }catch(err){alert(err)}
+            try {
+                responseclone.children[1].innerHTML = "generating response...";
+                fetch(`${endpoint}/getGPTResponse`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            prompt: document.getElementById("query").value,
+                            token: token,
+                            gtp: model,
+                            history: JSON.stringify(rooms[currentroom]),
+                        }) // Pass the token and prompt
+                    }).then(response => {
+                        if (!response.ok) {
+                            r4('Server error: ' + response.status)
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        gptanswer = data.value
+                        r4(data.value)
+                    })
+                    .catch(error => {
+                        r4("ERROR: " + error)
+                    });
+            } catch (err) {
+                alert(err)
+            }
         }
         document.getElementById('gptresponse').appendChild(responseclone);
         if (model === "gpt-3.5-turbo") {
@@ -794,24 +825,18 @@ function fadeOut(element) {
     requestAnimationFrame(updateOpacity);
 }
 //preset
-document.getElementById("apikeyset").value = token
-document.getElementById('apikeyset').addEventListener("input", () => {
-    token = document.getElementById('apikeyset').value
+const aks = document.getElementById("apikeyset")
+aks.value = token
+aks.addEventListener("input", () => {
+    token = aks.value
 })
 document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
 //room controls
-for (const x of [...document.getElementsByClassName("roomdelete")]) {
-    x.addEventListener("click", () => {})
-
-}
 
 //
 
-
-
-
-//search for %#($#) to find || TODO: make it so the dropdown for the selection buttons has animation and doesnt just suddenly appear
-//TODO fix or optimize code for when enter is pressed without a create room so duplicates aren't needed (partially complete)
-//TODO make it so the room name is generated by GPT
+//search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
+//TODO fix or optimize code for when enter is pressedthe  without a create room so duplicates aren't needed (partially complete)
+//TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED the AND ORGANIZED.
