@@ -137,10 +137,16 @@ function hoverStuff(clone) {
 
 
     delbutton.addEventListener("click", () => {
+        alert(clone.id)
+        alert("this one")
+        alert(currentroom)
+        if(clone.id === currentroom){
+        erasemsgs();
+        }
+
         clone.remove();
         currentroom = 0;
         rooms[clone.id] = null;
-        erasemsgs();
     });
 }
 
@@ -154,7 +160,6 @@ async function GPT() {
     if (hasLetters || hasNumbers) {
 
         if (currentroom === 0 || document.getElementById(currentroom).children[0].innerHTML === "Untitled room") {
-            erasemsgs();
             var clone;
             if (currentroom === 0) {
                 currentroom = genRanHex(12);
@@ -174,10 +179,15 @@ async function GPT() {
 
 
                 clone.children[1].children[1].addEventListener("click", () => { //del`
+                    alert(clone.id, currentroom)
+                    alert("this one")
+                    if(clone.id === currentroom){
+                    erasemsgs();
+                    }
                     clone.remove();
                     currentroom = 0;
                     rooms[clone.id] = null;
-                    erasemsgs();
+
                 });
 
                 const delbutton = clone.children[1].children[1];
@@ -187,9 +197,7 @@ async function GPT() {
 
                 hoverStuff(clone);
                 clone.children[1].children[0].addEventListener("click", () => { //select
-
                     //code for created room here
-
                     erasemsgs();
                     for (let k of Object.keys(rooms[clone.id])) {
                         if (k.includes("user_")) {
@@ -288,7 +296,6 @@ async function GPT() {
                         prompt: "(do not wrap in quotes): create a formal chat name describing this. It should not be robotic. For example: what are prairie dogs -> prairie dog discussion" + document.getElementById("query").value,
                         token: token,
                         gtp: model,
-                        history: JSON.stringify(rooms[currentroom]),
                     }) // Pass the token and prompt
                 }).then(response => {
                     if (!response.ok) {
