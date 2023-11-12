@@ -137,9 +137,7 @@ function hoverStuff(clone) {
 
 
     delbutton.addEventListener("click", () => {
-        alert(clone.id)
-        alert("this one")
-        alert(currentroom)
+
         if(clone.id === currentroom){
         erasemsgs();
         }
@@ -179,8 +177,7 @@ async function GPT() {
 
 
                 clone.children[1].children[1].addEventListener("click", () => { //del`
-                    alert(clone.id, currentroom)
-                    alert("this one")
+
                     if(clone.id === currentroom){
                     erasemsgs();
                     }
