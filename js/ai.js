@@ -290,7 +290,7 @@ async function GPT() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
+                        prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
                         token: token,
                         gtp: model,
                         history:null,
@@ -370,7 +370,6 @@ async function GPT() {
                     })
                     .then(function(data) {
                         // Access the data directly here
-                        alert("got something")
                         r4(data[0]);
                         if (data[0].includes("Access Granted")) {
                             token = data[1]
@@ -839,12 +838,7 @@ aks.addEventListener("input", () => {
 document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
-//room controls
-
-//
-
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
-//TODO fix or optimize code for when enter is pressedthe  without a create room so duplicates aren't needed (partially complete)
-//TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED the AND ORGANIZED.
+//TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED .
 //TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
-//refine title creating -- test
+//make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
