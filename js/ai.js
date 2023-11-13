@@ -293,6 +293,7 @@ async function GPT() {
                         prompt: "(do not wrap in quotes): create a formal chat name describing this. It should not be robotic. For example: what are prairie dogs -> prairie dog discussion" + document.getElementById("query").value,
                         token: token,
                         gtp: model,
+                        history:null,
                     }) // Pass the token and prompt
                 }).then(response => {
                     if (!response.ok) {
@@ -303,6 +304,7 @@ async function GPT() {
                 .then(data => {
                     gptanswer = data.value;
                     // Call typewriter function with the response
+                    alert(data.value)
                     tx34(data.value);
                 })
                 .catch(error => {
@@ -844,3 +846,4 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
 //TODO fix or optimize code for when enter is pressedthe  without a create room so duplicates aren't needed (partially complete)
 //TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED the AND ORGANIZED.
+//TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
