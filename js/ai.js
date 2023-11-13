@@ -166,7 +166,7 @@ async function GPT() {
                 }; //BACK
                 clone = document.getElementById("cloneroom").cloneNode(true);
                 clone.id = currentroom;
-                clone.animate([{
+                clone.children[0].animate([{
                     borderRight: "solid 5px #55e078"
                 }], {
                     duration: 250,
@@ -235,7 +235,7 @@ async function GPT() {
 
                     for (const x of document.getElementById("chats").children) {
                         if (x.className === "room") {
-                            x.animate([{
+                            x.children[0].animate([{
                                 borderRight: "solid 5px #454545"
                             }], {
                                 duration: 250,
@@ -243,7 +243,7 @@ async function GPT() {
                             });
                         }
                     }
-                    clone.animate([{
+                    clone.children[0].animate([{
                         borderRight: "solid 5px #55e078"
                     }], {
                         duration: 250,
@@ -254,7 +254,7 @@ async function GPT() {
                 });
 
                 document.getElementById("chats").appendChild(clone);
-                clone.animate([{
+                clone.children[0].animate([{
                     opacity: 1
                 }], {
                     duration: 250,
@@ -476,7 +476,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     document.getElementById("chats").appendChild(clone)
     for (const x of document.getElementById("chats").children) {
         if (x.className === "room") {
-            x.animate([{
+            x.children[0].animate([{
                 borderRight: "solid 5px #454545"
             }], {
                 duration: 250,
@@ -485,14 +485,14 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         }
     }
 
-    clone.animate([{
+    clone.children[0].animate([{
         borderRight: "solid 5px #55e078"
     }], {
         duration: 250,
         fill: "forwards"
     })
 
-    clone.animate([{
+    clone.children[0].animate([{
         opacity: 1
     }], {
         duration: 250,
@@ -548,7 +548,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 
         for (const x of document.getElementById("chats").children) {
             if (x.className === "room") {
-                x.animate([{
+                x.children[0].animate([{
                     borderRight: "#454545 solid 5px"
                 }], {
                     duration: 250,
@@ -557,7 +557,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
             }
         }
 
-        clone.animate([{
+        clone.children[0].animate([{
             borderRight: "solid 5px #55e078"
         }], {
             duration: 250,
