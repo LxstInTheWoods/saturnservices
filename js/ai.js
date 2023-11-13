@@ -304,7 +304,6 @@ async function GPT() {
                 .then(data => {
                     gptanswer = data.value;
                     // Call typewriter function with the response
-                    alert(data.value)
                     tx34(data.value);
                 })
                 .catch(error => {
