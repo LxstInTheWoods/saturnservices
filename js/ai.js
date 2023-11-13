@@ -91,8 +91,7 @@ async function LogTable(TB, reloop, v) {
 }
 
 function hoverStuff(clone) {
-    const delbutton = clone.children[1].children[1];
-    const selbutton = clone.children[1].children[0];
+    const delbutton = clone.children[1].children[0];
     const prnt = delbutton.parentNode;
 
     clone.addEventListener("mouseenter", () => {
@@ -117,22 +116,6 @@ function hoverStuff(clone) {
             fill: "forwards"
         });
 
-    });
-    selbutton.addEventListener("mouseenter", () => {
-        selbutton.animate([{
-            borderColor: "white"
-        }], {
-            duration: 250,
-            fill: "forwards"
-        });
-    });
-    selbutton.addEventListener("mouseleave", () => {
-        selbutton.animate([{
-            borderColor: "grey"
-        }], {
-            duration: 250,
-            fill: "forwards"
-        });
     });
 
 
@@ -176,7 +159,7 @@ async function GPT() {
                 //set room title 
 
 
-                clone.children[1].children[1].addEventListener("click", () => { //del`
+                clone.children[1].children[0].addEventListener("click", () => { //del`
 
                     if (clone.id === currentroom) {
                         erasemsgs();
@@ -187,13 +170,12 @@ async function GPT() {
 
                 });
 
-                const delbutton = clone.children[1].children[1];
-                const selbutton = clone.children[1].children[0];
+                const delbutton = clone.children[1].children[0];
                 const prnt = delbutton.parentNode;
                 prnt.style.display = "none";
 
                 hoverStuff(clone);
-                clone.children[1].children[0].addEventListener("click", () => { //select
+                clone.addEventListener("click", () => { //select
                     //code for created room here
                     erasemsgs();
                     for (let k of Object.keys(rooms[clone.id])) {
@@ -502,8 +484,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     clone.id = hex
     currentroom = clone.id
 
-    const delbutton = clone.children[1].children[1]
-    const selbutton = clone.children[1].children[0]
+    const delbutton = clone.children[1].children[0]
     const prnt = delbutton.parentNode
     //delbutton.offsetHeight + clone.offsetHeight
     //%#($#)
@@ -512,7 +493,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 
     hoverStuff(clone)
 
-    selbutton.addEventListener("click", () => { //select
+    clone.addEventListener("click", () => { //select
         //clicked on created room.
         if (currentroom != clone.id) {
 
