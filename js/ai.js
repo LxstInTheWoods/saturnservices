@@ -282,7 +282,7 @@ async function GPT() {
                     });
                 }
             }
-
+            if (model != "SATURN"){
             fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -290,7 +290,7 @@ async function GPT() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        prompt: "(do not wrap in quotes): create a formal chat name describing this. It should not be robotic. For example: what are prairie dogs -> prairie dog discussion, name this chat mathematics-> mathematics." + document.getElementById("query").value,
+                        prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
                         token: token,
                         gtp: model,
                         history:null,
@@ -309,6 +309,7 @@ async function GPT() {
                 .catch(error => {
                     r4("ERROR: " + error)
                 });
+            }
 
         }
         const userclone = userresponse.cloneNode(true);
@@ -846,3 +847,4 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //TODO fix or optimize code for when enter is pressedthe  without a create room so duplicates aren't needed (partially complete)
 //TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED the AND ORGANIZED.
 //TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
+//refine title creating -- test
