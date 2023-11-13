@@ -839,6 +839,7 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
-//TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED .
-//TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
-//make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
+//01. TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED .
+//02. TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
+//03. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
+//04. TODO implement streaming for chunked responses and faster replies
