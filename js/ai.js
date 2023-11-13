@@ -138,8 +138,8 @@ function hoverStuff(clone) {
 
     delbutton.addEventListener("click", () => {
 
-        if(clone.id === currentroom){
-        erasemsgs();
+        if (clone.id === currentroom) {
+            erasemsgs();
         }
 
         clone.remove();
@@ -167,7 +167,7 @@ async function GPT() {
                 clone = document.getElementById("cloneroom").cloneNode(true);
                 clone.id = currentroom;
                 clone.children[0].animate([{
-                    borderRight: "solid 5px #55e078"
+                    borderRight: `solid 5px ${modelcolor[model]}`
                 }], {
                     duration: 250,
                     fill: "forwards"
@@ -178,8 +178,8 @@ async function GPT() {
 
                 clone.children[1].children[1].addEventListener("click", () => { //del`
 
-                    if(clone.id === currentroom){
-                    erasemsgs();
+                    if (clone.id === currentroom) {
+                        erasemsgs();
                     }
                     clone.remove();
                     currentroom = 0;
@@ -244,7 +244,7 @@ async function GPT() {
                         }
                     }
                     clone.children[0].animate([{
-                        borderRight: "solid 5px #55e078"
+                        borderRight: `solid 5px ${modelcolor[model]}`
                     }], {
                         duration: 250,
                         fill: "forwards"
@@ -271,7 +271,7 @@ async function GPT() {
 
                 for (const x of response) {
                     let p = new Promise((r) => {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             r();
                         }, 10);
                     });
@@ -282,8 +282,9 @@ async function GPT() {
                     });
                 }
             }
-            if (model != "SATURN"){
-            fetch(`${endpoint}/getGPTResponse`, {
+
+            if (model != "SATURN") {
+                fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -293,7 +294,7 @@ async function GPT() {
                         prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
                         token: token,
                         gtp: model,
-                        history:null,
+                        history: null,
                     }) // Pass the token and prompt
                 }).then(response => {
                     if (!response.ok) {
@@ -301,14 +302,14 @@ async function GPT() {
                     }
                     return response.json();
                 })
-                .then(data => {
-                    gptanswer = data.value;
-                    // Call typewriter function with the response
-                    tx34(data.value);
-                })
-                .catch(error => {
-                    r4("ERROR: " + error)
-                });
+                    .then(data => {
+                        gptanswer = data.value;
+                        // Call typewriter function with the response
+                        tx34(data.value);
+                    })
+                    .catch(error => {
+                        r4("ERROR: " + error)
+                    });
             }
 
         }
@@ -334,7 +335,7 @@ async function GPT() {
                 let str = ""
                 for (const x of value) {
                     let p = new Promise((r) => {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             r()
                         }, 2);
                     })
@@ -357,18 +358,18 @@ async function GPT() {
 
             if (userclone.children[1].innerHTML.includes("admlog")) {
                 fetch(`${endpoint}/login`, {
-                        method: "POST",
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            loginString: userclone.children[1].innerHTML
-                        })
-                    }).then(function(response) {
-                        return response.json();
+                    method: "POST",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        loginString: userclone.children[1].innerHTML
                     })
-                    .then(function(data) {
+                }).then(function (response) {
+                    return response.json();
+                })
+                    .then(function (data) {
                         // Access the data directly here
                         r4(data[0]);
                         if (data[0].includes("Access Granted")) {
@@ -376,7 +377,7 @@ async function GPT() {
                             document.getElementById('apikeyset').value = token
                         }
                     })
-                    .catch(function(error) {
+                    .catch(function (error) {
                         // Handle errors here
                         console.error("ERROR: " + error);
                     });
@@ -391,23 +392,23 @@ async function GPT() {
             try {
                 responseclone.children[1].innerHTML = "generating response...";
                 fetch(`${endpoint}/getGPTResponse`, {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            prompt: document.getElementById("query").value,
-                            token: token,
-                            gtp: model,
-                            history: JSON.stringify(rooms[currentroom]),
-                        }) // Pass the token and prompt
-                    }).then(response => {
-                        if (!response.ok) {
-                            r4('Server error: ' + response.status)
-                        }
-                        return response.json();
-                    })
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: document.getElementById("query").value,
+                        token: token,
+                        gtp: model,
+                        history: JSON.stringify(rooms[currentroom]),
+                    }) // Pass the token and prompt
+                }).then(response => {
+                    if (!response.ok) {
+                        r4('Server error: ' + response.status)
+                    }
+                    return response.json();
+                })
                     .then(data => {
                         gptanswer = data.value
                         r4(data.value)
@@ -440,7 +441,7 @@ async function GPT() {
             responseclone.style.borderColor = "white"
         }
 
-        setTimeout(function() {
+        setTimeout(function () {
             tweenInElement(responseclone);
         }, 250);
 
@@ -449,12 +450,12 @@ async function GPT() {
 
         while (gptanswer === "") {
             let p = new Promise((r) => {
-                setTimeout(function() {
+                setTimeout(function () {
                     r();
                 }, 50);
             });
 
-            await p.then(() => {})
+            await p.then(() => { })
         }
 
         rooms[currentroom][`gpt_${model}_` + gptresponsehex] = gptanswer;
@@ -486,7 +487,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
     }
 
     clone.children[0].animate([{
-        borderRight: "solid 5px #55e078"
+        borderRight: `solid 5px ${modelcolor[model]}`
     }], {
         duration: 250,
         fill: "forwards"
@@ -558,7 +559,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         }
 
         clone.children[0].animate([{
-            borderRight: "solid 5px #55e078"
+            borderRight: `solid 5px ${modelcolor[model]}`
         }], {
             duration: 250,
             fill: "forwards"
@@ -574,7 +575,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
         var str = ""
         for (const x of "Untitled room") {
             let p = new Promise((r) => {
-                setTimeout(function() {
+                setTimeout(function () {
                     r();
                 }, 10);
             });
@@ -600,11 +601,11 @@ function handle(e) {
         if (debounce) {
             debounce = false
 
-            setTimeout(function() {
+            setTimeout(function () {
                 debounce = true
             }, 750);
             e.preventDefault();
-            setTimeout(function() {
+            setTimeout(function () {
                 adjustTextareaHeight()
 
             }, 100);
@@ -618,7 +619,7 @@ function handle(e) {
 send.addEventListener("click", () => {
     GPT();
     adjustTextareaHeight()
-    setTimeout(function() {
+    setTimeout(function () {
         adjustTextareaHeight()
 
     }, 100);
@@ -653,6 +654,7 @@ mbuttons[0].addEventListener("click", () => {
     animateProperty(mbuttons[1], "b", "#1c1c1c")
     animateProperty(mbuttons[2], "b", "#1c1c1c")
     model = "gpt-3.5-turbo";
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
     aiturboicon.src = "./img/gptmint.png"
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
 
@@ -670,7 +672,7 @@ mbuttons[0].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
-    setTimeout(function() {
+    setTimeout(function () {
         document.getElementById("send").src = "./img/sendgreen.png"
         document.getElementById('send').animate([{
             opacity: 1
@@ -696,6 +698,8 @@ mbuttons[1].addEventListener("click", () => {
         fill: "forwards"
     })
     model = 'gpt-4';
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+
     aiturboicon.src = "./img/GPT.png"
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/GPT.png");
 
@@ -706,7 +710,7 @@ mbuttons[1].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
-    setTimeout(function() {
+    setTimeout(function () {
         document.getElementById("send").src = "./img/send.png"
         document.getElementById('send').animate([{
             opacity: 1
@@ -731,6 +735,8 @@ mbuttons[2].addEventListener("click", () => {
         fill: "forwards"
     })
     model = 'SATURN';
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+
     aiturboicon.src = "./img/Saturnai.png"
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/Saturnai.png");
 
@@ -742,7 +748,7 @@ mbuttons[2].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
-    setTimeout(function() {
+    setTimeout(function () {
         document.getElementById("send").src = "./img/sendsaturn.png"
         document.getElementById('send').animate([{
             opacity: 1
@@ -772,7 +778,7 @@ document.getElementById("search").addEventListener("input", () => {
                 duration: 250,
                 fill: "forwards"
             })
-            setTimeout(function() {
+            setTimeout(function () {
                 x.style.display = "none"
             }, 250);
         }
