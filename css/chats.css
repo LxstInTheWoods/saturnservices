@@ -18,13 +18,16 @@
     text-align: center;
     overflow-x: hidden;
     user-select: none;
-
-
-    
 }
 
 .room,label:hover{
     cursor:pointer;
+}
+.room label{
+    display: block;
+
+    margin:0;
+    padding-right: 0;
 }
     
 
