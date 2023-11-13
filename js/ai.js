@@ -356,7 +356,6 @@ async function GPT() {
 
 
             if (userclone.children[1].innerHTML.includes("admlog")) {
-
                 fetch(`${endpoint}/login`, {
                         method: "POST",
                         mode: 'cors',
@@ -371,6 +370,7 @@ async function GPT() {
                     })
                     .then(function(data) {
                         // Access the data directly here
+                        alert("got something")
                         r4(data[0]);
                         if (data[0].includes("Access Granted")) {
                             token = data[1]
