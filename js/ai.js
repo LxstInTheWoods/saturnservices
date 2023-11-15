@@ -7,7 +7,7 @@ const aiturboicon = document.getElementById("aiturboicon")
 var token = '';
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
-    "gpt-4": '#bf95f0',
+    "gpt-4-turbo": '#bf95f0',
     'SATURN': "white"
 };
 
@@ -15,7 +15,10 @@ const send = document.getElementById("send");
 var rooms = {};
 var currentroom = 0;
 
-function erasemsgs() {
+function erasemsgs(id) {
+    alert(id)
+    alert(currentroom)
+    if (id && id != currentroom) {return}
     const elements = [...document.getElementsByClassName('GPTMSG')];
     for (const x of elements) {
         if (x.parentNode.id !== "storage") {
@@ -96,6 +99,7 @@ function hoverStuff(clone) {
 
     clone.addEventListener("mouseenter", () => {
         prnt.style.display = "flex";
+        
     });
     clone.addEventListener("mouseleave", () => {
         prnt.style.display = "none";
@@ -120,10 +124,8 @@ function hoverStuff(clone) {
 
 
     delbutton.addEventListener("click", () => {
-
-        if (clone.id === currentroom) {
-            erasemsgs();
-        }
+        alert("run")
+            erasemsgs(clone.id); 
 
         clone.remove();
         currentroom = 0;
@@ -161,9 +163,7 @@ async function GPT() {
 
                 clone.children[1].children[0].addEventListener("click", () => { //del`
 
-                    if (clone.id === currentroom) {
-                        erasemsgs();
-                    }
+                        erasemsgs(clone.id);
                     clone.remove();
                     currentroom = 0;
                     rooms[clone.id] = null;
@@ -178,6 +178,7 @@ async function GPT() {
                 clone.addEventListener("click", () => { //select
                     //code for created room here
                     erasemsgs();
+                    currentroom = clone.id;
                     for (let k of Object.keys(rooms[clone.id])) {
                         if (k.includes("user_")) {
                             var ucl = userresponse.cloneNode(true);
@@ -231,7 +232,6 @@ async function GPT() {
                         duration: 250,
                         fill: "forwards"
                     });
-                    currentroom = clone.id;
 
                 });
 
@@ -265,7 +265,7 @@ async function GPT() {
                 }
             }
 
-            if (model != "SATURN") {
+            if (model != "SATURN" && token.length > 0) {
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
