@@ -337,7 +337,6 @@ async function GPT() {
 
             const commands = {
                 admlog: (a1, command, a3) => {
-                    alert("Post")
                     fetch(`${endpoint}/command`, {
                         method: "POST",
                         mode: 'cors',
