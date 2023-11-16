@@ -262,7 +262,6 @@ async function GPT() {
             }
 
             if (model != "SATURN" && token.length > 0) {
-                alert("get gpt title")
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -408,7 +407,6 @@ async function GPT() {
         } else {
             try {
                 responseclone.children[1].innerHTML = "generating response...";
-                alert("get main response")
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
