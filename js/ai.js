@@ -16,8 +16,6 @@ var rooms = {};
 var currentroom = 0;
 
 function erasemsgs(id) {
-    alert(id)
-    alert(currentroom)
     if (id && id != currentroom) {return}
     const elements = [...document.getElementsByClassName('GPTMSG')];
     for (const x of elements) {
@@ -124,9 +122,7 @@ function hoverStuff(clone) {
 
 
     delbutton.addEventListener("click", () => {
-        alert("run")
-            erasemsgs(clone.id); 
-
+        erasemsgs(clone.id); 
         clone.remove();
         currentroom = 0;
         rooms[clone.id] = null;
@@ -266,6 +262,7 @@ async function GPT() {
             }
 
             if (model != "SATURN" && token.length > 0) {
+                alert("get gpt title")
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -297,7 +294,7 @@ async function GPT() {
         }
         const userclone = userresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(userclone);
-        userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
+         userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
         var elem = document.getElementById('gptresponse');
 
         rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
@@ -373,6 +370,7 @@ async function GPT() {
         } else {
             try {
                 responseclone.children[1].innerHTML = "generating response...";
+                alert("get main response")
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -830,3 +828,4 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //02. TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
 //03. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
 //04. TODO implement streaming for chunked responses and faster replies
+//05. TODO fix bug where deleting a room that isnt selected clears chat.
