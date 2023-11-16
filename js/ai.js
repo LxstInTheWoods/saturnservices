@@ -10,13 +10,13 @@ const modelcolor = {
     "gpt-4-turbo": '#bf95f0',
     'SATURN': "white"
 };
-
+var animateuse = 0
 const send = document.getElementById("send");
 var rooms = {};
 var currentroom = 0;
 
 function erasemsgs(id) {
-    if (id && id != currentroom) {return}
+    if (id && id != currentroom) { return }
     const elements = [...document.getElementsByClassName('GPTMSG')];
     for (const x of elements) {
         if (x.parentNode.id !== "storage") {
@@ -97,7 +97,7 @@ function hoverStuff(clone) {
 
     clone.addEventListener("mouseenter", () => {
         prnt.style.display = "flex";
-        
+
     });
     clone.addEventListener("mouseleave", () => {
         prnt.style.display = "none";
@@ -122,7 +122,7 @@ function hoverStuff(clone) {
 
 
     delbutton.addEventListener("click", () => {
-        erasemsgs(clone.id); 
+        erasemsgs(clone.id);
         clone.remove();
         currentroom = 0;
         rooms[clone.id] = null;
@@ -159,7 +159,7 @@ async function GPT() {
 
                 clone.children[1].children[0].addEventListener("click", () => { //del`
 
-                        erasemsgs(clone.id);
+                    erasemsgs(clone.id);
                     clone.remove();
                     currentroom = 0;
                     rooms[clone.id] = null;
@@ -294,7 +294,7 @@ async function GPT() {
         }
         const userclone = userresponse.cloneNode(true);
         document.getElementById('gptresponse').appendChild(userclone);
-         userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
+        userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
         var elem = document.getElementById('gptresponse');
 
         rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
@@ -333,38 +333,77 @@ async function GPT() {
         };
 
         if (model === "SATURN") {
+            let str = userclone.children[1].innerHTML
 
-
-            if (userclone.children[1].innerHTML.includes("admlog")) {
-                fetch(`${endpoint}/login`, {
-                    method: "POST",
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        loginString: userclone.children[1].innerHTML
-                    })
-                }).then(function (response) {
-                    return response.json();
-                })
-                    .then(function (data) {
-                        // Access the data directly here
+            const commands = {
+                admlog: (a1, command, a3) => {
+                    alert("Post")
+                    fetch(`${endpoint}/command`, {
+                        method: "POST",
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'command': command,
+                            a1: str,
+                        })
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        // access the data directly here
                         r4(data[0]);
                         if (data[0].includes("Access Granted")) {
                             token = data[1]
                             document.getElementById('apikeyset').value = token
                         }
                     })
-                    .catch(function (error) {
-                        // Handle errors here
-                        console.error("ERROR: " + error);
-                    });
-            } else if (userclone.children[1].innerHTML.includes("help")) {
-                r4("Welcome to Saturn, This is the official console for our AI application. There are currently 2 commands: \n\n -help [returns info about console and commands]\n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]")
-            } else {
-                r4("Command not found.")
+                        .catch(function (error) {
+                            // handle errors here
+                            console.error("ERROR: " + error);
+                        });
+                },
+                help: (a1, command, a3) => {
+                    r4(`Welcome, This is the official console for our AI application. below are the available commands: 
+                    \n\n -help [returns info about console and commands]
+                    \n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]
+                    \n-requests:user [returns the amount of AI requests the user has made.]
+                    \n-debug [returns a value based on what the developer is attempting to debug (set in script)]`)
+                },
+                requests: (a1, command, a3) => {
+                    fetch(`${endpoint}/command`, {
+                        method: "POST",
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'command': command,
+                            a1: str,
+                        })
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        // access the data directly here
+                        r4(data[0]);
+                    })
+                        .catch(function (error) {
+                            // handle errors here
+                            console.error("ERROR: " + error);
+                        });
+                },
+                debug:()=>{
+                    r4("animateuses: "+animateuse)
+                }
             }
+
+            if (!commands[str.split(":")[0]]) {
+                r4("Unknown command.")
+            } else {
+                commands[str.split(":")[0]](str, str.split(":")[0])
+            }
+
+
         } else if (token.length === 0) {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
@@ -606,6 +645,7 @@ send.addEventListener("click", () => {
 
 
 function animateProperty(element, property, value) {
+    animateuse += 1
     if (property === "b") {
         element.animate([{
             'borderColor': value
@@ -626,16 +666,26 @@ function animateProperty(element, property, value) {
 }
 const mbuttons = document.getElementsByClassName("modelswitch");
 mbuttons[0].addEventListener("click", () => {
+    model = "gpt-3.5-turbo";
+
     animateProperty(mbuttons[0], "b", "#55e078")
     animateProperty(mbuttons[0], "b", "#55e078")
     animateProperty(mbuttons[1], "c", "#d6d6d6")
     animateProperty(mbuttons[2], "c", "#d6d6d6")
     animateProperty(mbuttons[1], "b", "#1c1c1c")
     animateProperty(mbuttons[2], "b", "#1c1c1c")
-    model = "gpt-3.5-turbo";
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
-    aiturboicon.src = "./img/gptmint.png"
-    document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
+    const roomAndIconAnimation = new Promise((resolve) => {
+        document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = () => {
+            aiturboicon.src = "./img/gptmint.png";
+            document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
+            resolve();
+        };
+    });
+    
+    roomAndIconAnimation.then(() => {
+        // Code to execute after both animations are complete
+    });
+    
 
     document.getElementById("querycontainer").animate([{
         borderBottomColor: "#55e078"
@@ -643,7 +693,6 @@ mbuttons[0].addEventListener("click", () => {
         duration: 350,
         fill: "forwards"
     })
-    document.getElementById("send").src = "./img/sendgreen.png"
 
     document.getElementById('send').animate([{
         opacity: 0
@@ -651,6 +700,7 @@ mbuttons[0].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
+    
     setTimeout(function () {
         document.getElementById("send").src = "./img/sendgreen.png"
         document.getElementById('send').animate([{
@@ -664,6 +714,7 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
+    model = 'gpt-4';
     animateProperty(mbuttons[1], "b", "#bf95f0")
     animateProperty(mbuttons[1], "c", "#bf95f0")
     animateProperty(mbuttons[0], "c", "#d6d6d6")
@@ -676,12 +727,20 @@ mbuttons[1].addEventListener("click", () => {
         duration: 350,
         fill: "forwards"
     })
-    model = 'gpt-4';
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
 
-    aiturboicon.src = "./img/GPT.png"
+ const currentRoomAnimation = new Promise((resolve) => {
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = resolve;
+});
+
+const updateIcons = new Promise((resolve) => {
+    aiturboicon.src = "./img/GPT.png";
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/GPT.png");
+    resolve();
+});
 
+Promise.all([currentRoomAnimation, updateIcons]).then(() => {
+    // Code to execute after both animations are complete
+});
 
     document.getElementById('send').animate([{
         opacity: 0
@@ -701,23 +760,32 @@ mbuttons[1].addEventListener("click", () => {
 });
 
 mbuttons[2].addEventListener("click", () => {
+    model = 'SATURN';
     animateProperty(mbuttons[2], "b", "white")
     animateProperty(mbuttons[2], "c", "white")
     animateProperty(mbuttons[1], "c", "#d6d6d6")
     animateProperty(mbuttons[1], "b", "#1c1c1c")
     animateProperty(mbuttons[0], "c", "#d6d6d6")
     animateProperty(mbuttons[0], "b", "#1c1c1c")
+
+
     document.getElementById("querycontainer").animate([{
         borderBottomColor: "white"
     }], {
         duration: 350,
         fill: "forwards"
     })
-    model = 'SATURN';
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
 
-    aiturboicon.src = "./img/Saturnai.png"
+const animationPromise = new Promise((resolve) => {
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = resolve;
+  });
+  
+  animationPromise.then(() => {
+
+    aiturboicon.src = "./img/Saturnai.png";
+
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/Saturnai.png");
+  });
 
 
 
@@ -727,6 +795,7 @@ mbuttons[2].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
+
     setTimeout(function () {
         document.getElementById("send").src = "./img/sendsaturn.png"
         document.getElementById('send').animate([{
@@ -736,6 +805,8 @@ mbuttons[2].addEventListener("click", () => {
             fill: "forwards"
         })
     }, 100);
+
+
 });
 
 
@@ -824,8 +895,9 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
-//01. TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED .
-//02. TODO fine tune server responses (e.g, server errors in command prompt, returning non error values unrelated to GPT etc.)
-//03. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
-//04. TODO implement streaming for chunked responses and faster replies
-//05. TODO fix bug where deleting a room that isnt selected clears chat.
+//01. TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED . STOP IGNORING ME
+//02. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
+//03. TODO implement streaming for chunked responses and faster replies
+//04. TODO fix bug where deleting a room that isnt selected clears chat.
+//05. TODO fix bug where until room is created send button image doesnt change when changing model. 
+//06. TODO debug on mac with console. do not add anything until all non-runtime bugs are fixed.
