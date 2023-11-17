@@ -7,16 +7,16 @@ const aiturboicon = document.getElementById("aiturboicon")
 var token = '';
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
-    "gpt-4-turbo": '#bf95f0',
+    "gpt-4": '#bf95f0',
     'SATURN': "white"
 };
 var animateuse = 0
 const send = document.getElementById("send");
 var rooms = {};
 var currentroom = 0;
-
+var del
 function erasemsgs(id) {
-    if (id && id != currentroom) { return }
+if (id && id != currentroom) { return }
     const elements = [...document.getElementsByClassName('GPTMSG')];
     for (const x of elements) {
         if (x.parentNode.id !== "storage") {
@@ -109,6 +109,7 @@ function hoverStuff(clone) {
             duration: 250,
             fill: "forwards"
         });
+        del = true
     });
     delbutton.addEventListener("mouseleave", () => { //out
         delbutton.animate([{
@@ -117,14 +118,22 @@ function hoverStuff(clone) {
             duration: 250,
             fill: "forwards"
         });
-
+        setTimeout(() => {
+            del = false
+        }, 100);
     });
 
 
     delbutton.addEventListener("click", () => {
         erasemsgs(clone.id);
+        del = true
+        setTimeout(() => {
+            del = false
+        }, 100);
         clone.remove();
+        if (clone.id === currentroom){
         currentroom = 0;
+        }
         rooms[clone.id] = null;
     });
 }
@@ -158,11 +167,16 @@ async function GPT() {
 
 
                 clone.children[1].children[0].addEventListener("click", () => { //del`
-
                     erasemsgs(clone.id);
                     clone.remove();
+                    if (currentroom === clone.id){
                     currentroom = 0;
+                    }
                     rooms[clone.id] = null;
+                    del = true
+                    setTimeout(() => {
+                        del = false
+                    }, 250);
 
                 });
 
@@ -173,7 +187,8 @@ async function GPT() {
                 hoverStuff(clone);
                 clone.addEventListener("click", () => { //select
                     //code for created room here
-                    erasemsgs();
+                    if (del){return}
+                      erasemsgs();
                     currentroom = clone.id;
                     for (let k of Object.keys(rooms[clone.id])) {
                         if (k.includes("user_")) {
@@ -390,8 +405,8 @@ async function GPT() {
                             console.error("ERROR: " + error);
                         });
                 },
-                debug:()=>{
-                    r4("animateuses: "+animateuse)
+                debug: () => {
+                    r4("animateuses: " + animateuse)
                 }
             }
 
@@ -529,9 +544,9 @@ document.getElementById("roomcreate").addEventListener("click", () => {
 
     clone.addEventListener("click", () => { //select
         //clicked on created room.
-        if (currentroom != clone.id) {
+        if(del){return}
 
-            erasemsgs()
+         erasemsgs()
 
 
             for (let k of Object.keys(rooms[clone.id])) {
@@ -560,7 +575,6 @@ document.getElementById("roomcreate").addEventListener("click", () => {
             }
 
 
-        } //else same room
 
         for (const x of document.getElementById("chats").children) {
             if (x.className === "room") {
@@ -671,18 +685,12 @@ mbuttons[0].addEventListener("click", () => {
     animateProperty(mbuttons[2], "c", "#d6d6d6")
     animateProperty(mbuttons[1], "b", "#1c1c1c")
     animateProperty(mbuttons[2], "b", "#1c1c1c")
-    const roomAndIconAnimation = new Promise((resolve) => {
-        document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = () => {
-            aiturboicon.src = "./img/gptmint.png";
-            document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
-            resolve();
-        };
-    });
-    
-    roomAndIconAnimation.then(() => {
-        // Code to execute after both animations are complete
-    });
-    
+
+    aiturboicon.src = "./img/gptmint.png";
+    document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
+
+
+
 
     document.getElementById("querycontainer").animate([{
         borderBottomColor: "#55e078"
@@ -697,7 +705,7 @@ mbuttons[0].addEventListener("click", () => {
         duration: 250,
         fill: "forwards"
     })
-    
+
     setTimeout(function () {
         document.getElementById("send").src = "./img/sendgreen.png"
         document.getElementById('send').animate([{
@@ -707,6 +715,8 @@ mbuttons[0].addEventListener("click", () => {
             fill: "forwards"
         })
     }, 100);
+
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
 
 
 });
@@ -725,19 +735,12 @@ mbuttons[1].addEventListener("click", () => {
         fill: "forwards"
     })
 
- const currentRoomAnimation = new Promise((resolve) => {
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = resolve;
-});
 
-const updateIcons = new Promise((resolve) => {
+
+
     aiturboicon.src = "./img/GPT.png";
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/GPT.png");
-    resolve();
-});
 
-Promise.all([currentRoomAnimation, updateIcons]).then(() => {
-    // Code to execute after both animations are complete
-});
 
     document.getElementById('send').animate([{
         opacity: 0
@@ -754,6 +757,8 @@ Promise.all([currentRoomAnimation, updateIcons]).then(() => {
             fill: "forwards"
         })
     }, 100);
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+
 });
 
 mbuttons[2].addEventListener("click", () => {
@@ -773,16 +778,12 @@ mbuttons[2].addEventListener("click", () => {
         fill: "forwards"
     })
 
-const animationPromise = new Promise((resolve) => {
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" }).onfinish = resolve;
-  });
-  
-  animationPromise.then(() => {
+
+
 
     aiturboicon.src = "./img/Saturnai.png";
 
     document.querySelector("link[rel*='icon']").setAttribute("href", "./img/Saturnai.png");
-  });
 
 
 
@@ -802,6 +803,8 @@ const animationPromise = new Promise((resolve) => {
             fill: "forwards"
         })
     }, 100);
+    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+
 
 
 });
@@ -892,9 +895,8 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
-//01. TODO DONT ADD ANYTHING ELSE UNTIL CODE IS OPTIMIZED, DEBUGGED, AND ORGANIZED . STOP IGNORING ME
-//02. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
-//03. TODO implement streaming for chunked responses and faster replies
-//04. TODO fix bug where deleting a room that isnt selected clears chat.
-//05. TODO fix bug where until room is created send button image doesnt change when changing model. 
-//06. TODO debug on mac with console. do not add anything until all non-runtime bugs are fixed.
+//01. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
+//02. TODO implement streaming for chunked responses and faster replies
+//03. TODO debug on mac with console. do not add anything until all non-runtime bugs are fixed.
+
+//note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
