@@ -32,7 +32,7 @@ label:hover {
     display: block;
 
     margin: 0;
-    padding-right: 0;
+    padding-right: 0.1em;
 }
 
 
@@ -42,18 +42,18 @@ label:hover {
 }
 
 .roomoptions button {
+    display:block;
     width: 95%;
     margin: auto;
     border: solid 2px grey;
     outline: none;
-    padding:0.5em;
     border-radius: 7px;
     font-family: Arial;
     color: white;
     background-color: #2d2d2d;
     padding: 0.3em;
     user-select: none;
-
+    text-align: center;
 
 }
 
