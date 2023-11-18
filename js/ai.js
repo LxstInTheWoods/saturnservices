@@ -277,6 +277,7 @@ async function GPT() {
             }
 
             if (model != "SATURN" && token.length > 0) {
+                if (document.getElementById("query").value.length <= 3000){
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
@@ -304,6 +305,7 @@ async function GPT() {
                         r4("ERROR: " + error)
                     });
             }
+        }
 
         }
         const userclone = userresponse.cloneNode(true);
@@ -421,6 +423,9 @@ async function GPT() {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
             try {
+                if (document.getElementById("query").value.length > 3000){
+                   r4("Query too long.")
+                }else{
                 responseclone.children[1].innerHTML = "generating response...";
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
@@ -447,9 +452,11 @@ async function GPT() {
                     .catch(error => {
                         r4("ERROR: " + error)
                     });
+                }
             } catch (err) {
                 alert(err)
             }
+        
         }
         document.getElementById('gptresponse').appendChild(responseclone);
         if (model === "gpt-3.5-turbo") {
@@ -897,6 +904,4 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
 //01. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
 //02. TODO implement streaming for chunked responses and faster replies
-//03. TODO debug on mac with console. do not add anything until all non-runtime bugs are fixed.
-
 //note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
