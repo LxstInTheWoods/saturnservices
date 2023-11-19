@@ -1,6 +1,6 @@
 // fix url
 var model = "gpt-3.5-turbo";
-const endpoint = 'https://api.satvrnservices.com:443';
+const endpoint = 'https://api.terminalsaturn.com:443';
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
 const aiturboicon = document.getElementById("aiturboicon")
