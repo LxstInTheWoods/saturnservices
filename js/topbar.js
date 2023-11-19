@@ -1,32 +1,24 @@
 const topbar = document.getElementById("topbar")
 
-for(const x of topbar.getElementsByTagName("a"))
+for(const x of [...topbar.getElementsByTagName("a")])
 {
     
     if (x.className != "jsignore")
     {
-
-    
-    if (x.parentElement.children[0].tagName === "IMG")
-    {  
-        x.parentElement.children[0].addEventListener("mouseenter", ()=>{
-            x.parentElement.children[0].addEventListener("mouseenter", () =>{
-
-                x.animate([{color:"white"}], {duration:150, fill:"forwards"})
-            })
-        
-            x.parentElement.children[0].addEventListener("mouseleave", () =>{
-                x.animate([{color:"#666666"}], {duration:150, fill:"forwards"})
-            })
-        })
-    }
+        try{
+    const hr = x.parentElement.children[1]
     x.addEventListener("mouseenter", () =>{
-        x.animate([{color:"white"}], {duration:150, fill:"forwards"})
+        hr.style.visibility = "visible"
+        hr.animate([{width:"100%"}], {duration:50, fill:"forwards"})
     })
 
     x.addEventListener("mouseleave", () =>{
-        x.animate([{color:"#666666"}], {duration:150, fill:"forwards"})
+        hr.animate([{width:"0%"}], {duration:50, fill:"forwards"}).finished.then(()=>{
+            hr.style.visibility = "hidden"
+
+        })
     })
+}catch(e){alert(e)}
 }
 }
 
