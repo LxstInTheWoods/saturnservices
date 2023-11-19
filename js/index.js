@@ -18,7 +18,7 @@ setTimeout(() => {
     }
     aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"})
 
-    const str = "Where darkness and light intersect."
+    const str = "Envisioning a Future of Possibilities."
     var cur = ""
     _ = async () =>{
     for (const x of str)
