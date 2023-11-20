@@ -14,9 +14,11 @@ thing.animate([{opacity:1}], {duration:500, fill:'forwards'})
 setTimeout(() => {
     for (const x of divid_top)
     {
-    x.animate([{width:"85%"}], {duration:450, fill:"forwards"})
+    x.animate([{width:"100%"}], {duration:450, fill:"forwards"})
     }
-    aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"})
+    aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"}).finished.then(()=>{
+        document.getElementsByClassName("abtus")[0].animate([{backgroundColor:"#1a1a1a"}], {duration:250, fill:"forwards"})
+    })
 
     const str = "Envisioning a Future of Possibilities."
     var cur = ""
