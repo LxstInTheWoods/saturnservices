@@ -17,9 +17,11 @@ setTimeout(() => {
     x.animate([{width:"100%"}], {duration:450, fill:"forwards"})
     }
     aqhead.animate([{opacity:1}], {duration:250, fill:"forwards"}).finished.then(()=>{
-        document.getElementsByClassName("abtus")[0].animate([{backgroundColor:"#1a1a1a"}], {duration:250, fill:"forwards"})
+        for (const x of document.getElementsByClassName("abtus")){
+        x.animate([{backgroundColor:"#1a1a1a"}], {duration:250, fill:"forwards"})
+        }
     })
-
+    document.body.animate([{backgroundColor:"#1a1a1a"}], {duration:250, fill:"forwards"})
     const str = "Envisioning a Future of Possibilities."
     var cur = ""
     _ = async () =>{
