@@ -14,23 +14,58 @@ body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+#signup{
+    display: block;
+    width: fit-content;
+    margin:auto;
+}
+#signup *{
+    display: flex;
+    width: fit-content;
+    margin: auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#signup input{
+    background: none;
+    border: solid 1px white;
+    border-radius: 5px;
+    padding: 0.7em;
+    font-weight: bolder;
+    color:white;
+}
+#signup label{
+    color: white;
+    text-align: left;
+    width: 100%;
+}
+#signup button{
+    display: block;
+    background: none;
+    border: solid 1px white;
+    border-radius: 5px;
+    padding: 0.7em;
+    font-weight: bolder;
+    color:white;
+    width: 100%;
+    margin-top: 0.5em;
+}
+
 .SSINTRO{
     width:fit-content;
     margin: auto;
     opacity: 0;
 }
 
-.SSINTRO iframe{
-    height: 25em;
-    width: 40em;
-}
+
 .SSINTRO *{
     color: white;
+    width: fit-content;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 0;
+    margin: auto;
 }
 .SSINTRO #int_aqlx{
-    font-size: 50px;
+    font-size: 25;
 }
 
 #aqxh1h2{
@@ -49,9 +84,8 @@ h1{
 .abtus{
     margin: auto;
     width: 100%;
-    padding-top: 3em;
-    padding-bottom: 8em;
-
+    padding-top: 1.5em;
+    padding-bottom:1.5em ;
 }
 
 #hourssection{
@@ -179,7 +213,7 @@ border:rgb(24, 24, 24);
     border-radius: 9px;
     margin-bottom: 1em;
     padding-bottom: 0.15em  ;
-    border: solid rgb(71, 71, 71) 4px;
+    border: solid rgb(71, 71, 71) 2px;
 }
 .teamcard>img{
     border-radius: 9px;
@@ -199,6 +233,7 @@ border:rgb(24, 24, 24);
     margin-top: 0.3em;
     width: 95%;
     padding-top: 0.3em;
+    border: solid 2px #2c2c2c;
 }
 .prefregion *{
     width: fit-content;
