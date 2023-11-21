@@ -88,6 +88,10 @@ h1{
     padding-bottom:1.5em ;
 }
 
+#aqhead img{
+    max-height: 3em;
+}
+
 #hourssection{
     font-family: Arial, Helvetica, sans-serif;
     color: white;
