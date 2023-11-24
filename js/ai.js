@@ -423,7 +423,7 @@ async function GPT() {
             r4("Please provide a token by opening settings and pasting it into the API key field.")
         } else {
             try {
-                if (document.getElementById("query").value.length > 3000){
+                if (document.getElementById("query").value.length > 5000){
                    r4("Query too long.")
                 }else{
                 responseclone.children[1].innerHTML = "generating response...";
