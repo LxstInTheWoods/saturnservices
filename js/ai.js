@@ -277,7 +277,7 @@ async function GPT() {
             }
 
             if (model != "SATURN" && token.length > 0) {
-                if (document.getElementById("query").value.length <= 3000){
+                if (document.getElementById("query").value.length <= 5000){
                 fetch(`${endpoint}/getGPTResponse`, {
                     method: 'POST',
                     mode: 'cors',
