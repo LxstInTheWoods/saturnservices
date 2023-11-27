@@ -1,18 +1,20 @@
 // fix url
 
 var model = "gpt-3.5-turbo";
-const endpoint = 'https://api.terminalsaturn.com:443';
+var endpoint = 'https://api.terminalsaturn.com:443';
 //bypass config
 async function setEndpoint(){
-    const location = window.location
-    if (location.includes("local") || location.includes("chronos") || location.includes("satvrnservices"))
+    const location = toString(window.location)
+    alert(location)
+    if (location.includes("local") || location.includes("chronos") || location.includes("satvrnservices") || true)
     {
         //chrome or local
-        endpoint = `165.232.158.233:443`
+       // endpoint = `api.satvrnservices.com:443`
 
     }
     
 }; setEndpoint();
+alert(endpoint)
 
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
@@ -366,6 +368,7 @@ async function GPT() {
 
             const commands = {
                 admlog: (a1, command, a3) => {
+                    alert("send")
                     fetch(`${endpoint}/command`, {
                         method: "POST",
                         mode: 'cors',
