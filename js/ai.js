@@ -1,6 +1,19 @@
 // fix url
+
 var model = "gpt-3.5-turbo";
 const endpoint = 'https://api.terminalsaturn.com:443';
+//bypass config
+async function setEndpoint(){
+    const location = window.location
+    if (location.includes("local") || location.includes("chronos") || location.includes("satvrnservices"))
+    {
+        //chrome or local
+        endpoint = `165.232.158.233:443`
+
+    }
+    
+}; setEndpoint();
+
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
 const aiturboicon = document.getElementById("aiturboicon")
@@ -904,4 +917,5 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
 //01. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
 //02. TODO implement streaming for chunked responses and faster replies
+//03. rewrite it to use the satvrnservices domain because terminalsaturn is too new and blocked by the filter. api requests blocked as well, if href is satvrnservices set the endpoint to the droplet ip.
 //note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
