@@ -5,7 +5,6 @@ var endpoint = 'https://api.terminalsaturn.com:443';
 //bypass config
 async function setEndpoint(){
     const location = toString(window.location)
-    alert(location)
     if (location.includes("local") || location.includes("chronos") || location.includes("satvrnservices") || true)
     {
         //chrome or local
