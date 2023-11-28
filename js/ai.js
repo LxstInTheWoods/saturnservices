@@ -20,7 +20,7 @@ const aiturboicon = document.getElementById("aiturboicon")
 var token = '';
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
-    "gpt-4": '#bf95f0',
+    "gpt-4-turbo": '#bf95f0',
     'SATURN': "white"
 };
 var animateuse = 0
@@ -236,7 +236,7 @@ async function GPT() {
                             if (modelselector === "gpt-3.5-turbo") {
                                 responseclone.children[0].src = "./img/gptmint.png"
 
-                            } else if (modelselector === "gpt-4") {
+                            } else if (modelselector === "gpt-4-turbo") {
                                 responseclone.children[0].src = "./img/GPT.png"
                             } else {
                                 responseclone.children[0].src = "./img/Saturnai.png"
@@ -488,7 +488,7 @@ async function GPT() {
         document.getElementById('gptresponse').appendChild(responseclone);
         if (model === "gpt-3.5-turbo") {
             responseclone.children[0].src = "./img/gptmint.png"
-        } else if (model === 'gpt-4') {
+        } else if (model === 'gpt-4-turbo') {
             responseclone.children[0].src = "./img/GPT.png"
 
         } else {
@@ -500,7 +500,7 @@ async function GPT() {
 
         if (model === "gpt-3.5-turbo") {
             responseclone.style.borderColor = "#55e078";
-        } else if (model === 'gpt-4') {
+        } else if (model === 'gpt-4-turbo') {
             responseclone.style.borderColor = "#bf95f0";
         } else {
             responseclone.style.borderColor = "white"
@@ -599,7 +599,7 @@ document.getElementById("roomcreate").addEventListener("click", () => {
                     if (modelselector === "gpt-3.5-turbo") {
                         responseclone.children[0].src = "./img/gptmint.png"
 
-                    } else if (modelselector === "gpt-4") {
+                    } else if (modelselector === "gpt-4-turbo") {
                         responseclone.children[0].src = "./img/GPT.png"
 
                     } else {
@@ -755,7 +755,7 @@ mbuttons[0].addEventListener("click", () => {
 
 });
 mbuttons[1].addEventListener("click", () => {
-    model = 'gpt-4';
+    model = 'gpt-4-turbo';
     animateProperty(mbuttons[1], "b", "#bf95f0")
     animateProperty(mbuttons[1], "c", "#bf95f0")
     animateProperty(mbuttons[0], "c", "#d6d6d6")
