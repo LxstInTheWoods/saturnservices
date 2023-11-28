@@ -57,6 +57,20 @@ function adjustTextareaHeight() {
 T1input.addEventListener('input', adjustTextareaHeight);
 adjustTextareaHeight();
 
+function formatCodeBlocks(message) {
+    const codeRegex = /```(.*?)```/gs;
+  
+    const formattedMessage = message.replace(codeRegex, (match, language, offset, input) => {
+      const codeDiv = `<div style="background-color: black; font-family: monospace; padding: 10px; color: white;">${match}</div>`;
+      
+      return `<p>${language}</p>${codeDiv}`;
+    });
+    alert(formattedMessage)
+    return formattedMessage;
+  }
+  
+alert(formatCodeBlocks("bash string="))
+
 T1input.addEventListener('keydown', (event) => {
     if (event.shiftKey && event.key === 'Enter') {
         event.preventDefault();
@@ -312,7 +326,7 @@ async function GPT() {
                     return response.json();
                 })
                     .then(data => {
-                        gptanswer = data.value;
+                        gptanswer = formatCodeBlocks(data.value);
                         // Call typewriter function with the response
                         tx34(data.value);
                     })
@@ -463,6 +477,8 @@ async function GPT() {
                 })
                     .then(data => {
                         gptanswer = data.value
+
+                        
                         r4(data.value)
                     })
                     .catch(error => {
