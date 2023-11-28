@@ -14,7 +14,6 @@ async function setEndpoint(){
     }
     
 }; setEndpoint();
-alert(endpoint)
 
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
@@ -65,11 +64,9 @@ function formatCodeBlocks(message) {
       
       return `<p>${language}</p>${codeDiv}`;
     });
-    alert(formattedMessage)
     return formattedMessage;
   }
   
-alert(formatCodeBlocks("bash string="))
 
 T1input.addEventListener('keydown', (event) => {
     if (event.shiftKey && event.key === 'Enter') {
@@ -382,7 +379,6 @@ async function GPT() {
 
             const commands = {
                 admlog: (a1, command, a3) => {
-                    alert("send")
                     fetch(`${endpoint}/command`, {
                         method: "POST",
                         mode: 'cors',
