@@ -48,3 +48,9 @@ hr{
     width: 0;
     visibility: hidden;
 }
+
+@media only screen and (max-width:1000px){
+    nav img{
+        height: 4em;
+    }
+}

@@ -126,7 +126,6 @@ h1{
     margin: auto;
     position: relative;
     font-size: 25px;
-    margin-bottom: 0.3em;
 }
 
 .abtus p{
@@ -199,6 +198,7 @@ border:rgb(24, 24, 24);
 }
 #xhcontainer{
     display: flex;
+    height: 100%;
 }
 #h01{
     margin-right: 0.5em;
@@ -249,4 +249,38 @@ border:rgb(24, 24, 24);
 .prefregion img{
     margin-right: 0.15em;
 
+}
+@media only screen and (max-width:1000px){ /* mobile opt */
+    #S01 *{
+        font-size: 35px;
+    }
+    #aqxh1h2{
+        padding-top: 100%;
+    }
+    .abtus {
+        height: 100vh;
+        font-size: 35px;
+
+    }
+    #xhcontainer{
+        display: block;
+    }
+    #h01, #h02{
+        width: 95%;
+    }
+    #h01 *{
+        font-size: 40px;
+    }
+    #aboutholder{
+        display: block;
+    }
+    .abdiv{
+        margin-bottom: 0.5em;
+    }
+    #ordercont{
+        width: 100%;
+    }
+    .order{
+        width: 50vw;
+    }
 }

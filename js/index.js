@@ -85,7 +85,7 @@ dnld.addEventListener("mouseleave", ()=>{
     dnld.animate([{boxShadow:"0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6"}], {duration:150, fill:"forwards"})
 })
 
-
+// Function to check and alert viewport width
 
 
 
