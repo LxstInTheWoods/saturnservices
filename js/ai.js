@@ -443,7 +443,7 @@ async function GPT() {
                 }
             }
 
-            if (!commands[str.split(":")[0]]) {
+            if (!commands[str.split(":")[0]]) { 
                 r4("Unknown command.")
             } else {
                 commands[str.split(":")[0]](str, str.split(":")[0])
