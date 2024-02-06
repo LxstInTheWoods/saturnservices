@@ -38,6 +38,12 @@ if (id && id != currentroom) { return }
     }
 }
 
+function roomColorAE(){
+    if(document.getElementById(currentroom)){
+        document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+        }
+}
+
 const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
 const T1input = document.getElementById("query");
@@ -749,8 +755,7 @@ mbuttons[0].addEventListener("click", () => {
             fill: "forwards"
         })
     }, 100);
-
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+    roomColorAE()
 
 
 });
@@ -791,8 +796,7 @@ mbuttons[1].addEventListener("click", () => {
             fill: "forwards"
         })
     }, 100);
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
-
+    roomColorAE()
 });
 
 mbuttons[2].addEventListener("click", () => {
@@ -837,9 +841,7 @@ mbuttons[2].addEventListener("click", () => {
             fill: "forwards"
         })
     }, 100);
-    document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
-
-
+    roomColorAE()
 
 });
 

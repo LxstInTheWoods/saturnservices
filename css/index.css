@@ -265,6 +265,9 @@ border:rgb(24, 24, 24);
     #xhcontainer{
         display: block;
     }
+    #h01{
+        padding-top: 35%;
+    }
     #h01, #h02{
         width: 95%;
     }

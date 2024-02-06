@@ -345,3 +345,51 @@ margin: auto;
 #apikeyset{
     text-overflow: ellipsis;
 }
+
+@media only screen and (max-width:1000px){
+    #GPTMODEL button{
+        font-size: 30px;
+    }
+    #gptimgtxt h1{
+        font-size: 30px;
+    }
+    #aiturboicon{
+        height: 20%;
+    }
+    #searchbarholder input{
+        font-size: 45px;
+    }
+ 
+    .room label{
+        font-size: 45px;
+    }
+    #qcsubdiv textarea{
+        font-size: 30px;
+    }
+    #qcsubdiv img{
+        height: 80%;
+    }
+    #querycontainer{
+        margin-bottom: 0.5em;
+    }
+    #bottompannel img{
+        height: 4em;
+    }
+    #bottompannel{
+        height: fit-content;
+        margin-bottom:2em;
+
+    }
+    .GPTMSG p{
+        font-size: 30px;
+        line-height: 30pt;
+
+    }
+    .GPTMSG img{
+        height:50%;
+    }
+    .GPTMSG label{
+        font-size: 30px;
+    }
+
+}
