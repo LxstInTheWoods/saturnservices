@@ -1,24 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="./css/news.css">
-    </head>
-    <body>
-        <iframe src="./topbar.html"></iframe>
 
-        <div class="section" id="s01">
-            <h1>News & Reports</h1>
+<head>
+    <link rel="stylesheet" href="./css/news.css">
+</head>
+
+<body>
+    <iframe src="./topbar.html"></iframe>
+
+    <div id="admnewsupload">
+        <h3>Create news story</h3>
+        <div>
+            <div>
+            <h3>Title</h3>
+            <textarea id="a_one"></textarea>
         </div>
 
-        <div class="section" id="s02">
-            <div class="newsreport">
-                <h2>Landing page remodel.</h2>
-                <h3>Nov. 19/2023</h3>
-                <p>On November 19th, the landing page underwent a redesign and expansion to support the rebranding of satvrnservices to TerminalSaturn. This decision was made to emphasize the professionalism of our service and to provide greater insight into our mission and values.</p>
-            </div>
-        </div>        
+        <div>
+            <h3>Description</h3>
+            <textarea id="a_two"></textarea>
+        </div>
+        </div>
+    </div>
 
-        <div class="section" id="s03"
-        <script src="./js/news.js"></script>
-    </body>
+    <div class="section" id="s01">
+        <h1>News & Reports</h1>
+       
+    </div>
+
+    <div class="section" id="s02">
+
+    </div>
+
+    <div style="display: none;">
+        <div class="newsreport">
+            <h2>Landing page remodel.</h2>
+            <h3>Nov. 19/2023</h3>
+            <p>On November 19th, the landing page underwent a redesign and expansion to support the rebranding of
+                satvrnservices to TerminalSaturn. This decision was made to emphasize the professionalism of our service
+                and to provide greater insight into our mission and values.</p>
+        </div>
+    </div>
+
+    <div class="section" id="s03" <script src="./js/news.js">
+        </script>
+</body>
+
 </html>
+<!--Make it so news reports can be sent from an admins client to the server and client requests news updates when enterring the page.-->    
