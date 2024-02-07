@@ -267,6 +267,8 @@ border:rgb(24, 24, 24);
     }
     #h01{
         padding-top: 35%;
+        margin-left: 1em;
+        margin-bottom: .5em;
     }
     #h01, #h02{
         width: 95%;
@@ -285,5 +287,11 @@ border:rgb(24, 24, 24);
     }
     .order{
         width: 50vw;
+    }
+    .prefregion span{
+        width: 10em;
+    }
+    #tintro{
+        padding-bottom: 2em;
     }
 }
