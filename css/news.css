@@ -22,10 +22,19 @@ iframe {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#s01 h1 {
+#s01 h1, button{
     display: flex;
     width: fit-content;
     margin: auto;
+}
+#s01 button{
+    font-size: 25px;
+    outline: none;
+    border-radius: 9px;
+    border: solid white;
+    outline: none;
+    color: white;
+    background-color: #1c1c1c;
 }
 
 #s02 {
@@ -75,19 +84,65 @@ iframe {
     position: absolute;
     width: fit-content;
     margin: auto;
-    width: 25%;
-    left: 37.5%;
-    height: 25%;
+    width: 40%;
+    left: 50%;
+    margin-left: -20%; 
+    height: fit-content;
     background-color: grey;
     border: solid white;
+    top: 15%;
+
 }
 #admnewsupload h3{
     margin:0;
     padding: 0.3em;
+}
+#divspan{
+    width: 100%;
+    position: relative;
+}
+#divspan>button{
+    position: relative;
+    background-color: red;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    height: 1.3em;
+    width: 5%;
 }
 #admnewsupload textarea{
     resize: none;
     width: 98%;
     color: black;
     font-size: 15px;
+}
+#divspan>h3{
+    width: 95%;
+}
+#admnewsupload>div{
+    height: 100%;
+}
+@media only screen and (max-width:1000px){
+    #admnewsupload{
+        position: absolute;
+        width: fit-content;
+        margin: auto;
+        width: 80%;
+        left: 50%;
+        margin-left: -40%; /* Half of the width */
+        height: fit-content;
+        background-color: grey;
+        border: solid white;
+    }
+    #admnewsupload{
+        top: 25%;
+        font-size: 30px;
+    }
+    #admnewsupload textarea{
+        height: 5em;
+    }
+    #divspan>button{
+
+        font-size: 50px ;
+    }
 }

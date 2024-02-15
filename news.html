@@ -8,8 +8,11 @@
 <body>
     <iframe src="./topbar.html"></iframe>
 
-    <div id="admnewsupload">
-        <h3>Create news story</h3>
+    <div id="admnewsupload" style="opacity: 0; display: none;">
+        <div style="display: inline-flex;" id="divspan">
+            <h3>Create news story</h3>
+            <button id="closeadm">X</button>
+        </div>
         <div>
             <div>
             <h3>Title</h3>
@@ -25,6 +28,7 @@
 
     <div class="section" id="s01">
         <h1>News & Reports</h1>
+        <button id="opnrptc">Create Report</button>
        
     </div>
 
@@ -42,8 +46,9 @@
         </div>
     </div>
 
-    <div class="section" id="s03" <script src="./js/news.js">
-        </script>
+    <div class="section" id="s03"></div>
+    <script src="./js/news.js"></script>
+    
 </body>
 
 </html>

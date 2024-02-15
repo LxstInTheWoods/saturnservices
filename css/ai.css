@@ -303,7 +303,6 @@ margin: auto;
     width:100%;
     flex: 1;
     overflow-y: scroll;
-
 }
 .settingsCard{
     width:max-content;
