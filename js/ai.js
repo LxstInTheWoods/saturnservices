@@ -1,7 +1,7 @@
 // fix url
 
 var model = "gpt-3.5-turbo";
-var endpoint = 'https://api.terminalsaturn.com:443';
+var endpoint = 'https://api.terminalsaturn.com';
 //bypass config
 async function setEndpoint(){
     const location = toString(window.location)
