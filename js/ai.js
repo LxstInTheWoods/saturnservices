@@ -1,6 +1,12 @@
 // fix url
-var userdata = JSON.parse(localStorage.getItem("user"))
+var userdata 
+var token = ""
+if (localStorage.getItem("user")) {
+userdata = JSON.parse(localStorage.getItem("user"))
 document.getElementById('apikeyset').value = userdata['token']
+token = userdata['token'];
+
+}
 
 var model = "gpt-3.5-turbo";
 var endpoint = 'https://api.terminalsaturn.com';
@@ -19,7 +25,6 @@ async function setEndpoint(){
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
 const aiturboicon = document.getElementById("aiturboicon")
-var token = userdata['token'];
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
     "gpt-4-1106-preview": '#bf95f0',
@@ -331,7 +336,6 @@ async function GPT() {
                 })
                     .then(data => {
                         gptanswer = formatCodeBlocks(data.value);
-                        // Call typewriter function with the response
                         tx34(data.value);
                     })
                     .catch(error => {
@@ -375,6 +379,11 @@ async function GPT() {
                     })
                 }
                 rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
+                let tmps = JSON.parse(localStorage.getItem("user"))
+                tmps['data']['aiturbo'] = rooms
+                localStorage.setItem("user", JSON.stringify(tmps))
+                console.log(JSON.parse(localStorage.getItem("user")))
+
                 elem.scrollTop = elem.scrollHeight;
             } catch (err) {
                 console.log(err)
@@ -937,3 +946,5 @@ document.getElementById("openSettings").addEventListener("click", openSettings)
 //02. TODO implement streaming for chunked responses and faster replies
 //03. rewrite it to use the satvrnservices domain because terminalsaturn is too new and blocked by the filter. api requests blocked as well, if href is satvrnservices set the endpoint to the droplet ip.
 //note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
+
+
