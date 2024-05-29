@@ -1,4 +1,6 @@
 // fix url
+var userdata = JSON.parse(localStorage.getItem("user"))
+document.getElementById('apikeyset').value = userdata['token']
 
 var model = "gpt-3.5-turbo";
 var endpoint = 'https://api.terminalsaturn.com';
@@ -17,7 +19,7 @@ async function setEndpoint(){
 const gptresponse = document.getElementById("GPTMSG");
 const userresponse = document.getElementById("USERMSG");
 const aiturboicon = document.getElementById("aiturboicon")
-var token = '';
+var token = userdata['token'];
 const modelcolor = {
     "gpt-3.5-turbo": '#55e078',
     "gpt-4-1106-preview": '#bf95f0',

@@ -33,6 +33,7 @@ body{
     padding: 0.7em;
     font-weight: bolder;
     color:white;
+    margin-bottom: 0.3em;
 }
 #signup label{
     color: white;
