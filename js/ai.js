@@ -496,6 +496,18 @@ async function GPT() {
                     .catch(error => {
                         r4("ERROR: " + error)
                     });
+
+                    fetch(`${endpoint}/readwrite`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "type":"write",
+                            "userdata":localStorage.getItem("user")
+                        }) 
+                    })
                 }
             } catch (err) {
                 alert(err)
