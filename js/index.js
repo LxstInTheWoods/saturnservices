@@ -23,7 +23,9 @@ function rmsgnp() {
         };
     }
 }
-if (localStorage.getItem("user")) {
+console.log(localStorage.getItem("user"))
+let data = localStorage.getItem("user")
+if ( data != "undefined" && data != null) {
     rmsgnp()
 }
 else {
