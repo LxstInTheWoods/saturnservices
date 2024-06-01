@@ -28,6 +28,7 @@
 
         const result = await response.json()
         if (typeof result === "object") {
+            console.log(result)
             return result
         }
     }
@@ -642,6 +643,7 @@
 
 
             for (let k of Object.keys(rooms[clone.id])) {
+                if (k != "ROOMNAME"){
                 if (k.includes("user_")) {
                     var ucl = userresponse.cloneNode(true);
                     document.getElementById('gptresponse').appendChild(ucl);
@@ -664,6 +666,7 @@
                         responseclone.children[0].src = "./img/Saturnai.png"
                     }
                 }
+            }
             }
 
 
