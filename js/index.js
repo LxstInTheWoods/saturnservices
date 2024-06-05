@@ -12,19 +12,6 @@ const aqhead = document.getElementById("aqhead")
 
 let emgrp = document.getElementsByClassName("emailsign")
 
-const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-const imgElement = iframeDocument.getElementById('csc');
-
-imgElement.addEventListener("click", ()=>{ //wont work locally
-    if (logged) {
-        alert("good!") //code to open settings/profile page
-    }
-    else
-    {
-        alert("not logged in!")
-    }
-})
 //sign in, get info from server if already signed in
 function rmsgnp() {
     for (const x of emgrp) {
@@ -37,21 +24,34 @@ function rmsgnp() {
             ems.style.display = "block"
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
-                const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
-                iframe.contentWindow.postMessage(['500', userProfilePicture], '*');
-                logged = true
+            const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
+            iframe.contentWindow.postMessage(['500', userProfilePicture], '*');
+            logged = true
 
 
 
         };
 
     }
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+    const imgElement = iframeDocument.getElementById('csc');
+
+    imgElement.addEventListener("click", () => { //wont work locally
+        if (logged) {
+            alert("good!") //code to open settings/profile page
+        }
+        else {
+            alert("not logged in!")
+        }
+    })
 }
 let data = localStorage.getItem("user")
 if (data != "undefined" && data != null) {
     rmsgnp()
 }
 else {
+
     iframe.contentWindow.postMessage(['404', './img/guesticon.png'], '*');
     logged = false
 
@@ -153,8 +153,4 @@ dnld.addEventListener("mouseleave", () => {
     dnld.animate([{ boxShadow: "0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6" }], { duration: 150, fill: "forwards" })
 })
 
-// Function to check and alert viewport width
 
-
-
-//basic af
