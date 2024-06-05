@@ -12,6 +12,8 @@ const aqhead = document.getElementById("aqhead")
 
 let emgrp = document.getElementsByClassName("emailsign")
 
+let waitresp = false
+
 //sign in, get info from server if already signed in
 function rmsgnp() {
     for (const x of emgrp) {
@@ -28,23 +30,12 @@ function rmsgnp() {
             iframe.contentWindow.postMessage(['500', userProfilePicture], '*');
             logged = true
 
-
+            //opening settings if clicked on user pfp??
 
         };
 
     }
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-    const imgElement = iframeDocument.getElementById('csc');
-
-    imgElement.addEventListener("click", () => { //wont work locally
-        if (logged) {
-            alert("good!") //code to open settings/profile page
-        }
-        else {
-            alert("not logged in!")
-        }
-    })
+    
 }
 let data = localStorage.getItem("user")
 if (data != "undefined" && data != null) {
@@ -56,6 +47,7 @@ else {
     logged = false
 
     emgrp[3].addEventListener("click", async () => {
+        if (waitresp) {return}
         const response = await fetch('https://api.terminalsaturn.com/loginsite', {
             method: "POST",
             mode: "cors",
@@ -73,7 +65,8 @@ else {
                 rmsgnp()
 
             }
-        }
+            waitresp = false
+        } else{waitresp = false}
 
     })
 }
