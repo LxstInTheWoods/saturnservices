@@ -9,7 +9,6 @@ let iframe = document.getElementById("TOP");
 let logged = false
 
 const aqhead = document.getElementById("aqhead")
-localStorage.clear()
 
 let emgrp = document.getElementsByClassName("emailsign")
 
