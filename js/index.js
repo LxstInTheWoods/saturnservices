@@ -12,8 +12,11 @@ const aqhead = document.getElementById("aqhead")
 
 let emgrp = document.getElementsByClassName("emailsign")
 
+const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
-document.getElementById("TOP").contentWindow.document.getElementById("cscpfp").addEventListener("click", ()=>{ //wont work locally
+const imgElement = iframeDocument.getElementById('csc');
+
+imgElement.addEventListener("click", ()=>{ //wont work locally
     if (logged) {
         alert("good!") //code to open settings/profile page
     }
