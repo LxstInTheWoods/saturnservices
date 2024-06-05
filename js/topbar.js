@@ -1,8 +1,10 @@
 const topbar = document.getElementById("topbar")
 
 window.addEventListener('message', function(event) {
-        console.log("Profile picture received in iframe:", event.data);
-        document.getElementById('cscpfp').src = event.data;
+    if (event.data[0] === 500){
+        console.log("Profile picture received in iframe:", event.data[0]);
+        document.getElementById('cscpfp').src = event.data[0];
+    }
 });
 function handleImageError(image) {
     image.onerror = null; 
