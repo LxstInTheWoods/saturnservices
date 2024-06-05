@@ -4,11 +4,26 @@ const divid_top = document.getElementsByClassName("divid_top")
 
 const typewrite = document.getElementById("csttpwrt2")
 
+let iframe = document.getElementById("TOP");
+
+let logged = false
+
 const aqhead = document.getElementById("aqhead")
+localStorage.clear()
 
 let emgrp = document.getElementsByClassName("emailsign")
+
+
+document.getElementById("TOP").contentWindow.document.getElementById("cscpfp").addEventListener("click", ()=>{ //wont work locally
+    if (logged) {
+        alert("good!") //code to open settings/profile page
+    }
+    else
+    {
+        alert("not logged in!")
+    }
+})
 //sign in, get info from server if already signed in
-console.log(localStorage.getItem("user"))
 function rmsgnp() {
     for (const x of emgrp) {
         const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
@@ -20,16 +35,23 @@ function rmsgnp() {
             ems.style.display = "block"
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
+                const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
+                iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+                logged = true
+
+
+
         };
+
     }
 }
-console.log(localStorage.getItem("user"))
 let data = localStorage.getItem("user")
-if ( data != "undefined" && data != null) {
+if (data != "undefined" && data != null) {
     rmsgnp()
 }
 else {
-
+    iframe.contentWindow.postMessage([404, './img/guesticon.png'], '*');
+    logged = false
 
     emgrp[3].addEventListener("click", async () => {
         const response = await fetch('https://api.terminalsaturn.com/loginsite', {

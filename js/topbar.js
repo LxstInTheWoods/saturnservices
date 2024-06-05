@@ -1,5 +1,19 @@
 const topbar = document.getElementById("topbar")
 
+window.addEventListener('message', function(event) {
+        console.log("Profile picture received in iframe:", event.data);
+        document.getElementById('cscpfp').src = event.data;
+});
+function handleImageError(image) {
+    image.onerror = null; 
+    image.src = './img/guesticon.png'; 
+    console.log("Fallback image set due to an error loading the primary image.");
+}
+
+function openprofile(element){
+
+}
+
 for(const x of [...topbar.getElementsByTagName("a")])
 {
     

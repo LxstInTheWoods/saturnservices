@@ -42,11 +42,19 @@ div{
 img{
     display: block;
     margin: auto;
+    max-height: 35px;
+    max-width: 35px;
 }
 
 hr{
     width: 0;
     visibility: hidden;
+}
+#csc img{
+    border-radius: 9000px;
+}
+#csc img:hover {
+    cursor: pointer;
 }
 
 @media only screen and (max-width:1000px){
@@ -54,3 +62,4 @@ hr{
         height: 4em;
     }
 }
+
