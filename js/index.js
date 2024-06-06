@@ -61,7 +61,7 @@ else {
         const result = await response.json()
         if (typeof result === "object") {
             if (result['username'] === emgrp[1].value) {
-                localStorage.setItem('user', JSON.stringify(result))
+                localStorage.setItem('user', result)
                 console.log(JSON.parse(localStorage.getItem("user")))
                 alert("attempt")
                 rmsgnp()
