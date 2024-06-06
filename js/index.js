@@ -22,11 +22,11 @@ function rmsgnp() {
             x.style.display = "none";
             let ems = document.getElementById("emailsign_title")
             ems.style.fontSize = "25px"
-            ems.textContent = `welcome, ${JSON.parse(localStorage.getItem("user"))['username']}.`
+            ems.textContent = `welcome, ${localStorage.getItem("user")['username']}.`
             ems.style.display = "block"
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
-            const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
+            const userProfilePicture = localStorage.getItem("user").profilepicture;
             iframe.contentWindow.postMessage([500, userProfilePicture], '*');
             logged = true
 
@@ -62,7 +62,6 @@ else {
         if (typeof result === "object") {
             if (result['username'] === emgrp[1].value) {
                 localStorage.setItem('user', result)
-                console.log(JSON.parse(localStorage.getItem("user")))
                 alert("attempt")
                 rmsgnp()
 

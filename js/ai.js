@@ -10,7 +10,7 @@
     var userdata
     var token = ""
     if (localStorage.getItem("user")) {
-        userdata = JSON.parse(localStorage.getItem("user"))
+        userdata = localStorage.getItem("user")
         document.getElementById('apikeyset').value = userdata['token']
         token = userdata['token'];
 
@@ -210,9 +210,9 @@
                 currentroom = 0;
             }
             rooms[clone.id] = null;
-            let tmps = JSON.parse(localStorage.getItem("user"))
+            let tmps = localStorage.getItem("user")
             tmps['data']['aiturbo'] = rooms
-            localStorage.setItem("user", JSON.stringify(tmps))
+            localStorage.setItem("user", tmps)
             rwup()
             console.log("ok")
         });
@@ -275,7 +275,7 @@
                                 var ucl = userresponse.cloneNode(true);
                                 document.getElementById('gptresponse').appendChild(ucl);
                                 ucl.children[1].innerHTML = rooms[clone.id][k];
-                                ucl.children[0].src = JSON.parse(userdata)['profilepicture']
+                                ucl.children[0].src = userdata['profilepicture']
                                 tweenInElement(ucl);
 
                             } else {
@@ -407,7 +407,7 @@
             }
             else
             {
-                userclone.children[0].src = JSON.parse(userdata)['profilepicture']
+                userclone.children[0].src = userdata['profilepicture']
             }
             var elem = document.getElementById('gptresponse');
 
@@ -447,7 +447,7 @@
                         })
                     }
                     rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
-                    let tmps = JSON.parse(localStorage.getItem("user"))
+                    let tmps = localStorage.getItem("user")
                     tmps['data']['aiturbo'] = rooms
                     localStorage.setItem("user", JSON.stringify(tmps))
                     rwup()
@@ -684,7 +684,7 @@
                         console.log(typeof userdata)
 
                         ucl.children[1].innerHTML = rooms[clone.id][k];
-                        ucl.children[0].src = JSON.parse(userdata)['profilepicture']
+                        ucl.children[0].src = userdata['profilepicture']
                         tweenInElement(ucl)
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
