@@ -198,16 +198,15 @@ margin: auto;
 .GPTMSG img{
     padding-bottom: 0.6em;
 }
-#USERMSG label{
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+#USERMSG img{
+
     border-radius: 99px;
-    border: solid white 3px;
-    height: 4%;
-    padding: 0.35em;
     width: fit-content;
-    font-weight: bold;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     user-select: none;
+    max-width: 45px;
 
 }
 #lock{

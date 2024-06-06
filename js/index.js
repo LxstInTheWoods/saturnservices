@@ -27,10 +27,10 @@ function rmsgnp() {
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
             const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
-            iframe.contentWindow.postMessage(['500', userProfilePicture], '*');
+            iframe.contentWindow.postMessage([500, userProfilePicture], '*');
             logged = true
 
-            //opening settings if clicked on user pfp??
+            
 
         };
 
@@ -43,9 +43,10 @@ if (data != "undefined" && data != null) {
 }
 else {
 
-    iframe.contentWindow.postMessage(['404', './img/guesticon.png'], '*');
-    logged = false
+    iframe.contentWindow.postMessage([404, './img/guesticon.png'], '*');
 
+    logged = false
+    console.log("wtf")
     emgrp[3].addEventListener("click", async () => {
         if (waitresp) {return}
         const response = await fetch('https://api.terminalsaturn.com/loginsite', {

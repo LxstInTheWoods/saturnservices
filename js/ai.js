@@ -201,6 +201,11 @@
                 currentroom = 0;
             }
             rooms[clone.id] = null;
+            let tmps = JSON.parse(localStorage.getItem("user"))
+            tmps['data']['aiturbo'] = rooms
+            localStorage.setItem("user", JSON.stringify(tmps))
+            rwup()
+            console.log("ok")
         });
     }
 
@@ -261,7 +266,7 @@
                                 var ucl = userresponse.cloneNode(true);
                                 document.getElementById('gptresponse').appendChild(ucl);
                                 ucl.children[1].innerHTML = rooms[clone.id][k];
-
+                                ucl.children[0].src = JSON.parse(userdata)['profilepicture']
                                 tweenInElement(ucl);
 
                             } else {
@@ -383,6 +388,7 @@
             const userclone = userresponse.cloneNode(true);
             document.getElementById('gptresponse').appendChild(userclone);
             userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
+            userclone.children[0].src = JSON.parse(userdata)['profilepicture']
             var elem = document.getElementById('gptresponse');
 
             rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
@@ -584,7 +590,8 @@
     }
 
     async function ctrr(index, data) {
-        console.log(data)
+        console.log(index)
+        if (!data){return 404}
         erasemsgs()
 
         var hex = genRanHex(12);
@@ -647,7 +654,10 @@
                 if (k.includes("user_")) {
                     var ucl = userresponse.cloneNode(true);
                     document.getElementById('gptresponse').appendChild(ucl);
+                    console.log(typeof userdata)
+
                     ucl.children[1].innerHTML = rooms[clone.id][k];
+                    ucl.children[0].src = JSON.parse(userdata)['profilepicture']
                     tweenInElement(ucl)
                 } else {
                     const responseclone = gptresponse.cloneNode(true);
@@ -695,6 +705,7 @@
         })
 
         async function tx34() {
+            try{
             var currentroominternal = currentroom
             var str = ""
             var touse = "Untitled room"
@@ -713,6 +724,9 @@
                     document.getElementById(currentroominternal).children[0].innerHTML = str
 
                 })
+            }
+            }catch(err){
+                console.log(err)
             }
         }
         tx34()
@@ -734,7 +748,7 @@
     })()
 
     document.getElementById("roomcreate").addEventListener("click", () => {
-        ctrr()
+        ctrr(null, true)
     })
     var debounce = true
 
@@ -1009,6 +1023,10 @@
     //01. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
     //02. TODO implement streaming for chunked responses and faster replies
     //03. rewrite it to use the satvrnservices domain because terminalsaturn is too new and blocked by the filter. api requests blocked as well, if href is satvrnservices set the endpoint to the droplet ip.
+    //04. make it so server requests are a lot more controlled, saving on site leave or refresh instead of on every event (optimization)
+    //05. fix profile picture shape being weird
+    //06. fix chats not saving in order
+
     //note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
 
 
