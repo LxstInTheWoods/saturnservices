@@ -16,20 +16,27 @@
     }
 
     async function getServerData() { //automatically sets the token and other data when accessing page.
-        if (!userdata) { return 404 }
-        const response = await fetch('https://api.terminalsaturn.com/loginsite', {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([userdata['username'], userdata['password']])
-        })
+        try {
+            if (!userdata) { return 404 }
+            const response = await fetch('https://api.terminalsaturn.com/loginsite', {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([userdata['username'], userdata['password']])
+            })
 
-        const result = await response.json()
-        if (typeof result === "object") {
-            console.log(result)
-            return result
+            const result = await response.json()
+            if (typeof result === "object") {
+                console.log(result)
+                return result
+            }
+        } catch (err) {
+            if (err.message.includes("Failed")) {
+                console.log('ERR - server likely offline') //come back
+                return 404
+            }
         }
     }
 
@@ -80,6 +87,7 @@
         let info = await getServerData()
         if (info === 404) { return info }
         userdata = JSON.stringify(info)
+        console.log(info)
         localStorage.setItem("user", JSON.stringify(info))
         rooms = info['data']['aiturbo']
         return 500
@@ -349,46 +357,57 @@
 
                 if (model != "SATURN" && token.length > 0) {
                     if (document.getElementById("query").value.length <= 5000) {
-                        console.log(typeof localStorage.getItem("user"))
-                        fetch(`${endpoint}/getGPTResponse`, {
-                            method: 'POST',
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
-                                userdata: localStorage.getItem("user"),
-                                gtp: model,
-                                history: null,
-                            }) // Pass the token and prompt
-                        }).then(response => {
-                            if (!response.ok) {
-                                r4('Server error: ' + response.status)
-                            }
-                            return response.json();
-                        })
-                            .then(data => {
-                                gptanswer = formatCodeBlocks(data.value);
-                                rooms[currentroom]['ROOMNAME'] = data.value
-                                tx34(data.value);
+                            fetch(`${endpoint}/getGPTResponse`, {
+                                method: 'POST',
+                                mode: 'cors',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
+                                    userdata: localStorage.getItem("user"),
+                                    gtp: model,
+                                    history: null,
+                                }) // Pass the token and prompt
+                            }).then(response => {
+                                if (!response.ok) {
+                                    r4('Server error: ' + response.status)
+                                }
+                                return response.json();
                             })
-                            .catch(error => {
-                                r4("ERROR: " + error)
-                            });
+                                .then(data => {
+                                    gptanswer = formatCodeBlocks(data.value);
+                                    rooms[currentroom]['ROOMNAME'] = data.value
+                                    tx34(data.value);
+                                })
+                                .catch(error => {
+                                    if (error.message.includes("Failed")) {
+                                        console.log("failed to connect to server - may be offline")
+                                    }
+                                    else
+                                    {
+                                    r4("(CALL BY CLIENT)ERROR: " + error)
+                                    }
+                                });
+
                     }
 
 
 
-
                 }
-                
+
 
             }
             const userclone = userresponse.cloneNode(true);
             document.getElementById('gptresponse').appendChild(userclone);
             userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
-            userclone.children[0].src = JSON.parse(userdata)['profilepicture']
+            if(typeof userdata === Object){
+                userclone.children[0].src = userdata['profilepicture']
+            }
+            else
+            {
+                userclone.children[0].src = JSON.parse(userdata)['profilepicture']
+            }
             var elem = document.getElementById('gptresponse');
 
             rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
@@ -404,6 +423,13 @@
             const responseclone = gptresponse.cloneNode(true);
 
             async function r4(value) {
+                try {
+                    if (typeof eval(responseclone) === 'undefined') {
+                        console.log(`${responseclone} is declared but not initialized`);
+                    }
+                } catch (e) {
+                    return
+                }
                 try {
                     let str = ""
                     for (const x of value) {
@@ -590,8 +616,8 @@
     }
 
     async function ctrr(index, data) {
-        console.log(index)
-        if (!data){return 404}
+
+        if (!data) { return 404 }
         erasemsgs()
 
         var hex = genRanHex(12);
@@ -616,20 +642,20 @@
             }
         }
         if (!index) {
-        clone.children[0].animate([{
-            borderRight: `solid 5px ${modelcolor[model]}`
-        }], {
-            duration: 250,
-            fill: "forwards"
-        })
+            clone.children[0].animate([{
+                borderRight: `solid 5px ${modelcolor[model]}`
+            }], {
+                duration: 250,
+                fill: "forwards"
+            })
 
-        clone.children[0].animate([{
-            opacity: 1
-        }], {
-            duration: 250,
-            fill: "forwards"
-        })
-    }
+            clone.children[0].animate([{
+                opacity: 1
+            }], {
+                duration: 250,
+                fill: "forwards"
+            })
+        }
         clone.id = hex
         currentroom = clone.id
 
@@ -650,33 +676,33 @@
 
 
             for (let k of Object.keys(rooms[clone.id])) {
-                if (k != "ROOMNAME"){
-                if (k.includes("user_")) {
-                    var ucl = userresponse.cloneNode(true);
-                    document.getElementById('gptresponse').appendChild(ucl);
-                    console.log(typeof userdata)
+                if (k != "ROOMNAME") {
+                    if (k.includes("user_")) {
+                        var ucl = userresponse.cloneNode(true);
+                        document.getElementById('gptresponse').appendChild(ucl);
+                        console.log(typeof userdata)
 
-                    ucl.children[1].innerHTML = rooms[clone.id][k];
-                    ucl.children[0].src = JSON.parse(userdata)['profilepicture']
-                    tweenInElement(ucl)
-                } else {
-                    const responseclone = gptresponse.cloneNode(true);
-                    document.getElementById('gptresponse').appendChild(responseclone);
-                    responseclone.children[1].innerHTML = rooms[clone.id][k];
-                    const modelselector = k.split("_")[1]
-                    responseclone.style.borderColor = modelcolor[modelselector]
-                    tweenInElement(responseclone)
-                    if (modelselector === "gpt-3.5-turbo") {
-                        responseclone.children[0].src = "./img/gptmint.png"
-
-                    } else if (modelselector === "gpt-4-1106-preview") {
-                        responseclone.children[0].src = "./img/GPT.png"
-
+                        ucl.children[1].innerHTML = rooms[clone.id][k];
+                        ucl.children[0].src = JSON.parse(userdata)['profilepicture']
+                        tweenInElement(ucl)
                     } else {
-                        responseclone.children[0].src = "./img/Saturnai.png"
+                        const responseclone = gptresponse.cloneNode(true);
+                        document.getElementById('gptresponse').appendChild(responseclone);
+                        responseclone.children[1].innerHTML = rooms[clone.id][k];
+                        const modelselector = k.split("_")[1]
+                        responseclone.style.borderColor = modelcolor[modelselector]
+                        tweenInElement(responseclone)
+                        if (modelselector === "gpt-3.5-turbo") {
+                            responseclone.children[0].src = "./img/gptmint.png"
+
+                        } else if (modelselector === "gpt-4-1106-preview") {
+                            responseclone.children[0].src = "./img/GPT.png"
+
+                        } else {
+                            responseclone.children[0].src = "./img/Saturnai.png"
+                        }
                     }
                 }
-            }
             }
 
 
@@ -705,27 +731,27 @@
         })
 
         async function tx34() {
-            try{
-            var currentroominternal = currentroom
-            var str = ""
-            var touse = "Untitled room"
-            if (index) {
-                touse = data['ROOMNAME']
-            }
-            for (const x of touse) {
-                let p = new Promise((r) => {
-                    setTimeout(function () {
-                        r();
-                    }, 10);
-                });
+            try {
+                var currentroominternal = currentroom
+                var str = ""
+                var touse = "Untitled room"
+                if (index) {
+                    touse = data['ROOMNAME']
+                }
+                for (const x of touse) {
+                    let p = new Promise((r) => {
+                        setTimeout(function () {
+                            r();
+                        }, 10);
+                    });
 
-                await p.then(() => {
-                    str += x
-                    document.getElementById(currentroominternal).children[0].innerHTML = str
+                    await p.then(() => {
+                        str += x
+                        document.getElementById(currentroominternal).children[0].innerHTML = str
 
-                })
-            }
-            }catch(err){
+                    })
+                }
+            } catch (err) {
                 console.log(err)
             }
         }
@@ -735,16 +761,17 @@
         elem.scrollTop = elem.scrollHeight;
 
 
-
+        currentroom = 0
     }
 
     (async () => {
-        await setupaifs()
-        let count = 0
-        for (const x of Object.keys(rooms)) {
-            ctrr(x, rooms[x])
+        let iso = await setupaifs()
+        if (iso != 404) {
+            let count = 0
+            for (const x of Object.keys(rooms)) {
+                ctrr(x, rooms[x])
+            }
         }
-
     })()
 
     document.getElementById("roomcreate").addEventListener("click", () => {
