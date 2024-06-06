@@ -1,4 +1,5 @@
 // fix url
+//later on have ai page also refresh its information from the server on load.
 (() => {
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
         alert("please sign in")
@@ -760,8 +761,9 @@
         var elem = document.getElementById('gptresponse');
         elem.scrollTop = elem.scrollHeight;
 
-
+        if (index){
         currentroom = 0
+        }
     }
 
     (async () => {
@@ -769,7 +771,9 @@
         if (iso != 404) {
             let count = 0
             for (const x of Object.keys(rooms)) {
+                if (rooms[x]){
                 ctrr(x, rooms[x])
+            }
             }
         }
     })()
