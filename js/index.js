@@ -27,7 +27,7 @@ function rmsgnp() {
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
             const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
-            iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+            iframe.contentWindow.postMessage(JSON.stringify([500, userProfilePicture]), '*');
             logged = true
 
             
@@ -43,7 +43,7 @@ if (data != "undefined" && data != null) {
 }
 else {
 
-    iframe.contentWindow.postMessage([404, './img/guesticon.png'], '*');
+    iframe.contentWindow.postMessage(JSON.stringify([404, './img/guesticon.png']), '*');
     console.log("runnitup!")
     logged = false
     console.log("wtf")

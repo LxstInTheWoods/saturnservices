@@ -1,9 +1,9 @@
 const topbar = document.getElementById("topbar")
 
 window.addEventListener('message', function(event) {
-    console.log("ok")
-        console.log("Profile picture received in iframe:", event.data[1]);
-        document.getElementById('cscpfp').src = event.data[1];
+        const nevent = JSON.parse(event.data)
+        console.log("Profile picture received in iframe:", nevent[1]);
+        document.getElementById('cscpfp').src = nevent[1];
 
 });
 function handleImageError(image) {
