@@ -1,6 +1,7 @@
 const topbar = document.getElementById("topbar")
 const img = new Image();
 img.src = './img/guesticon.png';
+
 window.addEventListener('message', function(event) {
         console.log("Profile picture received in iframe:", event.data[1]);
         document.getElementById('cscpfp').src = event.data[1];

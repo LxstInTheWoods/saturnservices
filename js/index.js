@@ -27,6 +27,7 @@ function rmsgnp() {
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
             const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
+            console.log("not so wtf")
             iframe.contentWindow.postMessage([500, userProfilePicture], '*');
             logged = true
 
@@ -44,7 +45,6 @@ if (data != "undefined" && data != null) {
 else {
 
     iframe.contentWindow.postMessage([404, './img/guesticon.png'], '*');
-    co
     logged = false
     console.log("wtf")
     emgrp[3].addEventListener("click", async () => {
