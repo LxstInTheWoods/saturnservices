@@ -21,7 +21,6 @@ function rmsgnp() {
         animation.onfinish = () => {
             x.style.display = "none";
             let ems = document.getElementById("emailsign_title")
-            ems.style.fontSize = "25px"
             ems.textContent = `welcome, ${JSON.parse(localStorage.getItem("user"))['username']}.`
             ems.style.display = "block"
             ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })

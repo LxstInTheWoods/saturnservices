@@ -59,7 +59,8 @@ hr{
 
 @media only screen and (max-width:1000px){
     nav img{
-        height: 4em;
+        min-height: 80px;
+        min-width: 80px;
     }
 }
 

@@ -166,6 +166,7 @@ border-radius: 6px;
 background-color: #115dd6;
 color: white;
 border:rgb(24, 24, 24);
+padding: 1em;
 }
 .HRSINFO{
     width: 20%;
@@ -251,6 +252,9 @@ border:rgb(24, 24, 24);
     margin-right: 0.15em;
 
 }
+#emailsign_title{
+    font-size: 25px;
+}
 @media only screen and (max-width:1000px){ /* mobile opt */
     #S01 *{
         font-size: 35px;
@@ -288,11 +292,15 @@ border:rgb(24, 24, 24);
     }
     .order{
         width: 50vw;
+        padding: 2em;
     }
     .prefregion span{
         width: 10em;
     }
     #tintro{
         padding-bottom: 2em;
+    }
+    #emailsign_title{
+        font-size: 60px;
     }
 }
