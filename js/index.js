@@ -44,7 +44,7 @@ if (data != "undefined" && data != null) {
 else {
 
     iframe.contentWindow.postMessage([404, './img/guesticon.png'], '*');
-
+    console.log("runnitup!")
     logged = false
     console.log("wtf")
     emgrp[3].addEventListener("click", async () => {
