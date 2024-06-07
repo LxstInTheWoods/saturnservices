@@ -1,7 +1,7 @@
 const topbar = document.getElementById("topbar")
 
 window.addEventListener('message', function(event) {
-        consople.log(event.data)
+        console.log(event.data)
         console.log("Profile picture received in iframe:", event.data[1]);
         document.getElementById('cscpfp').src = event.data[1];
 
