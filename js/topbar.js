@@ -1,5 +1,9 @@
 const topbar = document.getElementById("topbar")
 
+document.getElementById("cscpfp").addEventListener("click", function(){
+    window.parent.postMessage("Hello!", "*")
+})
+
 window.addEventListener('message', function(event) {
         if (!event.data[1]){return}
         document.getElementById('cscpfp').src = event.data[1];
