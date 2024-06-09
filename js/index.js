@@ -35,7 +35,9 @@ function rmsgnp() {
         const userProfilePicture = parsed.profilepicture
         settingspage.getElementsByClassName("spgpfp")[0].src = userProfilePicture
         settingspage.getElementsByClassName("spguname")[0].textContent = parsed.username
-        iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+        
+            iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+
         logged = true
 
         for (const [i, v] of Object.entries(parsed)) {
@@ -46,6 +48,33 @@ function rmsgnp() {
                 prnt.appendChild(spgpropertyclone)
                 spgpropertyclone.children[0].textContent = i
                 spgpropertyclone.children[1].value = v
+                const oval = spgpropertyclone.children[1].value
+                const apply = spgpropertyclone.children[2]
+                spgpropertyclone.children[1].addEventListener("input", ()=>{
+                    if (oval != spgpropertyclone.children[1].value) {
+                        apply.animate([{'opacity' : 1}], {duration:250, fill:"forwards"})
+                    }
+                    else
+                    {
+                        apply.style.color = "black"
+                        apply.animate([{'opacity' : 0}], {duration:250, fill:"forwards"})
+
+
+                    }
+                })
+                apply.addEventListener("click", () =>{
+                    fetch(`${endpoint}/readwrite`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "type": "upd",
+                            "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
+                        })
+                    })
+                })
             }
         }
         initsignout()
