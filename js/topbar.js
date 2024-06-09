@@ -1,7 +1,7 @@
 const topbar = document.getElementById("topbar")
 
 document.getElementById("cscpfp").addEventListener("click", function(){
-    window.parent.postMessage("Hello!", "*")
+    window.parent.postMessage("500", "*")
 })
 
 window.addEventListener('message', function(event) {
