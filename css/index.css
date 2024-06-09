@@ -327,6 +327,36 @@ padding: 1em;
     outline: none;
     border: none;
 }
+#settingspage .datahold {
+    height: 100%;
+    width: 100%;
+    padding-top: 0.3em;
+
+}
+#settingspage .datahold span{
+    display: flex;
+    width: 75%;
+    margin: auto;
+
+}
+#settingspage .datahold span *{
+    margin: auto;
+}
+#settingspage .datahold span label{
+    margin-right: .3em;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+}
+#settingspage .datahold span input{
+    margin-left: 0;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    border: solid white 2px;
+    border-radius: 9px;
+
+}
 @media only screen and (max-width:1000px){ /* mobile opt */
     #S01 *{
         font-size: 35px;

@@ -17,48 +17,61 @@ let waitresp = false
 const settingspage = document.getElementById("settingspage");
 const computedStyle = window.getComputedStyle(settingspage);
 
-function initsignout(){
-    document.getElementsByClassName('spglogout')[0].addEventListener("click", ()=>{
+function initsignout() {
+    document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
         localStorage.clear()
         window.location.reload()
     })
 }
 //sign in, get info from server if already signed in
 function rmsgnp() {
+    function rest() {
+        const parsed = JSON.parse(localStorage.getItem("user"))
+
+        let ems = document.getElementById("emailsign_title")
+        ems.textContent = `welcome, ${parsed.username}.`
+        ems.style.display = "block"
+        ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
+        const userProfilePicture = parsed.profilepicture
+        settingspage.getElementsByClassName("spgpfp")[0].src = userProfilePicture
+        settingspage.getElementsByClassName("spguname")[0].textContent = parsed.username
+        iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+        logged = true
+
+        for (const [i, v] of Object.entries(parsed)) {
+            const prnt = document.getElementsByClassName("datahold")[0]
+
+            if (i != "data" && typeof v != "object") {
+                const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
+                prnt.appendChild(spgpropertyclone)
+                spgpropertyclone.children[0].textContent = i
+                spgpropertyclone.children[1].value = v
+            }
+        }
+        initsignout()
+
+    }
     for (const x of emgrp) {
         const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
-        animation.onfinish = () => { 
-            const parsed = JSON.parse(localStorage.getItem("user"))
+        animation.onfinish = () => {
+            if(x.id != "emailsign_title")
             x.style.display = "none";
-            let ems = document.getElementById("emailsign_title")
-            ems.textContent = `welcome, ${parsed.username}.`
-            ems.style.display = "block"
-            ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
-            const userProfilePicture = parsed.profilepicture
-            settingspage.getElementsByClassName("spgpfp")[0].src = userProfilePicture
-            settingspage.getElementsByClassName("spguname")[0].textContent = parsed.username
-            console.log("not so wtf")
-            iframe.contentWindow.postMessage([500, userProfilePicture], '*');
-            logged = true
-
-            initsignout()
-
-
         };
 
     }
-    
+    rest()
+
 }
 let data = localStorage.getItem("user")
 if (data != "undefined" && data != null) {
     rmsgnp()
-}   
+}
 else {
 
     logged = false
 
     emgrp[3].addEventListener("click", async () => {
-        if (waitresp) {return}
+        if (waitresp) { return }
         const response = await fetch('https://api.terminalsaturn.com/loginsite', {
             method: "POST",
             mode: "cors",
@@ -78,7 +91,7 @@ else {
 
             }
             waitresp = false
-        } else{waitresp = false}
+        } else { waitresp = false }
 
     })
 }
@@ -160,17 +173,17 @@ dnld.addEventListener("mouseleave", () => {
 
 
 
-window.addEventListener("message", function(event){
-    if (computedStyle.opacity === "0"){
+window.addEventListener("message", function (event) {
+    if (computedStyle.opacity === "0") {
         settingspage.style.display = "block"
-        settingspage.animate([{'opacity':1}], {duration:250, fill:"forwards"})
+        settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
     }
 })
 
-document.getElementById("spgclose").addEventListener('click', function(){
-    if (computedStyle.opacity === "1"){
-        const anim = settingspage.animate([{'opacity':0}], {duration:250, fill:"forwards"})
-        anim.onfinish = () =>{
+document.getElementById("spgclose").addEventListener('click', function () {
+    if (computedStyle.opacity === "1") {
+        const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+        anim.onfinish = () => {
             settingspage.style.display = "none"
         }
     }
