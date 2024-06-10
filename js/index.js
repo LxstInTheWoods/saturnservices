@@ -29,14 +29,15 @@ function rmsgnp() {
         const parsed = JSON.parse(localStorage.getItem("user"))
 
         let ems = document.getElementById("emailsign_title")
+        console.log(parsed)
         ems.textContent = `welcome, ${parsed.username}.`
         ems.style.display = "block"
         ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
         const userProfilePicture = parsed.profilepicture
         settingspage.getElementsByClassName("spgpfp")[0].src = userProfilePicture
         settingspage.getElementsByClassName("spguname")[0].textContent = parsed.username
-        
-            iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+
+        iframe.contentWindow.postMessage([500, userProfilePicture], '*');
 
         logged = true
 
@@ -50,20 +51,21 @@ function rmsgnp() {
                 spgpropertyclone.children[1].value = v
                 const oval = spgpropertyclone.children[1].value
                 const apply = spgpropertyclone.children[2]
-                spgpropertyclone.children[1].addEventListener("input", ()=>{
+                spgpropertyclone.children[1].addEventListener("input", () => {
                     if (oval != spgpropertyclone.children[1].value) {
-                        apply.animate([{'opacity' : 1}], {duration:250, fill:"forwards"})
+                        apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
                     }
-                    else
-                    {
+                    else {
                         apply.style.color = "black"
-                        apply.animate([{'opacity' : 0}], {duration:250, fill:"forwards"})
+                        apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
 
                     }
                 })
-                apply.addEventListener("click", () =>{
-                    fetch(`${endpoint}/readwrite`, {
+                apply.addEventListener("click", () => {
+                    apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+                    fetch(`https://api.terminalsaturn.com/readwrite`, {
                         method: 'POST',
                         mode: 'cors',
                         headers: {
@@ -83,17 +85,34 @@ function rmsgnp() {
     for (const x of emgrp) {
         const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
         animation.onfinish = () => {
-            if(x.id != "emailsign_title")
-            x.style.display = "none";
+            if (x.id != "emailsign_title")
+                x.style.display = "none";
         };
 
     }
     rest()
 
 }
+
 let data = localStorage.getItem("user")
+
 if (data != "undefined" && data != null) {
-    rmsgnp()
+    (async () => {
+        const prs = JSON.parse(data)
+        const response = await fetch('https://api.terminalsaturn.com/loginsite', {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify([prs['username'], prs['password']])
+        })
+        const result = await response.json()
+        if (typeof(result) != "string"){
+        localStorage.setItem('user', JSON.stringify(result))
+        }
+        rmsgnp()
+    })();
 }
 else {
 
