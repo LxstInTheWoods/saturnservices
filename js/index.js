@@ -1,4 +1,4 @@
-
+if (!localStorage.getItem("ts")){alert("Server offline"); return}
 (async () => {
     let ts = localStorage.getItem("ts")
     const thing = document.getElementById("SSINTRO")
@@ -15,16 +15,8 @@
 
     let emgrp = document.getElementsByClassName("emailsign")
 
-    let waitresp = false
     const settingspage = document.getElementById("settingspage");
     const computedStyle = window.getComputedStyle(settingspage);
-
-    function initsignout() {
-        document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
-            localStorage.clear()
-            window.location.reload()
-        })
-    }
     //sign in, get info from server if already signed in
     function rmsgnp() {
         function rest() {
@@ -69,7 +61,6 @@
                     })
                 }
             }
-            initsignout()
 
         }
         for (const x of emgrp) {
@@ -110,32 +101,6 @@
 
         logged = false
 
-        emgrp[3].addEventListener("click", async () => {
-            console.log(ts, "ye")
-            if (ts ) {
-            if (waitresp) { console.log("rtn") ;return }
-                console.log("k")
-                const response = await fetch('https://api.terminalsaturn.com/loginsite', {
-                    method: "POST",
-                    mode: "cors",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify([emgrp[1].value, emgrp[2].value])
-                })
-
-            const result = await response.json()
-            if (typeof result === "object") {
-                if (result['username'] === emgrp[1].value) {
-                    localStorage.setItem('user', JSON.stringify(result))
-                    console.log(JSON.parse(localStorage.getItem("user")))
-                    rmsgnp()
-
-                }
-                waitresp = false
-            } else { waitresp = false }
-        }
-        })
     }
 
 
@@ -231,7 +196,7 @@
         }
     })
     console.log(ts)
-    if (ts){
+    if (ts) {
         document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/508684611396829196/b2c5cb7be0f665aa5ea2e1457ce8ed52?size=1024'
         document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/748436799759843371/ba2fbde8e2cb6a154866ca0077972872?size=1024'
 
@@ -239,7 +204,7 @@
 })()
 
 function handleImageError(image) {
-    image.onerror = null; 
-    image.src = './img/guesticon.png'; 
+    image.onerror = null;
+    image.src = './img/guesticon.png';
     console.warn("Fallback image set due to an error loading the primary image.");
 }

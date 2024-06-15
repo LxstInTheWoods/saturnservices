@@ -1,5 +1,5 @@
 (async () => {
-    let prs = localStorage.getItem("ts")
+    if (!localStorage.getItem("ts")){alert("Server offline"); return}
 
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
         alert("please sign in")
@@ -10,9 +10,9 @@
     var userdata
     var token = ""
     if (localStorage.getItem("user")) {
-        userdata = JSON.parse(localStorage.getItem("user"))
+        userdata = localStorage.getItem("user")
         document.getElementById('apikeyset').value = userdata['token']
-        token = userdata['token'];
+        token = JSON.parse(userdata)['token'];
 
     }
 
@@ -30,7 +30,7 @@
             },
             body: JSON.stringify({
                 "type": "write",
-                "userdata": localStorage.getItem("user")
+                "userdata": JSON.parse(localStorage.getItem("user"))
             })
         })
     }
@@ -62,10 +62,9 @@
 
     async function setupaifs() {
         if (!localStorage.getItem("ts")) { return 404 }
-        info = localStorage.getItem("user")
-        rooms = info['data']['aiturbo']
+        rooms = JSON.parse(userdata)['data']['aiturbo']
         return 500
-
+        //depracated function update to remove later, info is already updated by config.js
     }
 
     function erasemsgs(id) {
@@ -335,7 +334,7 @@
                             },
                             body: JSON.stringify({
                                 prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
-                                userdata: localStorage.getItem("user"),
+                                userdata: JSON.parse(localStorage.getItem("user")),
                                 gtp: model,
                                 history: null,
                             })
@@ -509,7 +508,7 @@
                             },
                             body: JSON.stringify({
                                 prompt: document.getElementById("query").value,
-                                userdata: localStorage.getItem("user"),
+                                userdata: JSON.parse(localStorage.getItem("user")),
                                 gtp: model,
                                 history: JSON.stringify(rooms[currentroom]),
                             })
@@ -1018,6 +1017,8 @@
     //02. implement streaming for chunked responses and faster replies
     //03. !!! make it so server requests are a lot more controlled, saving on site leave or refresh instead of on every event (optimization)
     //04. fix profile picture shape being weird
+    //05. see line 68?
+    //06. make it so when signing out refreshing isnt required, just signs out.
     //INFO. note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
 
 
