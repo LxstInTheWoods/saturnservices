@@ -6,13 +6,17 @@ document.getElementById("cscpfp").addEventListener("click", function(){
 
 window.addEventListener('message', function(event) {
         if (!event.data[1]){return}
+        if (!localStorage.getItem("ts")){
+            document.getElementById('cscpfp').src = './img/guesticon.png'; 
+            return
+        }
         document.getElementById('cscpfp').src = event.data[1];
 
 });
 function handleImageError(image) {
     image.onerror = null; 
     image.src = './img/guesticon.png'; 
-    console.log("Fallback image set due to an error loading the primary image.");
+    console.warn("Fallback image set due to an error loading the primary image.");
 }
 
 function openprofile(element){

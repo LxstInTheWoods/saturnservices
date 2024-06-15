@@ -1,6 +1,6 @@
-// fix url
-//later on have ai page also refresh its information from the server on load.
-(() => {
+(async () => {
+    let prs = localStorage.getItem("ts")
+
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
         alert("please sign in")
         window.open("https://terminalsaturn.com", "_self")
@@ -16,35 +16,11 @@
 
     }
 
-    async function getServerData() { //automatically sets the token and other data when accessing page.
-        try {
-            if (!userdata) { return 404 }
-            const response = await fetch('https://api.terminalsaturn.com/loginsite', {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify([userdata['username'], userdata['password']])
-            })
 
-            const result = await response.json()
-            if (typeof result === "object") {
-                console.log(result)
-                return result
-            }
-        } catch (err) {
-            if (err.message.includes("Failed")) {
-                console.log('ERR - server likely offline') //come back
-                return 404
-            }
-        }
-    }
 
 
     var model = "gpt-3.5-turbo";
     var endpoint = 'https://api.terminalsaturn.com';
-    //bypass config
     function rwup() {
         fetch(`${endpoint}/readwrite`, {
             method: 'POST',
@@ -85,11 +61,8 @@
     var del
 
     async function setupaifs() {
-        let info = await getServerData()
-        if (info === 404) { return info }
-        userdata = JSON.stringify(info)
-        console.log(info)
-        localStorage.setItem("user", JSON.stringify(info))
+        if (!localStorage.getItem("ts")) { return 404 }
+        info = localStorage.getItem("user")
         rooms = info['data']['aiturbo']
         return 500
 
@@ -155,7 +128,6 @@
     });
 
     function tweenInElement(elem) {
-        //animate element to appear 
         elem.animate([{
             'opacity': 1
         }], {
@@ -177,7 +149,7 @@
         clone.addEventListener("mouseleave", () => {
             prnt.style.display = "none";
         });
-        delbutton.addEventListener("mouseenter", () => { //in
+        delbutton.addEventListener("mouseenter", () => {
             delbutton.animate([{
                 borderColor: "white"
             }], {
@@ -186,7 +158,7 @@
             });
             del = true
         });
-        delbutton.addEventListener("mouseleave", () => { //out
+        delbutton.addEventListener("mouseleave", () => { 
             delbutton.animate([{
                 borderColor: "grey"
             }], {
@@ -219,8 +191,6 @@
     }
 
     async function GPT() {
-
-        //begin function for query.
         const tstring = document.getElementById("query").value;
         const hasLetters = /[a-zA-Z]/.test(tstring);
         const hasNumbers = /\d/.test(tstring);
@@ -233,7 +203,7 @@
                     currentroom = genRanHex(12);
                     rooms[currentroom] = {
 
-                    }; //BACK
+                    };
                     clone = document.getElementById("cloneroom").cloneNode(true);
                     clone.id = currentroom;
                     clone.children[0].animate([{
@@ -243,10 +213,9 @@
                         fill: "forwards"
                     });
 
-                    //set room title 
 
 
-                    clone.children[1].children[0].addEventListener("click", () => { //del`
+                    clone.children[1].children[0].addEventListener("click", () => { 
                         erasemsgs(clone.id);
                         clone.remove();
                         if (currentroom === clone.id) {
@@ -265,7 +234,7 @@
                     prnt.style.display = "none";
 
                     hoverStuff(clone);
-                    clone.addEventListener("click", () => { //select
+                    clone.addEventListener("click", () => {
                         //code for created room here
                         if (del) { return }
                         erasemsgs();
@@ -358,38 +327,37 @@
 
                 if (model != "SATURN" && token.length > 0) {
                     if (document.getElementById("query").value.length <= 5000) {
-                            fetch(`${endpoint}/getGPTResponse`, {
-                                method: 'POST',
-                                mode: 'cors',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
-                                    userdata: localStorage.getItem("user"),
-                                    gtp: model,
-                                    history: null,
-                                }) // Pass the token and prompt
-                            }).then(response => {
-                                if (!response.ok) {
-                                    r4('Server error: ' + response.status)
-                                }
-                                return response.json();
+                        fetch(`${endpoint}/getGPTResponse`, {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
+                                userdata: localStorage.getItem("user"),
+                                gtp: model,
+                                history: null,
                             })
-                                .then(data => {
-                                    gptanswer = formatCodeBlocks(data.value);
-                                    rooms[currentroom]['ROOMNAME'] = data.value
-                                    tx34(data.value);
-                                })
-                                .catch(error => {
-                                    if (error.message.includes("Failed")) {
-                                        console.log("failed to connect to server - may be offline")
-                                    }
-                                    else
-                                    {
+                        }).then(response => {
+                            if (!response.ok) {
+                                r4('Server error: ' + response.status)
+                            }
+                            return response.json();
+                        })
+                            .then(data => {
+                                gptanswer = formatCodeBlocks(data.value);
+                                rooms[currentroom]['ROOMNAME'] = data.value
+                                tx34(data.value);
+                            })
+                            .catch(error => {
+                                if (error.message.includes("Failed")) {
+                                    console.log("failed to connect to server - may be offline")
+                                }
+                                else {
                                     r4("(CALL BY CLIENT)ERROR: " + error)
-                                    }
-                                });
+                                }
+                            });
 
                     }
 
@@ -402,11 +370,10 @@
             const userclone = userresponse.cloneNode(true);
             document.getElementById('gptresponse').appendChild(userclone);
             userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
-            if(typeof userdata === Object){
+            if (typeof userdata === Object) {
                 userclone.children[0].src = userdata['profilepicture']
             }
-            else
-            {
+            else {
                 userclone.children[0].src = JSON.parse(userdata)['profilepicture']
             }
             var elem = document.getElementById('gptresponse');
@@ -446,7 +413,8 @@
                             adjustTextareaHeight()
                         })
                     }
-                    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value; //this saves the gpt reply etc
+                    //save gpt reply
+                    rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value;
                     let tmps = JSON.parse(localStorage.getItem("user"))
                     tmps['data']['aiturbo'] = rooms
                     localStorage.setItem("user", JSON.stringify(tmps))
@@ -476,7 +444,6 @@
                         }).then(function (response) {
                             return response.json();
                         }).then(function (data) {
-                            // access the data directly here
                             r4(data[0]);
                             if (data[0].includes("Access Granted")) {
                                 token = data[1]
@@ -484,7 +451,6 @@
                             }
                         })
                             .catch(function (error) {
-                                // handle errors here
                                 console.error("ERROR: " + error);
                             });
                     },
@@ -509,11 +475,9 @@
                         }).then(function (response) {
                             return response.json();
                         }).then(function (data) {
-                            // access the data directly here
                             r4(data[0]);
                         })
                             .catch(function (error) {
-                                // handle errors here
                                 console.error("ERROR: " + error);
                             });
                     },
@@ -548,7 +512,7 @@
                                 userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: JSON.stringify(rooms[currentroom]),
-                            }) // Pass the token and prompt
+                            })
                         }).then(response => {
                             if (!response.ok) {
                                 r4('Server error: ' + response.status)
@@ -662,14 +626,12 @@
 
         const delbutton = clone.children[1].children[0]
         const prnt = delbutton.parentNode
-        //delbutton.offsetHeight + clone.offsetHeight
         //%#($#)
-        //animation
         prnt.style.display = "none"
 
         hoverStuff(clone)
 
-        clone.addEventListener("click", () => { //select
+        clone.addEventListener("click", () => {
             //clicked on created room.
             if (del) { return }
 
@@ -761,21 +723,23 @@
         var elem = document.getElementById('gptresponse');
         elem.scrollTop = elem.scrollHeight;
 
-        if (index){
-        currentroom = 0
+        if (index) {
+            currentroom = 0
         }
     }
 
     (async () => {
         let iso = await setupaifs()
-        if (iso != 404) {
-            let count = 0
+        if (iso === 404) {
+            console.warn("loaded chats from local save, may contain innacurate information. -- saving disabled until refresh")
+        }
             for (const x of Object.keys(rooms)) {
-                if (rooms[x]){
-                ctrr(x, rooms[x])
+                if (rooms[x]) {
+                    console.log(x)
+                    ctrr(x, rooms[x])
                 }
             }
-        }
+        
     })()
 
     document.getElementById("roomcreate").addEventListener("click", () => {
@@ -966,7 +930,6 @@
     });
 
 
-    //make search bar work
     document.getElementById("search").addEventListener("input", () => {
         for (const x of [...document.getElementById("chats").children]) {
             if (x.id != 'chatstorage' && x.children[0].innerHTML.toLowerCase().includes(document.getElementById("search").value.toLowerCase())) {
@@ -991,7 +954,7 @@
         }
     });
 
-    //settingsstuff
+
     function openSettings() {
         const settings = document.getElementById('settingspannel');
         const currentOpacity = parseFloat(settings.style.opacity);
@@ -1050,15 +1013,12 @@
     document.getElementById("openSettings").addEventListener("click", openSettings)
 
 
-    //search for %#($#) to find || TODO: make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
-    //01. TODO make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
-    //02. TODO implement streaming for chunked responses and faster replies
-    //03. rewrite it to use the satvrnservices domain because terminalsaturn is too new and blocked by the filter. api requests blocked as well, if href is satvrnservices set the endpoint to the droplet ip.
-    //04. make it so server requests are a lot more controlled, saving on site leave or refresh instead of on every event (optimization)
-    //05. fix profile picture shape being weird
-    //06. fix chats not saving in order
-
-    //note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
+    //00. make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear
+    //01. make it so when asking for html content it gives a preview of the site and the code, when it writes code into innerhtml it breaks the page.
+    //02. implement streaming for chunked responses and faster replies
+    //03. !!! make it so server requests are a lot more controlled, saving on site leave or refresh instead of on every event (optimization)
+    //04. fix profile picture shape being weird
+    //INFO. note if the send button changing on the mbuttons isnt working just make the animation asynchronous.
 
 
 })()
