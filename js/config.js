@@ -182,4 +182,5 @@ let waitresp = false;
 //2. Sign out and sign back in -- PASS
 //3 refresh site. -- PASS
 //4 all offline disconnects function with silenced 404 errors  -- PASS
-// ALL PASS STABLE AS OF 6/14/24
+//5 Information is updated with a fresh copy from server on refresh -- FAIL
+// PARTIALLY STABLE AS OF 6/14/24
