@@ -67,7 +67,7 @@ let waitresp = false;
 
     }
 
-    if (window.location.href.includes("index") || window.location.href.includes("https://terminalsaturn.com")) {
+    if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com") {
         const ts = localStorage.getItem("ts")
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1].value
@@ -166,7 +166,7 @@ let waitresp = false;
             }
         }
 
-    }
+    //if topbar becomes global consider removing this from index check
     document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
         const userdata = localStorage.getItem("user")
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")){
@@ -174,6 +174,7 @@ let waitresp = false;
         window.location.reload()
         }
     })
+}
 
 })()
 
