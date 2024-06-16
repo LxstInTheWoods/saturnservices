@@ -326,6 +326,8 @@
 
                 if (model != "SATURN" && token.length > 0) {
                     if (document.getElementById("query").value.length <= 5000) {
+                        console.log(typeof localStorage.getItem("user"))
+
                         fetch(`${endpoint}/getGPTResponse`, {
                             method: 'POST',
                             mode: 'cors',
@@ -500,6 +502,7 @@
                         r4("Query too long.")
                     } else {
                         responseclone.children[1].innerHTML = "generating response...";
+                        console.log(typeof localStorage.getItem("user"))
                         fetch(`${endpoint}/getGPTResponse`, {
                             method: 'POST',
                             mode: 'cors',
