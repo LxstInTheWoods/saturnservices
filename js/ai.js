@@ -336,7 +336,7 @@
                             },
                             body: JSON.stringify({
                                 prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
-                                userdata: JSON.parse(localStorage.getItem("user")),
+                                userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: null,
                             })
@@ -511,7 +511,7 @@
                             },
                             body: JSON.stringify({
                                 prompt: document.getElementById("query").value,
-                                userdata: JSON.parse(localStorage.getItem("user")),
+                                userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: JSON.stringify(rooms[currentroom]),
                             })
