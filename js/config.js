@@ -1,8 +1,11 @@
 let waitresp = false;
 (async () => {
-
+    function logout(){
+        localStorage.clear()
+    }
 
     function _stp() {
+        console.log("s")
         const parsed = JSON.parse(localStorage.getItem("user"))
         for (const [i, v] of Object.entries(parsed)) {
             const prnt = document.getElementsByClassName("datahold")[0]
@@ -116,7 +119,6 @@ let waitresp = false;
 
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
             if (ts) {
-                if (waitresp) { console.log("rtn"); return }
                 const checkwait = await Login()
                 console.log("run")
             }
@@ -127,6 +129,7 @@ let waitresp = false;
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
             //code for if the user is already signed in. 
             const parsed = JSON.parse(userdata)
+            console.log("get data")
             const response = await fetch('https://api.terminalsaturn.com/loginsite', {
                 method: "POST",
                 mode: "cors",
@@ -137,7 +140,6 @@ let waitresp = false;
             })
             const rdata = await response.json()
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
-                console.log("yes?")
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
                 const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
@@ -170,8 +172,7 @@ let waitresp = false;
     document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
         const userdata = localStorage.getItem("user")
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")){
-        localStorage.clear()
-        window.location.reload()
+            logout();
         }
     })
 }
@@ -179,9 +180,9 @@ let waitresp = false;
 })()
 
 //index testing:
-//1. log into site fresh with no saved data -- PASS
+//1. log into site fresh with no saved data -- FAIL
 //2. Sign out and sign back in -- PASS
 //3 refresh site. -- PASS
 //4 all offline disconnects function with silenced 404 errors  -- PASS
 //5 Information is updated with a fresh copy from server on refresh -- FAIL
-// PARTIALLY STABLE AS OF 6/14/24
+// UNSTABLE AS OF 6/14/24

@@ -35,6 +35,7 @@ iframe {
     outline: none;
     color: white;
     background-color: #1c1c1c;
+    padding: 0.3em;
 }
 
 #s02 {
@@ -49,12 +50,13 @@ iframe {
 }
 
 .newsreport {
-    width: 100%;
+    width: 80%;
     border-radius: 9px;
     box-sizing: border-box;
     margin: auto;
     border: solid white;
     padding: 0.3em;
+    margin-bottom: 1em;
 
 }
 
@@ -88,9 +90,10 @@ iframe {
     left: 50%;
     margin-left: -20%; 
     height: fit-content;
-    background-color: grey;
+    background-color: rgb(67, 67, 67);
     border: solid white;
     top: 15%;
+    border-radius: 15px;
 
 }
 #admnewsupload h3{
@@ -103,11 +106,13 @@ iframe {
 }
 #divspan>button{
     position: relative;
-    background-color: red;
+    background:none;
     font-size: 20px;
     outline: none;
     border: none;
     height: 1.3em;
+    padding-right: 1.5em;
+    font-weight: bold;
     width: 5%;
 }
 #admnewsupload textarea{
@@ -115,13 +120,34 @@ iframe {
     width: 98%;
     color: black;
     font-size: 15px;
+    border-radius: 9px;
+    border: solid grey 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 #divspan>h3{
     width: 95%;
 }
 #admnewsupload>div{
     height: 100%;
+    padding: 0.3em;
 }
+#opnrptc{
+    margin-top: 0.3em;
+    font-size: 50px;
+}
+#a_three {
+    font-size: 25px;
+    background: none;
+    border: solid white 2px;
+    border-radius: 9px;
+    padding-left: 0.5em;
+    padding-right: .5em;
+}
+
 @media only screen and (max-width:1000px){
     #admnewsupload{
         position: absolute;
@@ -145,4 +171,28 @@ iframe {
 
         font-size: 50px ;
     }
+    #s01 button{
+        width: 50%;
+        padding: 0.3em;
+        justify-content: center;
+        font-size: 50px;
+        border: solid white 4px;
+    }
+    #s01 h1{
+        font-size: 45px;
+    }
+    #a_three {
+        font-size: 50px;
+
+    }
+    .newsreport h2{
+        font-size: 50px;
+    }
+    .newsreport h3{
+        font-size: 30px;
+    }
+    .newsreport p{
+        font-size: 25px;
+    }
+
 }
