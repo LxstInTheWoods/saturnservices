@@ -185,7 +185,6 @@ padding: 1em;
 }
 .hcontainer{
     width: 25%;
-    margin: auto;
     padding:0.3em;
 }
 .hcontainer *{
@@ -201,12 +200,24 @@ padding: 1em;
 #xhcontainer{
     display: flex;
     height: 100%;
+    display: block;
 }
 #h01{
+    width: 75%;
     margin-right: 0.5em;
+    margin-left: 11.3em;
+    margin: auto;
+
+}
+#h01 p {
+    width: 50%;
+    text-align: left;
+    float: left;
 }
 #h02{
-    margin-left: 0.5em;
+    display: flex;
+    width: 75%;
+    margin: auto;
 }
 #h02>label{
     display: flex;
@@ -223,6 +234,8 @@ padding: 1em;
     margin-bottom: 1em;
     padding-bottom: 0.15em  ;
     border: solid rgb(71, 71, 71) 2px;
+    margin-right: 0.3em;
+    width: 35%;
 }
 .teamcard>img{
     border-radius: 9px;
@@ -250,7 +263,10 @@ padding: 1em;
 }
 .prefregion img{
     margin-right: 0.15em;
-
+    max-width: 35px;
+    max-height: 35px;
+    min-width: 35px;
+    min-height: 35px;
 }
 #emailsign_title{
     font-size: 20px;

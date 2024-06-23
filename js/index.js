@@ -163,10 +163,10 @@
         })
 
         x.parentElement.addEventListener("mouseleave", () => {
-            x.parentElement.animate([{ border: "solid #2c2c2c 2px" }], { duration: 250, fill: 'forwards' })
+            x.parentElement.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
         })
         x.addEventListener("mouseleave", () => {
-            x.animate([{ border: "solid #2c2c2c 2px" }], { duration: 250, fill: 'forwards' })
+            x.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
 
         })
 
@@ -200,6 +200,7 @@
     if (ts) {
         document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/508684611396829196/b2c5cb7be0f665aa5ea2e1457ce8ed52?size=1024'
         document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/748436799759843371/ba2fbde8e2cb6a154866ca0077972872?size=1024'
+        document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/665407534386905101/4e1fcd29abde4ed370b0a67eca6977de?size=1024'
 
     }
 })()
