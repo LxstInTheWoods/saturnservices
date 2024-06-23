@@ -1,5 +1,5 @@
 (async () => {
-    if (!localStorage.getItem("ts")){alert("Server offline"); return}
+    if (!localStorage.getItem("ts")){console.log("might be TS bug - Server offline"); }
 
     let ts = localStorage.getItem("ts")
     const thing = document.getElementById("SSINTRO")

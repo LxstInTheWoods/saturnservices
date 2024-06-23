@@ -2,6 +2,7 @@ let waitresp = false;
 (async () => {
     function logout(){
         localStorage.clear()
+        location.reload()
     }
 
     function _stp() {
@@ -72,16 +73,26 @@ let waitresp = false;
 
     if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com") {
         const ts = localStorage.getItem("ts")
+
         async function Login() {
-            const username = document.getElementsByClassName("emailsign")[1].value
-            const password = document.getElementsByClassName("emailsign")[2].value
+            const username = document.getElementsByClassName("emailsign")[1]
+            const password = document.getElementsByClassName("emailsign")[2]
+            function pulseWrong(){
+            username.animate([{borderColor:"red"}], {duration:250, fill:"forwards"})
+            const anim = password.animate([{borderColor:"red"}], {duration:250, fill:"forwards"})
+            anim.onfinish = () =>{
+                username.animate([{borderColor:"white"}], {duration:250, fill:"forwards"})
+                password.animate([{borderColor:"white"}], {duration:250, fill:"forwards"})
+            }
+
+            }
             const response = await fetch('https://api.terminalsaturn.com/loginsite', {
                 method: "POST",
                 mode: "cors",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify([username, password])
+                body: JSON.stringify([username.value, password.value])
             })
             const rdata = await response.json()
 
@@ -114,13 +125,17 @@ let waitresp = false;
                 return true
 
             }
+            else if (rdata.includes("incorrect")){
+                pulseWrong()
+                return
+            }
         }
         //end of login
 
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
             if (ts) {
                 const checkwait = await Login()
-                console.log("run")
+                
             }
         })
 
