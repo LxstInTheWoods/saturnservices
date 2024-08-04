@@ -222,4 +222,4 @@ let waitresp = false;
 //3 refresh site. -- PASS
 //4 all offline disconnects function with silenced 404 errors  -- PASS
 //5 Information is updated with a fresh copy from server on refresh -- PASS
-// STABLE AS OF 6/14/24
+// STABLE AS OF 8/04/24
