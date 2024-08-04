@@ -4,6 +4,28 @@ let waitresp = false;
         localStorage.clear()
         location.reload()
     }
+    //config wss
+    const wsUrl = 'wss://api.terminalsaturn.com:1111'; // Use `ws://` for non-secure
+    const socket = new WebSocket(wsUrl);
+    
+    socket.onopen = function(event) {
+        console.log('WebSocket connection established');
+        // Optionally send a message to the server
+        socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
+    };
+    
+    socket.onmessage = function(event) {
+        console.log('Message from server:', event.data);
+    };
+    
+    socket.onclose = function(event) {
+        console.log('WebSocket connection closed:', event.reason);
+    };
+    
+    socket.onerror = function(error) {
+        console.error('WebSocket error:', error.message);
+    };
+
 
     function _stp() {
         console.log("s")
@@ -195,9 +217,9 @@ let waitresp = false;
 })()
 
 //index testing:
-//1. log into site fresh with no saved data -- FAIL
+//1. log into site fresh with no saved data -- PASS
 //2. Sign out and sign back in -- PASS
 //3 refresh site. -- PASS
 //4 all offline disconnects function with silenced 404 errors  -- PASS
-//5 Information is updated with a fresh copy from server on refresh -- FAIL
-// UNSTABLE AS OF 6/14/24
+//5 Information is updated with a fresh copy from server on refresh -- PASS
+// STABLE AS OF 6/14/24
