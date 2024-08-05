@@ -5,12 +5,11 @@ let waitresp = false;
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://api.terminalsaturn.com:1111'; // Use `ws://` for non-secure
+    const wsUrl = 'wss://api.terminalsaturn.com:1111'; 
     const socket = new WebSocket(wsUrl);
     
     socket.onopen = function(event) {
         console.log('WebSocket connection established');
-        // Optionally send a message to the server
         socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
     };
     

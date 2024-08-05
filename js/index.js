@@ -182,7 +182,7 @@
 
 
     window.addEventListener("message", function (event) {
-        if (computedStyle.opacity === "0") {
+        if (computedStyle.opacity === "0" && event.data === "500_c") {
             settingspage.style.display = "block"
             settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
         }
