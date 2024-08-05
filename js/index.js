@@ -1,5 +1,33 @@
 (async () => {
-    if (!localStorage.getItem("ts")){console.log("might be TS bug - Server offline"); }
+    if (!localStorage.getItem("ts")){
+        console.log("might be TS bug - Server offline"); 
+
+        function delay(ms) {
+            return new Promise (resolve => setTimeout(resolve, ms))
+        }
+    
+        (async ()=>{
+            while (!localStorage.getItem("ts")) {
+                try {
+                    const data = await fetch("https://api.terminalsaturn.com/ping", {
+                        mode:"cors",
+                        method:"POST",
+                        headers:{"Content-Type":"application/json"},
+                        body:JSON.stringify([500])
+                    })
+                    const result = await data.json()
+                    if (result) {
+                        localStorage.setItem("ts", true)
+                    }
+                }catch(err){
+                    warn("server unreachable")
+                }
+                await delay(1000)
+            }
+        })()
+        
+    }
+
 
     let ts = localStorage.getItem("ts")
     const thing = document.getElementById("SSINTRO")
@@ -196,7 +224,6 @@
             }
         }
     })
-    console.log(ts)
     if (ts) {
         document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/508684611396829196/351f7919a7ceb76e15f60bf03a9ce7d5?size=1024h'
         document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/748436799759843371/5255649ea51ceb641d7652cf67e08213?size=1024'

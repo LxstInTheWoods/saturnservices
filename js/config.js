@@ -156,7 +156,8 @@ let waitresp = false;
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
             if (ts) {
                 const checkwait = await Login()
-                
+            }else{
+                print("not ts")
             }
         })
 
