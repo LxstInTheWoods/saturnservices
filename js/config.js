@@ -157,7 +157,7 @@ let waitresp = false;
             if (ts) {
                 const checkwait = await Login()
             }else{
-                print("not ts")
+                console.log("not ts")
             }
         })
 
