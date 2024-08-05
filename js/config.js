@@ -93,6 +93,7 @@ let waitresp = false;
     }
 
     if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com") {
+        console.log("yea")
         const ts = localStorage.getItem("ts")
 
         async function Login() {
