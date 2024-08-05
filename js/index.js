@@ -210,3 +210,21 @@ function handleImageError(image) {
     image.src = './img/guesticon.png';
     console.warn("Fallback image set due to an error loading the primary image.");
 }
+
+//move animation stuff later
+(async () =>{
+const text = "Welcome to TerminalSaturn. We are a front and backend development team focused on delivering minimal yet vibrant creations to the world.".split(/(?=[a-zA-Z0-9])/)
+let newstring = ""
+let addedBr = false
+for (const [i, v] of Object.entries(text)) {
+    if (i > Math.round(text.length / 3) && v.match(/\s+/) && !addedBr) {
+        addedBr = true
+    newstring += `${v} <br>`
+    }
+    else
+    {
+        newstring += `${v}`
+    }
+}
+document.getElementById("tsdesc").innerHTML = newstring
+})()
