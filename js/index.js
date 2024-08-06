@@ -9,7 +9,7 @@
         (async ()=>{
             while (!localStorage.getItem("ts")) {
                 try {
-                    const data = await fetch("https://api.terminalsaturn.com/ping", {
+                    const data = await fetch("https://api.terminalsaturn.com/:444ping", {
                         mode:"cors",
                         method:"POST",
                         headers:{"Content-Type":"application/json"},
@@ -76,7 +76,7 @@
                     apply.addEventListener("click", () => {
                         apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
-                        fetch(`https://api.terminalsaturn.com/readwrite`, {
+                        fetch(`https://api.terminalsaturn.com:444/readwrite`, {
                             method: 'POST',
                             mode: 'cors',
                             headers: {
@@ -110,7 +110,7 @@
             const prs = JSON.parse(data)
             if (localStorage.getItem("ts")) {
 
-                const response = await fetch('https://api.terminalsaturn.com/loginsite', {
+                const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                     method: "POST",
                     mode: "cors",
                     headers: {
@@ -217,7 +217,6 @@
     })
 
     document.getElementById("spgclose").addEventListener('click', function () {
-        alert("ok")
         if (computedStyle.opacity === "1") {
             const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
             anim.onfinish = () => {

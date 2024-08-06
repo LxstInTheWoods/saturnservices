@@ -20,7 +20,7 @@
 
 
     var model = "gpt-3.5-turbo";
-    var endpoint = 'https://api.terminalsaturn.com';
+    var endpoint = 'https://api.terminalsaturn.com:444';
     function rwup() {
         fetch(`${endpoint}/readwrite`, {
             method: 'POST',
@@ -335,7 +335,7 @@
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: "(do not wrap in quotes): create a formal chat name as short as possible (5 words if possible DO NOT EXCEED 10 WORDS UNDER ANY CIRCUMSTANCE.) that summarizes what the prompt is about. example: solve 1+2 -> mathmetical inquiries." + document.getElementById("query").value,
+                                prompt: "summarize what this prompt is asking you to do, do not answer the question: 7 words or less: " + document.getElementById("query").value,
                                 userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: null,

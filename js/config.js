@@ -5,7 +5,7 @@ let waitresp = false;
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://socket.terminalsaturn.com';
+    const wsUrl = 'wss://api.terminalsaturn.com:1111'; 
     const socket = new WebSocket(wsUrl);
     
     socket.onopen = function(event) {
@@ -52,7 +52,7 @@ let waitresp = false;
                 apply.addEventListener("click", () => {
                     apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
-                    fetch(`https://api.terminalsaturn.com/readwrite`, {
+                    fetch(`https://api.terminalsaturn.com:444/readwrite`, {
                         method: 'POST',
                         mode: 'cors',
                         headers: {
@@ -69,7 +69,7 @@ let waitresp = false;
     }
 
     try {
-        const tlresponse = await fetch('https://api.terminalsaturn.com/ping', {
+        const tlresponse = await fetch('https://api.terminalsaturn.com:444/ping', {
             method: "POST",
             mode: "cors",
             headers: {
@@ -86,7 +86,7 @@ let waitresp = false;
         console.error(rer)
         localStorage.setItem('ts', false)
         setTimeout(() => {
-             //console.clear()
+             console.clear()
             console.warn("failed to connect to server")
         }, 100);
 
@@ -108,7 +108,7 @@ let waitresp = false;
             }
 
             }
-            const response = await fetch('https://api.terminalsaturn.com/loginsite', {
+            const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -168,7 +168,7 @@ let waitresp = false;
             //code for if the user is already signed in. 
             const parsed = JSON.parse(userdata)
             console.log("get data")
-            const response = await fetch('https://api.terminalsaturn.com/loginsite', {
+            const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -224,3 +224,4 @@ let waitresp = false;
 //4 all offline disconnects function with silenced 404 errors  -- PASS
 //5 Information is updated with a fresh copy from server on refresh -- PASS
 // STABLE AS OF 8/04/24
+
