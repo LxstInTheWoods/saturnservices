@@ -146,7 +146,7 @@
             }
         })
         document.body.animate([{ backgroundColor: "#1a1a1a" }], { duration: 250, fill: "forwards" })
-        const str = "Envisioning a Future of Possibilities."
+        const str = "Where possibilities become reality."
         var cur = ""
         _ = async () => {
             for (const x of str) {
@@ -217,6 +217,7 @@
     })
 
     document.getElementById("spgclose").addEventListener('click', function () {
+        alert("ok")
         if (computedStyle.opacity === "1") {
             const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
             anim.onfinish = () => {

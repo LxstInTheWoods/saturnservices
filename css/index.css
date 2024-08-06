@@ -389,6 +389,173 @@ padding: 1em;
     margin-left: 0.5em;
     padding-left: 0;
 }
+
+#adminbox {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    z-index: 121212;
+    background-color: #C0000000;
+    backdrop-filter: blur(3px);
+    opacity: 1;
+    display: block;
+}
+
+#adminbox .infohold {
+    width: 60vw;
+    height: 60vh;
+    border: solid white;
+    border-radius: 7px;
+    margin: auto;
+    margin-top: 20vh;
+    box-shadow: 0 0 5px #FFFF, 0 0 5px #FFFF, 0 0 5px #FFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#adminbox #spgclose {
+    position: relative;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 0.3em;
+    margin-left: auto;
+}
+
+#adminbox .datahold {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.userlookup {
+    border-top: solid white 4px;
+    width: 100%;
+}
+
+#adminbox .spgpfp {
+    max-height: 30px;
+    max-width: 30px;
+    border-radius: 99999px;
+    margin: 0;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+#adminbox .spguname {
+    color: #000;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+    padding-left: 0.5em;
+    padding-top: 0.1em;
+    display: flex;
+    align-items: center;
+}
+
+#adminbox .datahold {
+    height: 100%;
+    width: 100%;
+    padding-top: 0.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#adminbox .datahold span {
+    display: flex;
+    width: 75%;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0.3em;
+    align-self: flex-start;
+}
+
+#adminbox .datahold span * {
+    margin: auto;
+}
+
+#adminbox .datahold span label {
+    margin-right: .3em;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    width: 50%;
+}
+
+#adminbox .datahold span input {
+    margin-left: 0;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    border: solid white 2px;
+    border-radius: 9px;
+    margin-right: 0;
+}
+
+#adminbox .datahold span button {
+    color: rgb(174, 174, 174);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    background: none;
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+    border: none;
+    opacity: 0;
+    margin: auto;
+    margin-left: 0.5em;
+    padding-left: 0;
+}
+
+#adminbox .userlookup {
+    padding-left: 10px;
+    padding-top: 10px;
+    border-radius: 5px;
+    margin-bottom: 2em;
+}
+
+#adminbox .userlookup span {
+    display: flex;
+    align-items: center;
+}
+
+#adminbox .userlookup span label {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+#adminbox .userlookup span input {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    border: solid white 2px;
+    border-radius: 9px;
+    margin-right: 0.5em;
+}
+
+#adminbox .userlookup span button {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background: none;
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+    border: solid white 2px;
+    border-radius: 9px;
+    padding: 0.3em 0.6em;
+}
+
 @media only screen and (max-width:1000px){ /* mobile opt */
     #S01 *{
         font-size: 35px;
