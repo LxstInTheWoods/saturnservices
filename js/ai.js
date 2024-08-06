@@ -16,7 +16,9 @@
 
     }
 
-
+    function getUserData(){
+        return JSON.parse(localStorage.getItem("user"))
+    }
 
 
     var model = "gpt-3.5-turbo";
@@ -30,7 +32,7 @@
             },
             body: JSON.stringify({
                 "type": "write",
-                "userdata": JSON.parse(localStorage.getItem("user"))
+                "userdata": getUserData()
             })
         })
     }
@@ -181,7 +183,7 @@
                 currentroom = 0;
             }
             rooms[clone.id] = null;
-            let tmps = JSON.parse(localStorage.getItem("user"))
+            let tmps = getUserData()
             tmps['data']['aiturbo'] = rooms
             localStorage.setItem("user", JSON.stringify(tmps))
             rwup()
@@ -326,7 +328,6 @@
 
                 if (model != "SATURN" && token.length > 0) {
                     if (document.getElementById("query").value.length <= 5000) {
-                        console.log(typeof localStorage.getItem("user"))
 
                         fetch(`${endpoint}/getGPTResponse`, {
                             method: 'POST',
@@ -427,7 +428,7 @@
             
                     // Save GPT reply
                     rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value;
-                    let tmps = JSON.parse(localStorage.getItem("user"));
+                    let tmps = getUserData();
                     tmps['data']['aiturbo'] = rooms;
                     localStorage.setItem("user", JSON.stringify(tmps));
                     rwup();

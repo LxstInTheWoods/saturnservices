@@ -24,9 +24,17 @@
     </div>
 
     <script>
-        if (!JSON.parse(localStorage.getItem("user"))['admin']) {
-            document.getElementById("admin").remove()
+        //work on admin, make dissapear if not admin    
+        if (!localStorage.getItem("user") || !JSON.parse(localStorage.getItem("user"))['admin']) {
+            document.getElementById("admin").style.display = "none"
         }
+
+        window.addEventListener("message", (d)=>{
+            if (d.data[0] === 501){
+                console.log("ok")
+                document.getElementById("admin").style.display = "block"
+            }
+        })
     </script>
     
     <script src="./js/topbar.js"></script>

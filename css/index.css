@@ -272,122 +272,13 @@ padding: 1em;
     font-size: 20px;
     padding-bottom: 0.3em;
 }
-#settingspage{
-    position: fixed;
+#i_set{
     width: 100vw;
     height: 100vh;
+    position: fixed;
+    z-index: 12222222;
     top: 0;
-    z-index: 121212;
-    background-color: #C0000000;
-    backdrop-filter: blur(3px);
-    opacity: 0;
-    display: none;
-}
-#settingspage .infohold{
-    width: 60vw;
-    height: 60vh;
-    border: solid white;
-    border-radius: 7px;
-    margin: auto;
-    margin-top: 20vh;
-    box-shadow: 0 0 5px #FFFF, 0 0 5px #FFFF, 0 0 5px #FFFF;
-
-}
-#spgclose {
-    position: relative;
-    background: none;
     border: none;
-    outline: none;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 0.3em;
-    margin-left: auto;
-
-}
-#settingspage .datahold{
-    width: 100%;
-    flex: 1;
-    border-top: solid white 4px;
-}
-#settingspage .spgpfp{
-    max-height: 30px;
-    max-width: 30px;
-    border-radius: 99999px;
-    margin: 0;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
-}
-#settingspage .spguname{
-    color: #000;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
-    padding-left: 0.5em;
-    padding-top: 0.1em;
-    display: flex;
-    align-items: center;
-}
-#settingspage .spglogout{
-    color: #000;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
-    padding-left: 1em;
-    padding-top: 0.1em;
-    display: flex;
-    align-items: center;
-    background: none;
-    outline: none;
-    border: none;
-}
-#settingspage .datahold {
-    height: 100%;
-    width: 100%;
-    padding-top: 0.3em;
-
-}
-#settingspage .datahold span{
-    display: flex;
-    width: 75%;
-    margin: auto;
-    margin-bottom: 0.3em;
-
-}
-#settingspage .datahold span *{
-    margin: auto;
-}
-#settingspage .datahold span label{
-    margin-right: .3em;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: left;
-    width: 50%;
-}
-#settingspage .datahold span input{
-    margin-left: 0;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    border: solid white 2px;
-    border-radius: 9px;
-    margin-right: 0;
-
-}
-#settingspage .datahold span button{
-    color: rgb(174, 174, 174);
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: left;
-    background: none;
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
-    border: none;
-    opacity: 0;
-    margin: auto;
-    margin-left: 0.5em;
-    padding-left: 0;
 }
 
 #adminbox {

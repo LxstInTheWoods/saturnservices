@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<head>
+
+    <style>
+        body{
+            display: block;
+        }
+        #settingspage {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            z-index: 121212;
+            background-color: #C0000000;
+            backdrop-filter: blur(3px);
+            opacity: 1;
+        }
+
+        #settingspage .infohold {
+            width: 60vw;
+            height: 60vh;
+            border: solid white;
+            border-radius: 7px;
+            margin: auto;
+            margin-top: 20vh;
+            box-shadow: 0 0 5px #FFFF, 0 0 5px #FFFF, 0 0 5px #FFFF;
+
+        }
+
+        #spgclose {
+            position: relative;
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 0.3em;
+            margin-left: auto;
+
+        }
+
+        #settingspage .datahold {
+            width: 100%;
+            flex: 1;
+            border-top: solid white 4px;
+        }
+
+        #settingspage .spgpfp {
+            max-height: 30px;
+            max-width: 30px;
+            border-radius: 99999px;
+            margin: 0;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+        }
+
+        #settingspage .spguname {
+            color: #000;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+            padding-left: 0.5em;
+            padding-top: 0.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        #settingspage .spglogout {
+            color: #000;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+            padding-left: 1em;
+            padding-top: 0.1em;
+            display: flex;
+            align-items: center;
+            background: none;
+            outline: none;
+            border: none;
+        }
+
+        #settingspage .datahold {
+            height: 100%;
+            width: 100%;
+            padding-top: 0.3em;
+
+        }
+
+        #settingspage .datahold span {
+            display: flex;
+            width: 75%;
+            margin: auto;
+            margin-bottom: 0.3em;
+
+        }
+
+        #settingspage .datahold span * {
+            margin: auto;
+        }
+
+        #settingspage .datahold span label {
+            margin-right: .3em;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            text-align: left;
+            width: 50%;
+        }
+
+        #settingspage .datahold span input {
+            margin-left: 0;
+            color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            border: solid white 2px;
+            border-radius: 9px;
+            margin-right: 0;
+
+        }
+
+        #settingspage .datahold span button {
+            color: rgb(174, 174, 174);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            text-align: left;
+            background: none;
+            text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+            border: none;
+            opacity: 0;
+            margin: auto;
+            margin-left: 0.5em;
+            padding-left: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="settingspage">
+        <div class="infohold">
+            <span
+                style="display: flex; justify-content: space-between; align-items: center; padding: 0.3em; width: 100%;">
+                <img class="spgpfp">
+                <label class="spguname">Username</label>
+                <button class="spglogout">sign out</button>
+                <button id="spgclose">Close</button>
+            </span>
+
+            <div class="datahold">
+                <div id="spgdataholdstrg" style="display: none;">
+                    <span>
+                        <label>Property</label> <input> <button>Apply</button>
+                </div>
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const parsed = JSON.parse(localStorage.getItem("user"))
+        const settingspage = document.getElementById("settingspage");
+        const computedStyle = window.getComputedStyle(settingspage);
+
+        window.addEventListener("message", function (event) {
+            if (computedStyle.opacity === "0" && event.data === "500_c") {
+                console.log("open")
+                document.body.style.display = "block"
+                settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
+            }
+        })
+ 
+        document.getElementById("spgclose").addEventListener('click', function () {
+            if (computedStyle.opacity === "1") {
+                const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+                anim.onfinish = () => {
+                    document.body.style.display = "none"
+                }
+            }
+        }) 
+        console.log(window.parent.document)
+        document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
+            const userdata = localStorage.getItem("user")
+            if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
+                logout();
+            }
+        })
+
+        for (const [i, v] of Object.entries(parsed)) {
+            const prnt = document.getElementsByClassName("datahold")[0]
+            if (i != "data" && typeof v != "object") {
+                const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
+                prnt.appendChild(spgpropertyclone)
+                spgpropertyclone.children[0].textContent = i
+                spgpropertyclone.children[1].value = v
+                const oval = spgpropertyclone.children[1].value
+                const apply = spgpropertyclone.children[2]
+                spgpropertyclone.children[1].addEventListener("input", () => {
+                    if (oval != spgpropertyclone.children[1].value) {
+                        apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
+                    }
+                    else {
+                        apply.style.color = "black"
+                        apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+
+                    }
+                })
+                apply.addEventListener("click", () => {
+                    apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+                    fetch(`https://api.terminalsaturn.com:444/readwrite`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "type": "upd",
+                            "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
+                        })
+                    })
+                })
+            }
+        }
+
+
+    </script>
+    <script src="./js/config.js"></script>
+</body>

@@ -25,10 +25,12 @@ let waitresp = false;
         console.error('WebSocket error:', error.message);
     };
 
-
+    function getUserData(){
+        return JSON.parse(localStorage.getItem("user"))
+    }
     function _stp() {
         console.log("s")
-        const parsed = JSON.parse(localStorage.getItem("user"))
+        const parsed = getUserData()
         for (const [i, v] of Object.entries(parsed)) {
             const prnt = document.getElementsByClassName("datahold")[0]
             if (i != "data" && typeof v != "object") {
@@ -125,6 +127,10 @@ let waitresp = false;
                 const userProfilePicture = rdata.profilepicture;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
+
+                if (getUserData()['admin']){
+                    iframe.contentWindow.postMessage([501], "*")
+                }
                 document.getElementsByClassName('spgpfp')[0].src = userProfilePicture
                 logged = true
                 for (const x of emgrp) {
@@ -139,9 +145,9 @@ let waitresp = false;
 
                 let ems = document.getElementById("emailsign_title")
                 ems.style.fontSize = "25px"
-                ems.textContent = `welcome, ${JSON.parse(localStorage.getItem("user"))['username']}.`
+                ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
-                document.getElementsByClassName("spguname")[0].textContent = JSON.parse(localStorage.getItem("user"))['username']
+                document.getElementsByClassName("spguname")[0].textContent = getUserData()['username']
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
                 _stp();
                 return true
@@ -165,8 +171,7 @@ let waitresp = false;
         let userdata = localStorage.getItem("user")
 
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
-            //code for if the user is already signed in. 
-            const parsed = JSON.parse(userdata)
+            const parsed = getUserData()
             console.log("get data")
             const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                 method: "POST",
@@ -180,7 +185,7 @@ let waitresp = false;
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
-                const userProfilePicture = JSON.parse(localStorage.getItem("user")).profilepicture;
+                const userProfilePicture = getUserData().profilepicture;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
                 document.getElementsByClassName('spgpfp')[0].src = userProfilePicture
@@ -197,9 +202,9 @@ let waitresp = false;
                 }
                 let ems = document.getElementById("emailsign_title")
                 ems.style.fontSize = "25px"
-                ems.textContent = `welcome, ${JSON.parse(localStorage.getItem("user"))['username']}.`
+                ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
-                document.getElementsByClassName("spguname")[0].textContent = JSON.parse(localStorage.getItem("user"))['username']
+                document.getElementsByClassName("spguname")[0].textContent = getUserData()['username']
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
                 console.log("k")
 
@@ -207,12 +212,7 @@ let waitresp = false;
         }
 
     //if topbar becomes global consider removing this from index check
-    document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
-        const userdata = localStorage.getItem("user")
-        if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")){
-            logout();
-        }
-    })
+
 }
 
 })()

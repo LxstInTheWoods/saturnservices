@@ -1,6 +1,6 @@
 (async () => {
+    //ts checks if server has connected
     if (!localStorage.getItem("ts")){
-        console.log("might be TS bug - Server offline"); 
 
         function delay(ms) {
             return new Promise (resolve => setTimeout(resolve, ms))
@@ -9,7 +9,7 @@
         (async ()=>{
             while (!localStorage.getItem("ts")) {
                 try {
-                    const data = await fetch("https://api.terminalsaturn.com/:444ping", {
+                    const data = await fetch("https://api.terminalsaturn.com:444/ping", {
                         mode:"cors",
                         method:"POST",
                         headers:{"Content-Type":"application/json"},
@@ -30,6 +30,11 @@
 
 
     let ts = localStorage.getItem("ts")
+    
+    function getUserData(){
+        return JSON.parse(localStorage.getItem("user"))
+    }
+
     const thing = document.getElementById("SSINTRO")
 
     const divid_top = document.getElementsByClassName("divid_top")
@@ -44,53 +49,12 @@
 
     let emgrp = document.getElementsByClassName("emailsign")
 
-    const settingspage = document.getElementById("settingspage");
-    const computedStyle = window.getComputedStyle(settingspage);
     //sign in, get info from server if already signed in
     function rmsgnp() {
         function rest() {
-            const parsed = JSON.parse(localStorage.getItem("user"))
+            const parsed = getUserData()
 
             logged = true
-
-            for (const [i, v] of Object.entries(parsed)) {
-                const prnt = document.getElementsByClassName("datahold")[0]
-                if (i != "data" && typeof v != "object") {
-                    const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
-                    prnt.appendChild(spgpropertyclone)
-                    spgpropertyclone.children[0].textContent = i
-                    spgpropertyclone.children[1].value = v
-                    const oval = spgpropertyclone.children[1].value
-                    const apply = spgpropertyclone.children[2]
-                    spgpropertyclone.children[1].addEventListener("input", () => {
-                        if (oval != spgpropertyclone.children[1].value) {
-                            apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
-                        }
-                        else {
-                            apply.style.color = "black"
-                            apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-
-
-                        }
-                    })
-                    apply.addEventListener("click", () => {
-                        apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-
-                        fetch(`https://api.terminalsaturn.com:444/readwrite`, {
-                            method: 'POST',
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "type": "upd",
-                                "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
-                            })
-                        })
-                    })
-                }
-            }
-
         }
         for (const x of emgrp) {
             const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
@@ -208,22 +172,6 @@
     })
 
 
-
-    window.addEventListener("message", function (event) {
-        if (computedStyle.opacity === "0" && event.data === "500_c") {
-            settingspage.style.display = "block"
-            settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
-        }
-    })
-
-    document.getElementById("spgclose").addEventListener('click', function () {
-        if (computedStyle.opacity === "1") {
-            const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-            anim.onfinish = () => {
-                settingspage.style.display = "none"
-            }
-        }
-    })
     if (ts) {
         document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/508684611396829196/351f7919a7ceb76e15f60bf03a9ce7d5?size=1024h'
         document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/748436799759843371/5255649ea51ceb641d7652cf67e08213?size=1024'
