@@ -164,7 +164,6 @@ let waitresp = false;
                 ems.style.fontSize = "25px"
                 ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
-                document.getElementsByClassName("spguname")[0].textContent = getUserData()['username']
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
                 console.log("k")
 

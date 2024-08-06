@@ -180,6 +180,8 @@
 
         function loadSettings(parsed){
             if (parsed) {
+                document.getElementsByClassName("spguname")[0].textContent = parsed['username']
+                document.getElementsByClassName("spgpfp")[0].src = parsed['profilepicture']
                 for (const [i, v] of Object.entries(parsed)) {
                     const prnt = document.getElementsByClassName("datahold")[0]
                     if (i != "data" && typeof v != "object") {
