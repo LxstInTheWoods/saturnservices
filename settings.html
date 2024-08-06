@@ -3,9 +3,6 @@
 <head>
 
     <style>
-        body{
-            display: block;
-        }
         #settingspage {
             position: fixed;
             width: 100vw;
@@ -14,7 +11,7 @@
             z-index: 121212;
             background-color: #C0000000;
             backdrop-filter: blur(3px);
-            opacity: 1;
+            opacity: 0;
         }
 
         #settingspage .infohold {
@@ -161,71 +158,85 @@
     </div>
 
     <script>
-        const parsed = JSON.parse(localStorage.getItem("user"))
         const settingspage = document.getElementById("settingspage");
-        const computedStyle = window.getComputedStyle(settingspage);
+        //start disabled
+        window.parent.document.getElementById("i_set").style.display = "none"
 
-        window.addEventListener("message", function (event) {
-            if (computedStyle.opacity === "0" && event.data === "500_c") {
-                console.log("open")
-                document.body.style.display = "block"
-                settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
-            }
-        })
- 
         document.getElementById("spgclose").addEventListener('click', function () {
-            if (computedStyle.opacity === "1") {
+            if (getComputedStyle(settingspage).opacity === "1") {
                 const anim = settingspage.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
                 anim.onfinish = () => {
-                    document.body.style.display = "none"
+                    window.parent.document.getElementById("i_set").style.display = "none"
                 }
             }
-        }) 
-        console.log(window.parent.document)
+        })
         document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
             const userdata = localStorage.getItem("user")
             if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
-                logout();
+                localStorage.clear()
+                window.location.replace("https://terminalsaturn.com")
             }
         })
 
-        for (const [i, v] of Object.entries(parsed)) {
-            const prnt = document.getElementsByClassName("datahold")[0]
-            if (i != "data" && typeof v != "object") {
-                const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
-                prnt.appendChild(spgpropertyclone)
-                spgpropertyclone.children[0].textContent = i
-                spgpropertyclone.children[1].value = v
-                const oval = spgpropertyclone.children[1].value
-                const apply = spgpropertyclone.children[2]
-                spgpropertyclone.children[1].addEventListener("input", () => {
-                    if (oval != spgpropertyclone.children[1].value) {
-                        apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
-                    }
-                    else {
-                        apply.style.color = "black"
-                        apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+        function loadSettings(parsed){
+            if (parsed) {
+                for (const [i, v] of Object.entries(parsed)) {
+                    const prnt = document.getElementsByClassName("datahold")[0]
+                    if (i != "data" && typeof v != "object") {
+                        const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
+                        prnt.appendChild(spgpropertyclone)
+                        spgpropertyclone.children[0].textContent = i
+                        spgpropertyclone.children[1].value = v
+                        const oval = spgpropertyclone.children[1].value
+                        const apply = spgpropertyclone.children[2]
+                        spgpropertyclone.children[1].addEventListener("input", () => {
+                            if (oval != spgpropertyclone.children[1].value) {
+                                apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
+                            }
+                            else {
+                                apply.style.color = "black"
+                                apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
 
-                    }
-                })
-                apply.addEventListener("click", () => {
-                    apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-
-                    fetch(`https://api.terminalsaturn.com:444/readwrite`, {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            "type": "upd",
-                            "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
+                            }
                         })
-                    })
-                })
+                        apply.addEventListener("click", () => {
+                            apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+                            fetch(`https://api.terminalsaturn.com:444/readwrite`, {
+                                method: 'POST',
+                                mode: 'cors',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    "type": "upd",
+                                    "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
+                                })
+                            })
+                        })
+                    }
+                }
             }
         }
+        let fcodes = {
+            "500_cc":()=>{
+                if (event.data === "500_cc") {
+                window.parent.document.getElementById("i_set").style.display = "block"
+                settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
+            }
+            },
+            "501_l":()=>{
+                loadSettings(JSON.parse(localStorage.getItem("user")))
+            }
+        }
+        window.addEventListener("message", function (event) {
+            if (fcodes[event.data]){
+                fcodes[event.data]();
+            }
+        })
+
+        loadSettings(JSON.parse(localStorage.getItem("user")))
 
 
     </script>

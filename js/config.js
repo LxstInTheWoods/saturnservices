@@ -28,47 +28,7 @@ let waitresp = false;
     function getUserData(){
         return JSON.parse(localStorage.getItem("user"))
     }
-    function _stp() {
-        console.log("s")
-        const parsed = getUserData()
-        for (const [i, v] of Object.entries(parsed)) {
-            const prnt = document.getElementsByClassName("datahold")[0]
-            if (i != "data" && typeof v != "object") {
-                const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
-                prnt.appendChild(spgpropertyclone)
-                spgpropertyclone.children[0].textContent = i
-                spgpropertyclone.children[1].value = v
-                const oval = spgpropertyclone.children[1].value
-                const apply = spgpropertyclone.children[2]
-                spgpropertyclone.children[1].addEventListener("input", () => {
-                    if (oval != spgpropertyclone.children[1].value) {
-                        apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
-                    }
-                    else {
-                        apply.style.color = "black"
-                        apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-
-
-                    }
-                })
-                apply.addEventListener("click", () => {
-                    apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
-
-                    fetch(`https://api.terminalsaturn.com:444/readwrite`, {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            "type": "upd",
-                            "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
-                        })
-                    })
-                })
-            }
-        }
-    }
+    
 
     try {
         const tlresponse = await fetch('https://api.terminalsaturn.com:444/ping', {
@@ -149,7 +109,7 @@ let waitresp = false;
                 ems.style.display = "block"
                 document.getElementsByClassName("spguname")[0].textContent = getUserData()['username']
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
-                _stp();
+                window.postMessage("501_l", "*")
                 return true
 
             }
