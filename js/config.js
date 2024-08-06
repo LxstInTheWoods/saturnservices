@@ -5,7 +5,7 @@ let waitresp = false;
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://api.terminalsaturn.com:1111'; 
+    const wsUrl = 'wss://api.terminalsaturn.com:444'; 
     const socket = new WebSocket(wsUrl);
     
     socket.onopen = function(event) {
@@ -86,7 +86,7 @@ let waitresp = false;
         console.error(rer)
         localStorage.setItem('ts', false)
         setTimeout(() => {
-             console.clear()
+             //console.clear()
             console.warn("failed to connect to server")
         }, 100);
 
