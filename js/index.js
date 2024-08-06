@@ -146,7 +146,7 @@
             }
         })
         document.body.animate([{ backgroundColor: "#1a1a1a" }], { duration: 250, fill: "forwards" })
-        const str = "Where possibilities become reality."
+        const str = "Where possibility becomes reality."
         var cur = ""
         _ = async () => {
             for (const x of str) {
