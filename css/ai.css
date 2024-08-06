@@ -345,6 +345,12 @@ margin: auto;
 #apikeyset{
     text-overflow: ellipsis;
 }
+pre {
+    background-color: #464646; /* Light grey background */
+    border-radius: 8px; 
+    padding: 10px;
+    overflow-x: auto; 
+}
 
 @media only screen and (max-width:1000px){
     #GPTMODEL button{

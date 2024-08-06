@@ -188,7 +188,7 @@
             console.log("ok")
         });
     }
-
+    const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
     async function GPT() {
         const tstring = document.getElementById("query").value;
         const hasLetters = /[a-zA-Z]/.test(tstring);
@@ -397,35 +397,47 @@
                         console.log(`${responseclone} is declared but not initialized`);
                     }
                 } catch (e) {
-                    return
+                    return;
                 }
+            
                 try {
-                    let str = ""
+                    let str = "";
+            
                     for (const x of value) {
                         let p = new Promise((r) => {
                             setTimeout(function () {
-                                r()
+                                r();
                             }, 2);
-                        })
-
+                        });
+            
                         await p.then(() => {
-                            str += x
-                            responseclone.children[1].innerHTML = str
-                            adjustTextareaHeight()
-                        })
+                            // Process code blocks
+                            str += x;
+                            str = str.replace(codeBlockRegex, (match, lang, code) => {
+                                const formattedCode = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang || 'markup');
+                                return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
+                            });
+            
+                            responseclone.children[1].innerHTML = str;
+                            adjustTextareaHeight();
+            
+                            Prism.highlightAll();
+                        });
                     }
-                    //save gpt reply
+            
+                    // Save GPT reply
                     rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value;
-                    let tmps = JSON.parse(localStorage.getItem("user"))
-                    tmps['data']['aiturbo'] = rooms
-                    localStorage.setItem("user", JSON.stringify(tmps))
-                    rwup()
-
+                    let tmps = JSON.parse(localStorage.getItem("user"));
+                    tmps['data']['aiturbo'] = rooms;
+                    localStorage.setItem("user", JSON.stringify(tmps));
+                    rwup();
+            
                     elem.scrollTop = elem.scrollHeight;
                 } catch (err) {
-                    console.log(err)
+                    console.log(err);
                 }
-            };
+            }
+            
 
             if (model === "SATURN") {
                 let str = userclone.children[1].innerHTML
@@ -647,13 +659,18 @@
                         document.getElementById('gptresponse').appendChild(ucl);
                         console.log(typeof userdata)
 
-                        ucl.children[1].innerHTML = rooms[clone.id][k];
+                        ucl.children[1].innerHTML = rooms[clone.id][k]
                         ucl.children[0].src = JSON.parse(userdata)['profilepicture']
                         tweenInElement(ucl)
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(responseclone);
-                        responseclone.children[1].innerHTML = rooms[clone.id][k];
+                        responseclone.children[1].innerHTML = rooms[clone.id][k].replace(codeBlockRegex, (match, lang, code) => {
+                            const formattedCode = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang || 'markup');
+                            return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
+                        });
+                        Prism.highlightAll();
+
                         const modelselector = k.split("_")[1]
                         responseclone.style.borderColor = modelcolor[modelselector]
                         tweenInElement(responseclone)

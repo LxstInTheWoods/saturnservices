@@ -399,7 +399,7 @@ padding: 1em;
     background-color: #C0000000;
     backdrop-filter: blur(3px);
     opacity: 1;
-    display: block;
+    display: none;
 }
 
 #adminbox .infohold {
