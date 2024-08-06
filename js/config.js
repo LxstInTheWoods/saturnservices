@@ -5,7 +5,7 @@ let waitresp = false;
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://api.terminalsaturn.com:444'; 
+    const wsUrl = 'wss://api.terminalsaturn.com'; 
     const socket = new WebSocket(wsUrl);
     
     socket.onopen = function(event) {
