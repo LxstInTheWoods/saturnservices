@@ -1,43 +1,55 @@
 let waitresp = false;
 (async () => {
-    function logout(){
+    function logout() {
         localStorage.clear()
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://api.terminalsaturn.com:1111'; 
+    const wsUrl = 'wss://api.terminalsaturn.com:1111';
     const socket = new WebSocket(wsUrl);
-    
-    socket.onopen = function(event) {
-        console.log('WebSocket connection established');
+
+    socket.onopen = function (event) {
         socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
     };
-    
-    socket.onmessage = function(event) {
+
+    socket.onmessage = function (event) {
         console.log('Message from server:', event.data);
     };
-    
-    socket.onclose = function(event) {
+
+    socket.onclose = function (event) {
         console.log('WebSocket connection closed:', event.reason);
     };
-    
-    socket.onerror = function(error) {
+
+    socket.onerror = function (error) {
         console.error('WebSocket error:', error.message);
     };
 
-    function getUserData(){
+    function pulseWrong(w) {
+        const username = document.getElementsByClassName("emailsign")[1]
+        const password = document.getElementsByClassName("emailsign")[2]
+        if (!w) {
+            password.animate([{ borderColor: "red" }], { duration: 250, fill: "forwards" })
+        }
+        const anim = username.animate([{ borderColor: "red" }], { duration: 250, fill: "forwards" })
+        anim.onfinish = () => {
+            username.animate([{ borderColor: "white" }], { duration: 250, fill: "forwards" })
+            password.animate([{ borderColor: "white" }], { duration: 250, fill: "forwards" })
+        }
+
+
+    }
+    function getUserData() {
         return JSON.parse(localStorage.getItem("user"))
     }
-    
+
 
     try {
         const tlresponse = await fetch('https://api.terminalsaturn.com:444/ping', {
-            method: "POST",
+            method: "GET",
             mode: "cors",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify([500])
         })
         const result = await tlresponse.json()
         if (result) {
@@ -48,7 +60,7 @@ let waitresp = false;
         console.error(rer)
         localStorage.setItem('ts', false)
         setTimeout(() => {
-             console.clear()
+            console.clear()
             console.warn("failed to connect to server")
         }, 100);
 
@@ -61,15 +73,7 @@ let waitresp = false;
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
-            function pulseWrong(){
-            username.animate([{borderColor:"red"}], {duration:250, fill:"forwards"})
-            const anim = password.animate([{borderColor:"red"}], {duration:250, fill:"forwards"})
-            anim.onfinish = () =>{
-                username.animate([{borderColor:"white"}], {duration:250, fill:"forwards"})
-                password.animate([{borderColor:"white"}], {duration:250, fill:"forwards"})
-            }
 
-            }
             const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                 method: "POST",
                 mode: "cors",
@@ -88,7 +92,7 @@ let waitresp = false;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
 
-                if (getUserData()['admin']){
+                if (getUserData()['admin']) {
                     iframe.contentWindow.postMessage([501], "*")
                 }
                 document.getElementsByClassName('spgpfp')[0].src = userProfilePicture
@@ -113,7 +117,7 @@ let waitresp = false;
                 return true
 
             }
-            else if (rdata.includes("incorrect")){
+            else if (rdata.includes("incorrect")) {
                 pulseWrong()
                 return
             }
@@ -123,8 +127,27 @@ let waitresp = false;
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
             if (ts) {
                 const checkwait = await Login()
-            }else{
+            } else {
                 console.log("not ts")
+            }
+        })
+        document.getElementsByClassName("emailsign")[4].addEventListener("click", async () => {
+            const username = document.getElementsByClassName("emailsign")[1]
+            const password = document.getElementsByClassName("emailsign")[2]
+            if (ts) {
+                const Data = await fetch("https://api.terminalsaturn.com:444/signup", {
+                    method: "POST",
+                    mode: "cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify([username.value, password.value])
+                })
+                const result = await Data.json()
+                if (result[1] === 300) {
+                    pulseWrong(true)
+                }
+                else if(result[1] === 301){
+                    await Login()
+                } 
             }
         })
 
@@ -170,9 +193,9 @@ let waitresp = false;
             }
         }
 
-    //if topbar becomes global consider removing this from index check
+        //if topbar becomes global consider removing this from index check
 
-}
+    }
 
 })()
 

@@ -11,9 +11,8 @@
                 try {
                     const data = await fetch("https://api.terminalsaturn.com:444/ping", {
                         mode:"cors",
-                        method:"POST",
+                        method:"GET",
                         headers:{"Content-Type":"application/json"},
-                        body:JSON.stringify([500])
                     })
                     const result = await data.json()
                     if (result) {
