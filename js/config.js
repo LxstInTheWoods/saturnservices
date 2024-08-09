@@ -9,7 +9,8 @@ let waitresp = false;
     const socket = new WebSocket(wsUrl);
 
     socket.onopen = function (event) {
-        socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
+        //socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
+        console.log("socked connected,")
     };
 
     socket.onmessage = function (event) {
