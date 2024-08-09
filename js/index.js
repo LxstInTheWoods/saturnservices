@@ -28,6 +28,31 @@
     }
 
 
+    const wsUrl = 'wss://api.terminalsaturn.com:1111';
+    const socket = new WebSocket(wsUrl);    
+    socket.onopen = function (event) {
+
+        setTimeout(() => {
+            socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
+
+        }, 2000);
+        console.log("socked connected,")
+    };
+
+    socket.onmessage = function (event) {
+        console.log('Message from server:', event.data);
+    };
+
+    socket.onclose = function (event) {
+        console.log('WebSocket connection closed:', event.reason);
+    };
+
+    socket.onerror = function (error) {
+        console.error('WebSocket error:', error.message);
+    };
+
+
+
     let ts = localStorage.getItem("ts")
     
     function getUserData(){

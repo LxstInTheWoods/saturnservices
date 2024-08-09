@@ -5,25 +5,6 @@ let waitresp = false;
         location.reload()
     }
     //config wss
-    const wsUrl = 'wss://api.terminalsaturn.com:1111';
-    const socket = new WebSocket(wsUrl);
-
-    socket.onopen = function (event) {
-        //socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
-        console.log("socked connected,")
-    };
-
-    socket.onmessage = function (event) {
-        console.log('Message from server:', event.data);
-    };
-
-    socket.onclose = function (event) {
-        console.log('WebSocket connection closed:', event.reason);
-    };
-
-    socket.onerror = function (error) {
-        console.error('WebSocket error:', error.message);
-    };
 
     function pulseWrong(w) {
         const username = document.getElementsByClassName("emailsign")[1]
@@ -68,7 +49,6 @@ let waitresp = false;
     }
 
     if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
-        console.log("yea")
         const ts = localStorage.getItem("ts")
 
         async function Login() {
@@ -198,7 +178,7 @@ let waitresp = false;
 
     }
 
-})()
+})() 
 
 //index testing:
 //1. log into site fresh with no saved data -- PASS
