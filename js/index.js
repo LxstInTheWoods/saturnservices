@@ -31,11 +31,7 @@
     const wsUrl = 'wss://api.terminalsaturn.com:1111';
     const socket = new WebSocket(wsUrl);    
     socket.onopen = function (event) {
-
-        setTimeout(() => {
             socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
-
-        }, 2000);
         console.log("socked connected,")
     };
 
