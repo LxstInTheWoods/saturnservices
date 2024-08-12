@@ -19,13 +19,22 @@
     function getUserData(){
         return JSON.parse(localStorage.getItem("user"))
     }
-
+    function escapeHTML(html) {
+        return html.replace(/&/g, "&amp;")
+                   .replace(/</g, "&lt;")
+                   .replace(/>/g, "&gt;")
+                   .replace(/"/g, "&quot;")
+                   .replace(/'/g, "&#039;");
+    }
+    
     function formatCodeBlocks(message) {
-        formattedMessage = message.replace(codeBlockRegex, (match, lng, code) => {
-            const lang = lng.toLowerCase()
+        const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g; // Regex for code blocks
+        const formattedMessage = message.replace(codeBlockRegex, (match, lng, code) => {
+            const lang = lng ? lng.toLowerCase() : 'markup';
             const language = Prism.languages[lang] || Prism.languages.markup;
-            const formattedCode = Prism.highlight(code, language, lang || 'markup');
-            return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
+            const escapedCode = code; // Escape HTML before highlighting
+            const formattedCode = Prism.highlight(escapedCode, language, lang);
+            return `<pre><code class="language-${lang}">${formattedCode}</code></pre>`;
         });
         return formattedMessage;
     }
@@ -346,7 +355,7 @@
                             return response.json();
                         })
                             .then(data => {
-                                gptanswer = formatCodeBlocks(data.value, );
+                                gptanswer = formatCodeBlocks(data.value);
                                 rooms[currentroom]['ROOMNAME'] = data.value
                                 tx34(data.value);
                             })
@@ -402,7 +411,7 @@
                 try {
                     let str = "";
             
-                    for (const x of value) {
+                    for (const x of formatCodeBlocks(value)) {
                         let p = new Promise((r) => {
                             setTimeout(function () {
                                 r();
@@ -412,7 +421,6 @@
                         await p.then(() => {
                             // Process code blocks
                             str += x;
-                            str = formatCodeBlocks(str)
             
                             responseclone.children[1].innerHTML = str;
                             adjustTextareaHeight();

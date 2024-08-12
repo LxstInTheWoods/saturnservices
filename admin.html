@@ -205,9 +205,9 @@
         //start disabled
         window.parent.document.getElementById("i_config").style.display = "none"
         const me = JSON.parse(localStorage.getItem("user"))
-        if (me){ 
-        document.getElementsByClassName("spguname")[0].textContent = typeof me === "object" ? `${me['username']} (console)` : "not signed in"
-        document.getElementsByClassName("spgpfp")[0].src = typeof me === "object" ? me['profilepicture'] : ""
+        if (me) {
+            document.getElementsByClassName("spguname")[0].textContent = typeof me === "object" ? `${me['username']} (console)` : "not signed in"
+            document.getElementsByClassName("spgpfp")[0].src = typeof me === "object" ? me['profilepicture'] : ""
         }
         document.getElementById("spgclose").addEventListener('click', function () {
             if (getComputedStyle(adminpage).opacity === "1") {
@@ -217,28 +217,34 @@
                 }
             }
         })
-        const lkus =   document.getElementById("lkus")
+        const lkus = document.getElementById("lkus")
         async function lookUpUser() {
             for (const x of document.getElementsByClassName("datahold")[0].children) {
-                    if (x.tagName === "SPAN") {
-                        x.remove()
-                    }
+                if (x.tagName === "SPAN") {
+                    x.remove()
                 }
+            }
+            async function lookup() {
+                try {
+                    const result = await fetch("https://api.terminalsaturn.com:444/admintools", {
+                        method: "POST",
+                        mode: 'cors',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            "type": 'lookup',
+                            'user': lkus.children[1].value,
+                            'sender': localStorage.getItem("user")
+                        })
 
-                const result = await fetch("https://api.terminalsaturn.com:444/admintools", {
-                    method:"POST",
-                    mode:'cors',
-                    headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({
-                        "type":'lookup',
-                        'user': lkus.children[1].value,
-                        'sender' : localStorage.getItem("user")
                     })
-                    
-                })
-                const fin = await result.json()
-                if (typeof fin === "object"){
-                    for (const [i, v] of Object.entries(fin)) {
+                    return await result.json()
+                } catch (err) {
+                    return 'err'
+                }
+            }
+            fin = await lookup()
+            if (typeof fin === "object") {
+                for (const [i, v] of Object.entries(fin)) {
                     const prnt = document.getElementsByClassName("datahold")[0]
                     if (i != "data" && typeof v != "object") {
                         const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
@@ -260,36 +266,41 @@
                         })
                         apply.addEventListener("click", async () => {
                             apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+                            async function modify() {
+                                try {
+                                    const changed = await fetch(`https://api.terminalsaturn.com:444/admintools`, {
+                                        method: 'POST',
+                                        mode: 'cors',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "type": "modify",
+                                            'user': lkus.children[1].value,
+                                            'sender': localStorage.getItem("user"),
+                                            "modify": [i, spgpropertyclone.children[1].value]
+                                        })
+                                    })
 
-                           const changed = await fetch(`https://api.terminalsaturn.com:444/admintools`, {
-                                method: 'POST',
-                                mode: 'cors',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    "type": "modify",
-                                    'user': lkus.children[1].value,
-                                    'sender' : localStorage.getItem("user"),
-                                    "modify": [i, spgpropertyclone.children[1].value]
-                                })
-                            })
-
-                            const fin = await changed.json();
-                            if (typeof fin === "string"){
-                                alert(fin)
+                                    return await changed.json();
+                                } catch (err) {
+                                    return "err"
+                                }
+                            }
+                            const fin = await modify()
+                            if (typeof fin === "string") {
+                                console.log(fin)
                             }
 
                         })
                     }
                 }
-                }
-                else
-                {
-                    alert(fin)
-                }
             }
-        lkus.children[2].addEventListener("click", async ()=>{
+            else {
+                console.log(fin)
+            }
+        }
+        lkus.children[2].addEventListener("click", async () => {
             lookUpUser()
         })
 
