@@ -27,7 +27,7 @@ let waitresp = false;
 
     try {
         const tlresponse = await fetch('https://api.terminalsaturn.com:444/ping', {
-            method: "GET",
+            method: "POST",
             mode: "cors",
             headers: {
                 'Content-Type': 'application/json'
@@ -210,4 +210,3 @@ let waitresp = false;
 
 //make a page notifications thing to replace alert
 //do pcalls on getuserdata bc its not gonna always be loaded
-//make it so data gets updated when changed by an admin
