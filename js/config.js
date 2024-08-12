@@ -90,7 +90,6 @@ let waitresp = false;
                 }
 
                 let ems = document.getElementById("emailsign_title")
-                ems.style.fontSize = "25px"
                 ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
@@ -186,7 +185,6 @@ let waitresp = false;
 
                 }
                 let ems = document.getElementById("emailsign_title")
-                ems.style.fontSize = "25px"
                 ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })

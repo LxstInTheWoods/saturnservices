@@ -205,7 +205,7 @@
         //start disabled
         window.parent.document.getElementById("i_config").style.display = "none"
         const me = JSON.parse(localStorage.getItem("user"))
-        if (me){
+        if (me){ 
         document.getElementsByClassName("spguname")[0].textContent = typeof me === "object" ? `${me['username']} (console)` : "not signed in"
         document.getElementsByClassName("spgpfp")[0].src = typeof me === "object" ? me['profilepicture'] : ""
         }
