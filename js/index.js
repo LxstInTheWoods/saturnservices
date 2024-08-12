@@ -31,12 +31,15 @@
     const wsUrl = 'wss://api.terminalsaturn.com:1111';
     const socket = new WebSocket(wsUrl);    
     socket.onopen = function (event) {
-            socket.send(JSON.stringify({ type: 'greeting', message: 'Hello, server!' }));
+            socket.send(JSON.stringify({ type: '01', message: getUserData() }));
         console.log("socked connected,")
     };
 
     socket.onmessage = function (event) {
         console.log('Message from server:', event.data);
+        if (event.data === "rload") {
+            location.reload()   
+        }
     };
 
     socket.onclose = function (event) {
@@ -103,8 +106,13 @@
                     body: JSON.stringify([prs['username'], prs['password']])
                 })
                 const result = await response.json()
-                if (typeof (result) != "string") {
+                if (typeof result === "object" ){
                     localStorage.setItem('user', JSON.stringify(result))
+                } else if (result ==212 ) {
+                    alert("user doesnt exist")
+                    localStorage.clear()
+                    location.reload()
+                    return
                 }
             }
             rmsgnp()

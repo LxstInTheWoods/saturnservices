@@ -102,6 +102,13 @@ let waitresp = false;
                 pulseWrong()
                 return
             }
+            else if(rdata === 213) {
+                logout()
+            }
+            else if (rdata ==212) {
+                alert("user doesnt exist")
+                logout()
+            }
         }
         //end of login
 
@@ -136,7 +143,6 @@ let waitresp = false;
 
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
             const parsed = getUserData()
-            console.log("get data")
             const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                 method: "POST",
                 mode: "cors",
@@ -145,11 +151,27 @@ let waitresp = false;
                 },
                 body: JSON.stringify([parsed['username'], parsed['password']])
             })
+            
             const rdata = await response.json()
+            if (rdata === 212 ) {
+                alert("user doesnt exist")
+                logout()
+                return
+            }
+            else if(rdata === 213) {
+                logout()
+            }
+            else
+            {
+                localStorage.setItem("user", JSON.stringify(rdata))
+            }
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
-                const userProfilePicture = getUserData().profilepicture;
+                var userProfilePicture = ""
+                if (getUserData() ) {
+                   userProfilePicture =  getUserData().profilepicture
+                }
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
                 logged = true
@@ -168,7 +190,6 @@ let waitresp = false;
                 ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
-                console.log("k")
 
             }
         }
@@ -187,4 +208,6 @@ let waitresp = false;
 //5 Information is updated with a fresh copy from server on refresh -- PASS
 // STABLE AS OF 8/04/24
 
-//figure out setting pfp on settings and admin
+//make a page notifications thing to replace alert
+//do pcalls on getuserdata bc its not gonna always be loaded
+//make it so data gets updated when changed by an admin

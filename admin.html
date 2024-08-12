@@ -63,6 +63,7 @@
             vertical-align: middle;
             display: flex;
             align-items: center;
+            padding-left: 0.2em;
         }
 
         #adminbox .spguname {
@@ -182,7 +183,7 @@
             </span>
 
             <div class="userlookup">
-                <span>
+                <span id="lkus">
                     <label>User Lookup</label> <input> <button>Search</button>
                 </span>
             </div>
@@ -203,6 +204,10 @@
 
         //start disabled
         window.parent.document.getElementById("i_config").style.display = "none"
+        const me = JSON.parse(localStorage.getItem("user"))
+
+        document.getElementsByClassName("spguname")[0].textContent = typeof me === "object" ? `${me['username']} (console)` : "not signed in"
+        document.getElementsByClassName("spgpfp")[0].src = typeof me === "object" ? me['profilepicture'] : ""
 
         document.getElementById("spgclose").addEventListener('click', function () {
             if (getComputedStyle(adminpage).opacity === "1") {
@@ -211,6 +216,81 @@
                     window.parent.document.getElementById("i_config").style.display = "none"
                 }
             }
+        })
+        const lkus =   document.getElementById("lkus")
+        async function lookUpUser() {
+            for (const x of document.getElementsByClassName("datahold")[0].children) {
+                    if (x.tagName === "SPAN") {
+                        x.remove()
+                    }
+                }
+
+                const result = await fetch("https://api.terminalsaturn.com:444/admintools", {
+                    method:"POST",
+                    mode:'cors',
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({
+                        "type":'lookup',
+                        'user': lkus.children[1].value,
+                        'sender' : localStorage.getItem("user")
+                    })
+                    
+                })
+                const fin = await result.json()
+                if (typeof fin === "object"){
+                    for (const [i, v] of Object.entries(fin)) {
+                    const prnt = document.getElementsByClassName("datahold")[0]
+                    if (i != "data" && typeof v != "object") {
+                        const spgpropertyclone = document.getElementById("spgdataholdstrg").children[0].cloneNode(true)
+                        prnt.appendChild(spgpropertyclone)
+                        spgpropertyclone.children[0].textContent = i
+                        spgpropertyclone.children[1].value = v
+                        const oval = spgpropertyclone.children[1].value
+                        const apply = spgpropertyclone.children[2]
+                        spgpropertyclone.children[1].addEventListener("input", () => {
+                            if (oval != spgpropertyclone.children[1].value) {
+                                apply.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
+                            }
+                            else {
+                                apply.style.color = "black"
+                                apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+
+                            }
+                        })
+                        apply.addEventListener("click", async () => {
+                            apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
+
+                           const changed = await fetch(`https://api.terminalsaturn.com:444/admintools`, {
+                                method: 'POST',
+                                mode: 'cors',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    "type": "modify",
+                                    'user': lkus.children[1].value,
+                                    'sender' : localStorage.getItem("user"),
+                                    "modify": [i, spgpropertyclone.children[1].value]
+                                })
+                            })
+
+                            const fin = await changed.json();
+                            if (typeof fin === "string"){
+                                alert(fin)
+                            }
+
+                        })
+                    }
+                }
+                }
+                else
+                {
+                    alert(fin)
+                }
+            }
+        lkus.children[2].addEventListener("click", async ()=>{
+            lookUpUser()
         })
 
         let fcodes = {

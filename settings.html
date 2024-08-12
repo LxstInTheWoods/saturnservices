@@ -186,7 +186,7 @@
                     }
                 }
 
-                document.getElementsByClassName("spguname")[0].textContent = parsed['username']
+                document.getElementsByClassName("spguname")[0].textContent = parsed['admin']  ?  `${parsed['username']} (admin)` : parsed['admin']
                 document.getElementsByClassName("spgpfp")[0].src = parsed['profilepicture']
                 for (const [i, v] of Object.entries(parsed)) {
                     const prnt = document.getElementsByClassName("datahold")[0]
@@ -224,9 +224,14 @@
                             })
 
                             const fin = await changed.json();
-                            console.log(fin, typeof fin) 
-                           // localStorage.setItem("user", JSON.stringify(fin))
-w
+                            if (typeof fin === "string"){
+                                alert
+                            }
+                            else
+                            {
+                            localStorage.setItem("user", JSON.stringify(fin))
+                            }
+
                         })
                     }
                 }
