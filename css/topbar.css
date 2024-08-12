@@ -52,7 +52,7 @@ hr{
     width: 0;
     visibility: hidden;
 }
-#csc img{
+.tbel img{
     border-radius: 9000px;
     min-width: 35px;
     min-height: 35px;
@@ -60,7 +60,7 @@ hr{
     max-width: 35px;
 
 }
-#csc img:hover {
+.tbel img:hover {
     cursor: pointer;
 }
 

@@ -42,7 +42,7 @@ let waitresp = false;
         console.error(rer)
         localStorage.setItem('ts', false)
         setTimeout(() => {
-            console.clear()
+            //console.clear()
             console.warn("failed to connect to server")
         }, 100);
 
@@ -66,9 +66,11 @@ let waitresp = false;
             const rdata = await response.json()
 
             if (typeof rdata === "object") {
-                localStorage.setItem("user", JSON.stringify(rdata))
+                localStorage.setItem("user", JSON.stringify(rdata))   
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
+                let sframe = document.getElementById("i_config")
+                let spg = document.getElementById("i_set")
                 const userProfilePicture = rdata.profilepicture;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
@@ -76,7 +78,6 @@ let waitresp = false;
                 if (getUserData()['admin']) {
                     iframe.contentWindow.postMessage([501], "*")
                 }
-                document.getElementsByClassName('spgpfp')[0].src = userProfilePicture
                 logged = true
                 for (const x of emgrp) {
                     const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
@@ -92,7 +93,6 @@ let waitresp = false;
                 ems.style.fontSize = "25px"
                 ems.textContent = `welcome, ${getUserData()['username']}.`
                 ems.style.display = "block"
-                document.getElementsByClassName("spguname")[0].textContent = getUserData()['username']
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
                 window.postMessage("501_l", "*")
                 return true
@@ -152,7 +152,6 @@ let waitresp = false;
                 const userProfilePicture = getUserData().profilepicture;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
-                document.getElementsByClassName('spgpfp')[0].src = userProfilePicture
                 logged = true
                 for (const x of emgrp) {
                     const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
@@ -188,3 +187,4 @@ let waitresp = false;
 //5 Information is updated with a fresh copy from server on refresh -- PASS
 // STABLE AS OF 8/04/24
 
+//figure out setting pfp on settings and admin

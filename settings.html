@@ -180,6 +180,12 @@
 
         function loadSettings(parsed){
             if (parsed) {
+                for (const x of document.getElementsByClassName("datahold")[0].children) {
+                    if (x.tagName === "SPAN") {
+                        x.remove()
+                    }
+                }
+
                 document.getElementsByClassName("spguname")[0].textContent = parsed['username']
                 document.getElementsByClassName("spgpfp")[0].src = parsed['profilepicture']
                 for (const [i, v] of Object.entries(parsed)) {
@@ -202,10 +208,10 @@
 
                             }
                         })
-                        apply.addEventListener("click", () => {
+                        apply.addEventListener("click", async () => {
                             apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
-                            fetch(`https://api.terminalsaturn.com:444/readwrite`, {
+                           const changed = await fetch(`https://api.terminalsaturn.com:444/readwrite`, {
                                 method: 'POST',
                                 mode: 'cors',
                                 headers: {
@@ -216,6 +222,11 @@
                                     "userdata": [i, spgpropertyclone.children[1].value, localStorage.getItem("user")]
                                 })
                             })
+
+                            const fin = await changed.json();
+                            console.log(fin, typeof fin) 
+                           // localStorage.setItem("user", JSON.stringify(fin))
+
                         })
                     }
                 }
@@ -228,7 +239,7 @@
                 settingspage.animate([{ 'opacity': 1 }], { duration: 250, fill: "forwards" })
             }
             },
-            "501_l":()=>{
+            "501_ll":()=>{
                 loadSettings(JSON.parse(localStorage.getItem("user")))
             }
         }

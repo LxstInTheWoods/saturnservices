@@ -1,9 +1,5 @@
 const topbar = document.getElementById("topbar")
 
-document.getElementById("cscpfp").addEventListener("click", function(){
-    window.parent.postMessage("500_c", "*" )
-})
-
 window.addEventListener('message', function(event) {
         if (!event.data[1]){return}
         if (!localStorage.getItem("ts")){
@@ -20,7 +16,11 @@ function handleImageError(image) {
 }
 
 function openprofile(element){
+    window.parent.postMessage("500_c", "*" )
+}
 
+function openconsole(element){
+    window.parent.postMessage("500_a", "*")
 }
 
 for(const x of [...topbar.getElementsByTagName("a")])
