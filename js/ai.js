@@ -20,6 +20,16 @@
         return JSON.parse(localStorage.getItem("user"))
     }
 
+    function formatCodeBlocks(message) {
+        formattedMessage = message.replace(codeBlockRegex, (match, lng, code) => {
+            const lang = lng.toLowerCase()
+            const language = Prism.languages[lang] || Prism.languages.markup;
+            const formattedCode = Prism.highlight(code, language, lang || 'markup');
+            return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
+        });
+        return formattedMessage;
+    }
+
 
     var model = "gpt-3.5-turbo";
     var endpoint = 'https://api.terminalsaturn.com:444';
@@ -51,8 +61,8 @@
     const aiturboicon = document.getElementById("aiturboicon")
     const modelcolor = {
         "gpt-3.5-turbo": '#55e078',
-        "gpt-4-1106-preview": '#bf95f0',
-        'SATURN': "white"
+        "gpt-4o": '#bf95f0',
+        'SATURN': "#ba6918"
     };
     var animateuse = 0
     const send = document.getElementById("send");
@@ -81,7 +91,7 @@
 
     function roomColorAE() {
         if (document.getElementById(currentroom)) {
-            document.getElementById(currentroom).children[0].animate([{ borderRight: `solid 5px ${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+            document.getElementById(currentroom).animate([{ backgroundColor:  `${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
         }
     }
 
@@ -101,18 +111,6 @@
     }
     T1input.addEventListener('input', adjustTextareaHeight);
     adjustTextareaHeight();
-
-    function formatCodeBlocks(message) {
-        const codeRegex = /```(.*?)```/gs;
-
-        const formattedMessage = message.replace(codeRegex, (match, language, offset, input) => {
-            const codeDiv = `<div style="background-color: black; font-family: monospace; padding: 10px; color: white;">${match}</div>`;
-
-            return `<p>${language}</p>${codeDiv}`;
-        });
-        return formattedMessage;
-    }
-
 
     T1input.addEventListener('keydown', (event) => {
         if (event.shiftKey && event.key === 'Enter') {
@@ -207,8 +205,8 @@
                     };
                     clone = document.getElementById("cloneroom").cloneNode(true);
                     clone.id = currentroom;
-                    clone.children[0].animate([{
-                        borderRight: `solid 5px ${modelcolor[model]}`
+                    clone.animate([{
+                        backgroundColor:  `${modelcolor[model]}`
                     }], {
                         duration: 250,
                         fill: "forwards"
@@ -261,7 +259,7 @@
                                 if (modelselector === "gpt-3.5-turbo") {
                                     responseclone.children[0].src = "./img/gptmint.png"
 
-                                } else if (modelselector === "gpt-4-1106-preview") {
+                                } else if (modelselector === "gpt-4o") {
                                     responseclone.children[0].src = "./img/GPT.png"
                                 } else {
                                     responseclone.children[0].src = "./img/Saturnai.png"
@@ -279,16 +277,16 @@
 
                         for (const x of document.getElementById("chats").children) {
                             if (x.className === "room") {
-                                x.children[0].animate([{
-                                    borderRight: "solid 5px #454545"
+                                x.animate([{
+                                    backgroundColor: "#2d2d2d"
                                 }], {
                                     duration: 250,
                                     fill: "forwards"
                                 });
                             }
                         }
-                        clone.children[0].animate([{
-                            borderRight: `solid 5px ${modelcolor[model]}`
+                        clone.animate([{
+                            backgroundColor:`${modelcolor[model]}`
                         }], {
                             duration: 250,
                             fill: "forwards"
@@ -336,7 +334,7 @@
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: "summarize what this prompt is asking you to do, do not answer the question: 7 words or less: " + document.getElementById("query").value,
+                                prompt: "Summarize prompt. No direct answer. Use 7 words or less. Do not mention the 7-word limit. " + document.getElementById("query").value,
                                 userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: null,
@@ -348,7 +346,7 @@
                             return response.json();
                         })
                             .then(data => {
-                                gptanswer = formatCodeBlocks(data.value);
+                                gptanswer = formatCodeBlocks(data.value, );
                                 rooms[currentroom]['ROOMNAME'] = data.value
                                 tx34(data.value);
                             })
@@ -414,15 +412,11 @@
                         await p.then(() => {
                             // Process code blocks
                             str += x;
-                            str = str.replace(codeBlockRegex, (match, lang, code) => {
-                                const formattedCode = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang || 'markup');
-                                return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
-                            });
+                            str = formatCodeBlocks(str)
             
                             responseclone.children[1].innerHTML = str;
                             adjustTextareaHeight();
             
-                            Prism.highlightAll();
                         });
                     }
             
@@ -554,7 +548,7 @@
             document.getElementById('gptresponse').appendChild(responseclone);
             if (model === "gpt-3.5-turbo") {
                 responseclone.children[0].src = "./img/gptmint.png"
-            } else if (model === 'gpt-4-1106-preview') {
+            } else if (model === 'gpt-4o') {
                 responseclone.children[0].src = "./img/GPT.png"
 
             } else {
@@ -566,7 +560,7 @@
 
             if (model === "gpt-3.5-turbo") {
                 responseclone.style.borderColor = "#55e078";
-            } else if (model === 'gpt-4-1106-preview') {
+            } else if (model === 'gpt-4o') {
                 responseclone.style.borderColor = "#bf95f0";
             } else {
                 responseclone.style.borderColor = "white"
@@ -613,8 +607,8 @@
         document.getElementById("chats").appendChild(clone)
         for (const x of document.getElementById("chats").children) {
             if (x.className === "room") {
-                x.children[0].animate([{
-                    borderRight: "solid 5px #454545"
+                x.animate([{
+                    backgroundColor: "#2d2d2d"
                 }], {
                     duration: 250,
                     fill: "forwards"
@@ -622,8 +616,8 @@
             }
         }
         if (!index) {
-            clone.children[0].animate([{
-                borderRight: `solid 5px ${modelcolor[model]}`
+            clone.animate([{
+                backgroundColor: `${modelcolor[model]}`
             }], {
                 duration: 250,
                 fill: "forwards"
@@ -666,11 +660,8 @@
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(responseclone);
-                        responseclone.children[1].innerHTML = rooms[clone.id][k].replace(codeBlockRegex, (match, lang, code) => {
-                            const formattedCode = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup, lang || 'markup');
-                            return `<pre><code class="language-${lang || 'markup'}">${formattedCode}</code></pre>`;
-                        });
-                        Prism.highlightAll();
+                        responseclone.children[1].innerHTML = formatCodeBlocks(rooms[clone.id][k]) 
+
 
                         const modelselector = k.split("_")[1]
                         responseclone.style.borderColor = modelcolor[modelselector]
@@ -678,7 +669,7 @@
                         if (modelselector === "gpt-3.5-turbo") {
                             responseclone.children[0].src = "./img/gptmint.png"
 
-                        } else if (modelselector === "gpt-4-1106-preview") {
+                        } else if (modelselector === "gpt-4o") {
                             responseclone.children[0].src = "./img/GPT.png"
 
                         } else {
@@ -692,17 +683,16 @@
 
             for (const x of document.getElementById("chats").children) {
                 if (x.className === "room") {
-                    x.children[0].animate([{
-                        borderRight: "#454545 solid 5px"
+                    x.animate([{
+                        backgroundColor: "#2d2d2d"
                     }], {
                         duration: 250,
                         fill: "forwards"
-                    })
+                    }) 
                 }
             }
-
-            clone.children[0].animate([{
-                borderRight: `solid 5px ${modelcolor[model]}`
+            clone.animate([{
+                backgroundColor: `${modelcolor[model]}`
             }], {
                 duration: 250,
                 fill: "forwards"
@@ -717,10 +707,8 @@
             try {
                 var currentroominternal = currentroom
                 var str = ""
-                var touse = "Untitled room"
-                if (index) {
-                    touse = data['ROOMNAME']
-                }
+                var touse = index && data["ROOMNAME"] ? data["ROOMNAME"] : "Untitled room"
+                console.log(index, data)
                 for (const x of touse) {
                     let p = new Promise((r) => {
                         setTimeout(function () {
@@ -809,15 +797,7 @@
                 fill: "forwards"
             })
 
-        } else {
-            element.animate([{
-                'color': value
-            }], {
-                duration: 150,
-                fill: "forwards"
-            })
-
-        }
+        } 
     }
     const mbuttons = document.getElementsByClassName("modelswitch");
     mbuttons[0].addEventListener("click", () => {
@@ -825,10 +805,8 @@
 
         animateProperty(mbuttons[0], "b", "#55e078")
         animateProperty(mbuttons[0], "b", "#55e078")
-        animateProperty(mbuttons[1], "c", "#d6d6d6")
-        animateProperty(mbuttons[2], "c", "#d6d6d6")
-        animateProperty(mbuttons[1], "b", "#1c1c1c")
-        animateProperty(mbuttons[2], "b", "#1c1c1c")
+        animateProperty(mbuttons[1], "b", "#2d2d2d")
+        animateProperty(mbuttons[2], "b", "#2d2d2d")
 
         aiturboicon.src = "./img/gptmint.png";
         document.querySelector("link[rel*='icon']").setAttribute("href", "./img/gptmint.png");
@@ -837,7 +815,7 @@
 
 
         document.getElementById("querycontainer").animate([{
-            borderBottomColor: "#55e078"
+            borderColor: "#55e078"
         }], {
             duration: 350,
             fill: "forwards"
@@ -864,15 +842,12 @@
 
     });
     mbuttons[1].addEventListener("click", () => {
-        model = 'gpt-4-1106-preview';
+        model = 'gpt-4o';
         animateProperty(mbuttons[1], "b", "#bf95f0")
-        animateProperty(mbuttons[1], "c", "#bf95f0")
-        animateProperty(mbuttons[0], "c", "#d6d6d6")
-        animateProperty(mbuttons[0], "b", "#1c1c1c")
-        animateProperty(mbuttons[2], "c", "#d6d6d6")
-        animateProperty(mbuttons[2], "b", "#1c1c1c")
+        animateProperty(mbuttons[0], "b", "#2d2d2d")
+        animateProperty(mbuttons[2], "b", "#2d2d2d")
         document.getElementById("querycontainer").animate([{
-            borderBottomColor: "#bf95f0"
+            borderColor: "#bf95f0"
         }], {
             duration: 350,
             fill: "forwards"
@@ -892,7 +867,7 @@
             fill: "forwards"
         })
         setTimeout(function () {
-            document.getElementById("send").src = "./img/send.png"
+            document.getElementById("send").src = "./img/sendpurple.png"
             document.getElementById('send').animate([{
                 opacity: 1
             }], {
@@ -905,16 +880,13 @@
 
     mbuttons[2].addEventListener("click", () => {
         model = 'SATURN';
-        animateProperty(mbuttons[2], "b", "white")
-        animateProperty(mbuttons[2], "c", "white")
-        animateProperty(mbuttons[1], "c", "#d6d6d6")
-        animateProperty(mbuttons[1], "b", "#1c1c1c")
-        animateProperty(mbuttons[0], "c", "#d6d6d6")
-        animateProperty(mbuttons[0], "b", "#1c1c1c")
+        animateProperty(mbuttons[2], "b", modelcolor[model])
+        animateProperty(mbuttons[1], "b", "#2d2d2d")
+        animateProperty(mbuttons[0], "b", "#2d2d2d")
 
 
         document.getElementById("querycontainer").animate([{
-            borderBottomColor: "white"
+            borderColor: modelcolor[model]
         }], {
             duration: 350,
             fill: "forwards"
@@ -1031,6 +1003,27 @@
         token = aks.value
     })
     document.getElementById("openSettings").addEventListener("click", openSettings)
+    const rmc =  document.getElementById("roomcreate")
+    const srch = document.getElementById("searchbarholder")
+
+    srch.addEventListener("focusin", () =>{
+        srch.animate([{"borderColor":"white"}], {duration:250, "fill":"forwards"})
+    })
+    srch.addEventListener("focusout", () =>{
+        srch.animate([{"borderColor":"#2d2d2d"}], {duration:250, "fill":"forwards"})
+
+    })
+
+
+    rmc.addEventListener("mouseenter", () =>{
+        const rmc =  document.getElementById("roomcreate")
+        rmc.animate([{"backgroundColor":"#454545"}], {duration:250, "fill":"forwards"})
+    })
+    rmc.addEventListener("mouseleave", () =>{
+        const rmc =  document.getElementById("roomcreate")
+        rmc.animate([{"backgroundColor":"#2d2d2d"}], {duration:250, "fill":"forwards"})
+    })
+
 
 
     //00. make it so the the dropdown for the selection buttons has animation and doesnt just suddenly appear

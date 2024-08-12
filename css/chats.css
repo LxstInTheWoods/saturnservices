@@ -11,18 +11,23 @@
     color: white;
     font-family: Arial;
     font-size: 18px;
-    width: 95%;
+    width: 85%;
     margin: auto;
     padding: 0.3em;
-    background-color: #2b2b2b;
-    border-bottom: solid 2px grey;
-    border-top: solid 1px #454545;
+    background-color: rgb(24, 24, 24);
+    border:none;
     outline: none;
     text-align: center;
     overflow-x: hidden;
     user-select: none;
+    margin-top: 0.5em;
+    border-radius: 9px;
 }
+#roomcreate{
+    border-radius: 9px;
+    background-color: #2d2d2d;
 
+}
 .room,
 label:hover {
     cursor: pointer;
@@ -39,11 +44,12 @@ label:hover {
 .roomoptions {
     width: 100%;
     display: flex;
+    padding: 0.3em;
 }
 
 .roomoptions button {
     display:block;
-    width: 95%;
+    width: 90%;
     margin: auto;
     border: solid 2px grey;
     outline: none;

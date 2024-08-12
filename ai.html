@@ -5,7 +5,9 @@
       <title>AI TURBO</title>
         <link rel="icon" type="image/x-icon" href="./img/gptmint.png">
         <link rel="stylesheet" href="./css/chats.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-dark.min.css" rel="stylesheet" />
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
         <script src="./js/config.js"></script>
         
 
@@ -30,8 +32,8 @@
             <br>
             <div style="display:flex;">
                <div  id="searchbarholder">
-                  <img src="./img/searchglass.png" style="height:2em; ">
-                  <input id='search' placeholder="Search" >
+                  <img src="./img/searchglass.png" style="height:1.5em; ">
+                  <input id='search' placeholder="Search">
                </div>
             </div>
 
@@ -44,7 +46,7 @@
 
              <div id='chatstorage' style='display:none;'>            
              
-             <div class="room" id='cloneroom' style='opacity:1; width:94%'>
+             <div class="room" id='cloneroom' style='opacity:1; width:85%'>
                 <label></label>
                 <div class="roomoptions">
                     <button class="roomdelete">Delete</button>
@@ -78,8 +80,8 @@
                 </div>
                 <span style='display:inline-flex'>
           <div id="GPTMODEL">
-         <button class='modelswitch' style="color:#55e078; border:solid 1px #55e078;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
-         <button class='modelswitch' style="color:#d6d6d6   "><img src='./img/GPT4sparkles.png'><strong>GPT 4</strong></button>
+         <button class='modelswitch' style="color:#55e078; border:solid 2px#55e078;"><img src='./img/gpt3.png'><strong>GPT 3.5</strong></button>
+         <button class='modelswitch' style="color:#d6d6d6   "><img src='./img/GPT4sparkles.png'><strong>GPT 4o</strong></button>
          <button class='modelswitch' style="color:#d6d6d6 "><img src='./img/Saturnai.png'><strong>CONSOLE</strong></button>
                 
           </div>
@@ -100,12 +102,11 @@
           
          <div id='querycontainer'> 
          <div id='qcsubdiv'>
-            <textarea id='query'  placeholder="Send a message"></textarea>
+            <textarea id='query'  placeholder="Send a message" rows="1"></textarea>
             <img id="send" src=./img/sendgreen.png>
             </div>
          </div>
       </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
       <script src="./js/ai.js"></script>
    </body>
 </html>
