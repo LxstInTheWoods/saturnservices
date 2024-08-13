@@ -219,7 +219,7 @@
         })
         const lkus = document.getElementById("lkus")
         async function lookUpUser() {
-            for (const x of document.getElementsByClassName("datahold")[0].children) {
+            for (const x of [...document.getElementsByClassName("datahold")[0].children]) {
                 if (x.tagName === "SPAN") {
                     x.remove()
                 }
@@ -291,6 +291,8 @@
                             if (typeof fin === "string") {
                                 console.log(fin)
                             }
+
+                            lookUpUser()
 
                         })
                     }

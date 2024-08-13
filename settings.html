@@ -174,7 +174,7 @@
             const userdata = localStorage.getItem("user")
             if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
                 localStorage.clear()
-                window.location.replace("https://terminalsaturn.com")
+                window.parent.location.replace("https://terminalsaturn.com")
             }
         })
 
@@ -186,7 +186,7 @@
                     }
                 }
 
-                document.getElementsByClassName("spguname")[0].textContent = parsed['admin']  ?  `${parsed['username']} (admin)` : parsed['admin']
+                document.getElementsByClassName("spguname")[0].textContent = parsed['admin']  ?  `${parsed['username']} (admin)` : parsed['username']
                 document.getElementsByClassName("spgpfp")[0].src = parsed['profilepicture']
                 for (const [i, v] of Object.entries(parsed)) {
                     const prnt = document.getElementsByClassName("datahold")[0]

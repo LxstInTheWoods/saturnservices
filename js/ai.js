@@ -40,6 +40,30 @@
     }
 
 
+
+    const wsUrl = 'wss://api.terminalsaturn.com:1111';
+    const socket = new WebSocket(wsUrl);    
+    socket.onopen = function (event) {
+            socket.send(JSON.stringify({ type: '01', message: getUserData() }));
+        console.log("socked connected,")
+    };
+
+    socket.onmessage = function (event) {
+        console.log('Message from server:', event.data);
+        if (event.data === "rload") {
+            location.reload()   
+        }
+    };
+
+    socket.onclose = function (event) {
+        console.log('WebSocket connection closed:', event.reason);
+    };
+
+    socket.onerror = function (error) {
+        console.error('WebSocket error:', error.message);
+    };
+
+
     var model = "gpt-3.5-turbo";
     var endpoint = 'https://api.terminalsaturn.com:444';
     function rwup() {
@@ -474,8 +498,29 @@
                         r4(`Welcome, This is the official console for our AI application. below are the available commands: 
                     \n\n -help [returns info about console and commands]
                     \n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]
-                    \n-requests:user [returns the amount of AI requests the user has made.]
+                    \n-requests:user [returns the amount of AI requests the user has made.]                    
+                    \n-connected: [returns users connected to api.terminalsaturn.com via WS.]
                     \n-debug [returns a value based on what the developer is attempting to debug (set in script)]`)
+                    },
+                    connected: (a1, command, a3) =>{
+                        fetch(`${endpoint}/command`, {
+                            method: "POST",
+                            mode: 'cors',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                'command': command,
+                                a1: str,
+                                udata : localStorage.getItem("user")
+
+                            })
+                        }).then((response) =>{
+                            return response.json()
+                        }).then((data)=>{
+                            console.log(data[0])
+                            r4(`connected users: \n \n ${data[0]}`)
+                        })
                     },
                     requests: (a1, command, a3) => {
                         fetch(`${endpoint}/command`, {
