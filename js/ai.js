@@ -1,5 +1,5 @@
 (async () => {
-    if (!localStorage.getItem("ts")){alert("Server offline"); return}
+    if (!localStorage.getItem("ts")) { alert("Server offline"); return }
 
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
         alert("please sign in")
@@ -9,6 +9,7 @@
     }
     var userdata
     var token = ""
+    const contextMenu = document.getElementById('context-menu');
     if (localStorage.getItem("user")) {
         userdata = localStorage.getItem("user")
         document.getElementById('apikeyset').value = userdata['token']
@@ -16,17 +17,35 @@
 
     }
 
-    function getUserData(){
+    function getUserData() {
         return JSON.parse(localStorage.getItem("user"))
     }
     function escapeHTML(html) {
         return html.replace(/&/g, "&amp;")
-                   .replace(/</g, "&lt;")
-                   .replace(/>/g, "&gt;")
-                   .replace(/"/g, "&quot;")
-                   .replace(/'/g, "&#039;");
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
-    
+    function clearcontext() {
+        contextMenu.style.display = 'none';
+        for (const x of [...document.getElementById("context").children]) {
+            x.remove()
+        }
+    }
+    clearcontext()
+    function generateContext(text) {
+        const context = document.createElement('li')
+        context.textContent = text
+        context.addEventListener("mouseenter", function () {
+            context.animate([{ "backgroundColor": "#454545" }], { duration: 250, "fill": "forwards" })
+        })
+        context.addEventListener("mouseleave", () => {
+            context.animate([{ "backgroundColor": "#252524" }], { duration: 250, "fill": "forwards" })
+        })
+        document.getElementById("context").appendChild(context)
+        return context
+    }
     function formatCodeBlocks(message) {
         const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g; // Regex for code blocks
         const formattedMessage = message.replace(codeBlockRegex, (match, lng, code) => {
@@ -42,16 +61,16 @@
 
 
     const wsUrl = 'wss://api.terminalsaturn.com:1111';
-    const socket = new WebSocket(wsUrl);    
+    const socket = new WebSocket(wsUrl);
     socket.onopen = function (event) {
-            socket.send(JSON.stringify({ type: '01', message: getUserData() }));
+        socket.send(JSON.stringify({ type: '01', message: getUserData() }));
         console.log("socked connected,")
     };
 
     socket.onmessage = function (event) {
         console.log('Message from server:', event.data);
         if (event.data === "rload") {
-            location.reload()   
+            location.reload()
         }
     };
 
@@ -124,7 +143,7 @@
 
     function roomColorAE() {
         if (document.getElementById(currentroom)) {
-            document.getElementById(currentroom).animate([{ backgroundColor:  `${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
+            document.getElementById(currentroom).animate([{ backgroundColor: `${modelcolor[model]}` }], { duration: 150, fill: "forwards" })
         }
     }
 
@@ -155,7 +174,6 @@
             T1input.selectionStart = T1input.selectionEnd = start + 1;
             T1input.scrollTop = T1input.scrollHeight;
 
-
         }
     });
 
@@ -175,51 +193,40 @@
         const prnt = delbutton.parentNode;
 
         clone.addEventListener("mouseenter", () => {
-            prnt.style.display = "flex";
-
-        });
-        clone.addEventListener("mouseleave", () => {
-            prnt.style.display = "none";
-        });
-        delbutton.addEventListener("mouseenter", () => {
-            delbutton.animate([{
-                borderColor: "white"
-            }], {
-                duration: 250,
-                fill: "forwards"
-            });
-            del = true
-        });
-        delbutton.addEventListener("mouseleave", () => { 
-            delbutton.animate([{
-                borderColor: "grey"
-            }], {
-                duration: 250,
-                fill: "forwards"
-            });
-            setTimeout(() => {
-                del = false
-            }, 100);
-        });
-
-
-        delbutton.addEventListener("click", () => {
-            erasemsgs(clone.id);
-            del = true
-            setTimeout(() => {
-                del = false
-            }, 100);
-            clone.remove();
-            if (clone.id === currentroom) {
-                currentroom = 0;
+            if (currentroom != clone.id) {
+                clone.animate([{ "backgroundColor": "#454545" }], { duration: 250, "fill": "forwards" })
             }
-            rooms[clone.id] = null;
-            let tmps = getUserData()
-            tmps['data']['aiturbo'] = rooms
-            localStorage.setItem("user", JSON.stringify(tmps))
-            rwup()
-            console.log("ok")
-        });
+        })
+        clone.addEventListener("mouseleave", () => {
+            if (currentroom != clone.id) {
+
+                clone.animate([{ "backgroundColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
+            }
+        })
+        clone.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+            generateContext("Delete chat").addEventListener("click", () => {
+                erasemsgs(clone.id);
+                del = true
+                setTimeout(() => {
+                    del = false
+                }, 100);
+                clone.remove();
+                if (clone.id === currentroom) {
+                    currentroom = 0;
+                }
+                rooms[clone.id] = null;
+                let tmps = getUserData()
+                tmps['data']['aiturbo'] = rooms
+                localStorage.setItem("user", JSON.stringify(tmps))
+                rwup()
+                clearcontext()
+            })
+            rmc.animate([{ "backgroundColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
+            contextMenu.style.display = "block"
+            contextMenu.style.left = `${event.clientX}px`;
+            contextMenu.style.top = `${event.clientY}px`;
+        })
     }
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
     async function GPT() {
@@ -233,13 +240,11 @@
                 var clone;
                 if (currentroom === 0) {
                     currentroom = genRanHex(12);
-                    rooms[currentroom] = {
-
-                    };
+                    rooms[currentroom] = {};
                     clone = document.getElementById("cloneroom").cloneNode(true);
                     clone.id = currentroom;
                     clone.animate([{
-                        backgroundColor:  `${modelcolor[model]}`
+                        backgroundColor: `${modelcolor[model]}`
                     }], {
                         duration: 250,
                         fill: "forwards"
@@ -247,7 +252,7 @@
 
 
 
-                    clone.children[1].children[0].addEventListener("click", () => { 
+                    clone.children[1].children[0].addEventListener("click", () => {
                         erasemsgs(clone.id);
                         clone.remove();
                         if (currentroom === clone.id) {
@@ -319,7 +324,7 @@
                             }
                         }
                         clone.animate([{
-                            backgroundColor:`${modelcolor[model]}`
+                            backgroundColor: `${modelcolor[model]}`
                         }], {
                             duration: 250,
                             fill: "forwards"
@@ -367,7 +372,7 @@
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: "Summarize prompt. No direct answer. Use 7 words or less. Do not mention the 7-word limit. " + document.getElementById("query").value,
+                                prompt: "instructions: No direct answer. Use 7 words or less. Do not mention the 7-word limit. Do not State 'prompt :' or any description of prompt. Summarize prompt:" + document.getElementById("query").value,
                                 userdata: localStorage.getItem("user"),
                                 gtp: model,
                                 history: null,
@@ -431,40 +436,40 @@
                 } catch (e) {
                     return;
                 }
-            
+
                 try {
                     let str = "";
-            
+
                     for (const x of formatCodeBlocks(value)) {
                         let p = new Promise((r) => {
                             setTimeout(function () {
                                 r();
                             }, 2);
                         });
-            
+
                         await p.then(() => {
                             // Process code blocks
                             str += x;
-            
+
                             responseclone.children[1].innerHTML = str;
                             adjustTextareaHeight();
-            
+
                         });
                     }
-            
+
                     // Save GPT reply
                     rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value;
                     let tmps = getUserData();
                     tmps['data']['aiturbo'] = rooms;
                     localStorage.setItem("user", JSON.stringify(tmps));
                     rwup();
-            
+
                     elem.scrollTop = elem.scrollHeight;
                 } catch (err) {
                     console.log(err);
                 }
             }
-            
+
 
             if (model === "SATURN") {
                 let str = userclone.children[1].innerHTML
@@ -502,7 +507,7 @@
                     \n-connected: [returns users connected to api.terminalsaturn.com via WS.]
                     \n-debug [returns a value based on what the developer is attempting to debug (set in script)]`)
                     },
-                    connected: (a1, command, a3) =>{
+                    connected: (a1, command, a3) => {
                         fetch(`${endpoint}/command`, {
                             method: "POST",
                             mode: 'cors',
@@ -512,12 +517,12 @@
                             body: JSON.stringify({
                                 'command': command,
                                 a1: str,
-                                udata : localStorage.getItem("user")
+                                udata: localStorage.getItem("user")
 
                             })
-                        }).then((response) =>{
+                        }).then((response) => {
                             return response.json()
-                        }).then((data)=>{
+                        }).then((data) => {
                             console.log(data[0])
                             r4(`connected users: \n \n ${data[0]}`)
                         })
@@ -713,7 +718,7 @@
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(responseclone);
-                        responseclone.children[1].innerHTML = formatCodeBlocks(rooms[clone.id][k]) 
+                        responseclone.children[1].innerHTML = formatCodeBlocks(rooms[clone.id][k])
 
 
                         const modelselector = k.split("_")[1]
@@ -741,7 +746,7 @@
                     }], {
                         duration: 250,
                         fill: "forwards"
-                    }) 
+                    })
                 }
             }
             clone.animate([{
@@ -794,13 +799,13 @@
         if (iso === 404) {
             console.warn("loaded chats from local save, may contain innacurate information. -- saving disabled until refresh")
         }
-            for (const x of Object.keys(rooms)) {
-                if (rooms[x]) {
-                    console.log(x)
-                    ctrr(x, rooms[x])
-                }
+        for (const x of Object.keys(rooms)) {
+            if (rooms[x]) {
+                console.log(x)
+                ctrr(x, rooms[x])
             }
-        
+        }
+
     })()
 
     document.getElementById("roomcreate").addEventListener("click", () => {
@@ -850,7 +855,7 @@
                 fill: "forwards"
             })
 
-        } 
+        }
     }
     const mbuttons = document.getElementsByClassName("modelswitch");
     mbuttons[0].addEventListener("click", () => {
@@ -1056,26 +1061,34 @@
         token = aks.value
     })
     document.getElementById("openSettings").addEventListener("click", openSettings)
-    const rmc =  document.getElementById("roomcreate")
+    const rmc = document.getElementById("roomcreate")
     const srch = document.getElementById("searchbarholder")
 
-    srch.addEventListener("focusin", () =>{
-        srch.animate([{"borderColor":"white"}], {duration:250, "fill":"forwards"})
+    srch.addEventListener("focusin", () => {
+        srch.animate([{ "borderColor": "white" }], { duration: 250, "fill": "forwards" })
     })
-    srch.addEventListener("focusout", () =>{
-        srch.animate([{"borderColor":"#2d2d2d"}], {duration:250, "fill":"forwards"})
+    srch.addEventListener("focusout", () => {
+        srch.animate([{ "borderColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
 
     })
 
 
-    rmc.addEventListener("mouseenter", () =>{
-        const rmc =  document.getElementById("roomcreate")
-        rmc.animate([{"backgroundColor":"#454545"}], {duration:250, "fill":"forwards"})
+    rmc.addEventListener("mouseenter", () => {
+        const rmc = document.getElementById("roomcreate")
+        rmc.animate([{ "backgroundColor": "#454545" }], { duration: 250, "fill": "forwards" })
     })
-    rmc.addEventListener("mouseleave", () =>{
-        const rmc =  document.getElementById("roomcreate")
-        rmc.animate([{"backgroundColor":"#2d2d2d"}], {duration:250, "fill":"forwards"})
+    rmc.addEventListener("mouseleave", () => {
+        const rmc = document.getElementById("roomcreate")
+        rmc.animate([{ "backgroundColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
     })
+        document.addEventListener('click', function () {
+            clearcontext()
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                clearcontext()
+            }
+        });
 
 
 
