@@ -490,8 +490,13 @@
                         }).then(function (response) {
                             return response.json();
                         }).then(function (data) {
-                            console.log(typeof data[0])
+                            if (typeof data === "string") {
+                                r4(data)
+                            }
+                            else
+                            {
                             r4(`Known ips for ${str.split(":")[1]} : \n \n${data[0]}`);
+                            }
                         })
                             .catch(function (error) {
                                 console.error("ERROR: " + error);
