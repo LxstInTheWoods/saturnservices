@@ -475,6 +475,27 @@
                 let str = userclone.children[1].innerHTML
 
                 const commands = {
+                    knownips:(a1, command,a3) => {
+                        fetch(`${endpoint}/command`, {
+                            method: "POST",
+                            mode: 'cors',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                'command': command,
+                                a1: str,
+                                udata : localStorage.getItem("user")
+                            })
+                        }).then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+                            r4(`Known ips for ${str.split(":")[1]} : \n \n${data[0]}`);
+                        })
+                            .catch(function (error) {
+                                console.error("ERROR: " + error);
+                            });
+                    },
                     admlog: (a1, command, a3) => {
                         fetch(`${endpoint}/command`, {
                             method: "POST",
