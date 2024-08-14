@@ -1,9 +1,55 @@
-#notifications{
+#notifscontainer{
+    position: fixed; 
     width: 100vw;
     height: 100vh;
-    position: fixed;
-    z-index: 12222222;
-    top: 0;
-    border: none;
-    background-color: green;
+    overflow: hidden; 
+    pointer-events: none;
+    color: rgb(206, 206, 206);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#notifications{
+    position: fixed; 
+    bottom: 0;
+    right: 0; 
+    width: fit-content;
+    height: fit-content;
+    z-index: 9999;
+    margin-right: 0.3em;
+    margin-bottom: 0.3em;
+}
+.notification {
+    min-width: 15em;
+    min-height: 3em;
+
+    max-width: 25em;
+    max-height: 10em;
+
+    width: fit-content;
+    height: fit-content;
+    border: solid #363636;
+    background-color: #2c2c2c;
+    border-radius: 9px;
+    display: block;
+    padding: .3em;
+    pointer-events: auto;
+
+}
+.notification label{
+    font-weight: bolder;
+    padding-bottom: 0;
+}
+.notification p {
+    padding-top: 0;
+    margin-top: .35em;
+    text-overflow: ellipsis;
+    flex: 1;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    line-clamp: 5;
+    -webkit-line-clamp: 5; 
+}
+#nfstg{
+    display: none;
 }

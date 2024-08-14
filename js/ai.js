@@ -20,13 +20,7 @@
     function getUserData() {
         return JSON.parse(localStorage.getItem("user"))
     }
-    function escapeHTML(html) {
-        return html.replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+
     function clearcontext() {
         contextMenu.style.display = 'none';
         for (const x of [...document.getElementById("context").children]) {
@@ -60,27 +54,6 @@
 
 
 
-    const wsUrl = 'wss://api.terminalsaturn.com:1111';
-    const socket = new WebSocket(wsUrl);
-    socket.onopen = function (event) {
-        socket.send(JSON.stringify({ type: '01', message: getUserData() }));
-        console.log("socked connected,")
-    };
-
-    socket.onmessage = function (event) {
-        console.log('Message from server:', event.data);
-        if (event.data === "rload") {
-            location.reload()
-        }
-    };
-
-    socket.onclose = function (event) {
-        console.log('WebSocket connection closed:', event.reason);
-    };
-
-    socket.onerror = function (error) {
-        console.error('WebSocket error:', error.message);
-    };
 
 
     var model = "gpt-3.5-turbo";
