@@ -272,6 +272,7 @@ padding: 1em;
 }
 
 
+
 @media only screen and (max-width:1000px){ /* mobile opt */
     #S01 *{
         font-size: 35px;

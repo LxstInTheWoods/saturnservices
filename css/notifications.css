@@ -1,0 +1,9 @@
+#notifications{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 12222222;
+    top: 0;
+    border: none;
+    background-color: green;
+}
