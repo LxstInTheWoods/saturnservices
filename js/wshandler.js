@@ -10,6 +10,8 @@ async function generateNotification(source, content) {
     notif.children[0].textContent = source
     notif.children[1].textContent = content
     container.appendChild(notif)
+    notif.animate([{"opacity":1}], {duration:250, "fill":"forwards"})
+
 
     function fadeOut() {
         const anim = notif.animate([{"opacity":0}], {duration:250, "fill":"forwards"})
