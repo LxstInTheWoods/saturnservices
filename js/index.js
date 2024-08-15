@@ -178,9 +178,9 @@
 
 
     if (ts) {
-        document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/508684611396829196/351f7919a7ceb76e15f60bf03a9ce7d5?size=1024h'
-        document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/748436799759843371/5255649ea51ceb641d7652cf67e08213?size=1024'
-        document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = 'https://cdn.discordapp.com/avatars/665407534386905101/4e1fcd29abde4ed370b0a67eca6977de?size=1024'
+        document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = './img/jayden.png'
+        document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = './img/alvar.png'
+        document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = './img/zach.png'
 
     }
 })()
