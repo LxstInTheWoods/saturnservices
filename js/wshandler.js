@@ -41,7 +41,6 @@ socket.onopen = function (event) {
 };
 
 socket.onmessage = function (event) {
-    print(event.data)
     if (event.data === "rload") {
         console.log("ok")
         generateNotification("Admin", "Your data was updated and your page will be automatically refreshed in 3 seconds.")
