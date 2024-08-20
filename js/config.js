@@ -1,8 +1,9 @@
 import * as utils from "./modules.js"
 let waitresp = false;
+import { SID } from "./wshandler.js";
 (async () => {
     //config wss
-
+    if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     function pulseWrong(w) {
         const username = document.getElementsByClassName("emailsign")[1]
         const password = document.getElementsByClassName("emailsign")[2]
@@ -19,37 +20,16 @@ let waitresp = false;
     }
 
 
-    try {
-        const tlresponse = await fetch('https://api.terminalsaturn.com:444/ping', {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        const result = await tlresponse.json()
-        if (result) {
-            localStorage.setItem("ts", true)
-        }
+    if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
 
-    } catch (rer) {
-        console.error(rer)
-        localStorage.setItem('ts', false)
-        setTimeout(() => {
-            //console.clear()
-            console.warn("failed to connect to server")
-        }, 100);
-
-    }
 
     if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
-        const ts = localStorage.getItem("ts")
 
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
 
-            const response = await utils.loginSite(JSON.stringify([username.value, password.value, localStorage.getItem("SID")]))
+            const response = await utils.loginSite([username.value, password.value, SID])
             const rdata = await response.json()
 
             if (typeof rdata === "object") {
@@ -120,9 +100,9 @@ let waitresp = false;
 
         let userdata = localStorage.getItem("user")
 
-        if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
+        if (userdata != "undefined" && userdata != null ) {
             const parsed = utils.getUserData()
-            const response = await utils.loginSite(JSON.stringify([parsed['username'], parsed['password'], localStorage.getItem("SID")]))
+            const response = await utils.loginSite([parsed['username'], parsed['password'], SID])
             
             const rdata = await response.json()
             if (rdata != 212 && rdata != 213) 

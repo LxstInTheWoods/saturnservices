@@ -174,7 +174,7 @@
         })
         document.getElementsByClassName('spglogout')[0].addEventListener("click", () => {
             const userdata = localStorage.getItem("user")
-            if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
+            if (userdata != "undefined" && userdata != null) {
                 localStorage.clear()
                 window.parent.location.reload()
             }

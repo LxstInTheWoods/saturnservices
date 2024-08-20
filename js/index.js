@@ -1,38 +1,8 @@
 import * as utils from "./modules.js"
+import { SID } from "./wshandler.js"
 
 (async () => {
-    //ts checks if server has connected
-    if (!localStorage.getItem("ts")) {
-
-        function delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms))
-        }
-
-        (async () => {
-            while (!localStorage.getItem("ts")) {
-                try {
-                    const data = await fetch("https://api.terminalsaturn.com:444/ping", {
-                        mode: "cors",
-                        method: "GET",
-                        headers: { "Content-Type": "application/json" },
-                    })
-                    const result = await data.json()
-                    if (result) {
-                        localStorage.setItem("ts", true)
-                    }
-                } catch (err) {
-                    warn("server unreachable")
-                }
-                await delay(1000)
-            }
-        })()
-
-    }
-
-
-
-    let ts = localStorage.getItem("ts")
-
+    if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     const thing = document.getElementById("SSINTRO")
 
     const divid_top = document.getElementsByClassName("divid_top")
@@ -70,7 +40,7 @@ import * as utils from "./modules.js"
     if (data != "undefined" && data != null) {
         (async () => {
             const prs = JSON.parse(data)
-            if (localStorage.getItem("ts")) {
+
 
                 const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
                     method: "POST",
@@ -78,13 +48,12 @@ import * as utils from "./modules.js"
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify([prs['username'], prs['password'], localStorage.getItem("SID")])
+                    body: JSON.stringify([prs['username'], prs['password'], SID])
                 })
                 const result = await response.json()
                 if (typeof result === "object") {
                     localStorage.setItem('user', JSON.stringify(result))
                 }
-            }
             rmsgnp()
         })();
     }

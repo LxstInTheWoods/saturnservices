@@ -2,10 +2,6 @@ const topbar = document.getElementById("topbar")
 
 window.addEventListener('message', function(event) {
         if (!event.data[1]){return}
-        if (!localStorage.getItem("ts")){
-            document.getElementById('cscpfp').src = './img/guesticon.png'; 
-            return
-        }
         document.getElementById('cscpfp').src = event.data[1];
 
 });
@@ -41,6 +37,6 @@ for(const x of [...topbar.getElementsByTagName("a")])
 
         })
     })
-}catch(e){alert(e)}
+}catch(e){}
 }
 }

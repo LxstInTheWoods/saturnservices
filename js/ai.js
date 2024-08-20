@@ -1,12 +1,14 @@
 import * as utils from "./modules.js"
+import { SID, awaitSID } from "./wshandler.js"; 
 (async () => {
-    if (!localStorage.getItem("ts")) { alert("Server offline"); return }
-
+    if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
-        window.open("https://terminalsaturn.com", "_self")
+        utils.generateNotification("AI Turbo", "You need to sign in before you can access this service.")
         return
-
     }
+    await awaitSID()
+    utils.loginSite([utils.getUserData()['username'], utils.getUserData()['password'], SID]) // automatically log out if user no longer exists or cred mismatch
+
     var userdata = utils.getUserData()
     var token = ""
     function formatCodeBlocks(message) {
@@ -68,7 +70,7 @@ import * as utils from "./modules.js"
     var del
 
     async function setupaifs() {
-        if (!localStorage.getItem("ts")) { return 404 }
+
         rooms = utils.getUserData()['data']['aiturbo']
         return 500
         //depracated function update to remove later, info is already updated by config.js
@@ -417,7 +419,7 @@ import * as utils from "./modules.js"
 
                 const commands = {
                     asyncknownips:async (a1, command,a3) => {
-                        await utils.commands(JSON.stringify({'command': command,a1: str,udata : localStorage.getItem("user")}))
+                        await utils.commands({'command': command,a1: str,udata : localStorage.getItem("user")})
                         .then(function (response) {
                             return response.json();
                         }).then(function (data) {
@@ -434,7 +436,7 @@ import * as utils from "./modules.js"
                             });
                     },
                     admlog: async (a1, command, a3) => {
-                        await utils.commands(JSON.stringify({'command': command,a1: str,})).then(function (response) {
+                        await utils.commands({'command': command,a1: str,}).then(function (response) {
                             return response.json();
                         }).then(function (data) {
                             r4(data[0]);
@@ -547,7 +549,6 @@ import * as utils from "./modules.js"
 
                     }
                 } catch (err) {
-                    alert(err)
                 }
 
             }

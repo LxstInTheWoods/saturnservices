@@ -4,6 +4,17 @@ export const contextMenu = document.getElementById('context-menu');
 if (localStorage.getItem("user")) {
     userdata = localStorage.getItem("user")
 }
+
+export function logOut() {
+    localStorage.clear()
+    setTimeout(() => {
+        location.reload()
+    }, 200);
+}
+
+export async function delay(s) {
+    return new Promise(resolve => setTimeout(resolve, s * 1000));
+}
 export async function generateNotification(source, content) {
     const notificationDiv = document.getElementById("notifscontainer")
     const notificationsStorage = document.getElementById("nfstg")
@@ -13,23 +24,23 @@ export async function generateNotification(source, content) {
     notif.children[0].textContent = source
     notif.children[1].textContent = content
     container.appendChild(notif)
-    notif.animate([{"opacity":1}], {duration:250, "fill":"forwards"})
+    notif.animate([{ "opacity": 1 }], { duration: 250, "fill": "forwards" })
 
 
     function fadeOut() {
-        const anim = notif.animate([{"opacity":0}], {duration:250, "fill":"forwards"})
+        const anim = notif.animate([{ "opacity": 0 }], { duration: 250, "fill": "forwards" })
         anim.onfinish = () => {
             notif.remove()
         }
     }
-    notif.addEventListener("mouseenter", ()=>{
-        notif.animate([{"backgroundColor":"#363636"}], {duration:250, "fill":"forwards"})
+    notif.addEventListener("mouseenter", () => {
+        notif.animate([{ "backgroundColor": "#363636" }], { duration: 250, "fill": "forwards" })
 
     })
-    notif.addEventListener("mouseleave", ()=>{
-        notif.animate([{"backgroundColor":"#2c2c2c"}], {duration:250, "fill":"forwards"})
+    notif.addEventListener("mouseleave", () => {
+        notif.animate([{ "backgroundColor": "#2c2c2c" }], { duration: 250, "fill": "forwards" })
     })
-    notif.addEventListener("click", () =>{
+    notif.addEventListener("click", () => {
         fadeOut()
     })
     setTimeout(() => {
@@ -41,22 +52,36 @@ export function getUserData() {
     return JSON.parse(localStorage.getItem("user"))
 }
 
-export async function loginSite(fbody){
+export async function loginSite(fbody) {
+    console.log(fbody)
     return await fetch(`${endpoint}loginsite`, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        mode:'cors',
-        body:fbody
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: 'cors',
+        body: JSON.stringify(fbody)
     })
 }
 
-export async function commands(fbody){
+export async function commands(fbody) {
     return await fetch(`${endpoint}command`, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        mode:"cors",
-        body:fbody
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        body: JSON.stringify(fbody)
     })
+}
+
+export async function ping() {
+    try {
+       await fetch("https://api.terminalsaturn.com:444/ping", {
+            mode: "cors",
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        })
+        return true
+    } catch (err) {
+        return false
+    }
 }
 
 
@@ -82,19 +107,19 @@ export function generateContext(text) {
 
 
 
-export function interact(event){
+export function interact(event) {
     contextMenu.style.display = "block"
     contextMenu.style.left = `${event.clientX}px`;
     contextMenu.style.top = `${event.clientY}px`;
 }
-if (contextMenu){
+if (contextMenu) {
 
-document.addEventListener('click', function () {
-    clearcontext()
-});
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
+    document.addEventListener('click', function () {
         clearcontext()
-    }
-});
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            clearcontext()
+        }
+    });
 }

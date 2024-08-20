@@ -35,6 +35,10 @@
     padding: .3em;
     pointer-events: auto;
     opacity: 0;
+    margin: auto;
+    margin-right: 0;
+    margin-bottom: 0.3em;
+    
 
 }
 .notification label{

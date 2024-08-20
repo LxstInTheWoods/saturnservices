@@ -2,46 +2,56 @@ import * as utils from "./modules.js"
 const wsUrl = 'wss://api.terminalsaturn.com:1111';
 const socket = new WebSocket(wsUrl);
 
-function logOut(){
-    localStorage.clear()
-    location.reload() 
+export var SID
+
+export async function awaitSID() {
+    for (let k = 0; k < 20; k++) {
+        await utils.delay(0.2)
+            if (k > 15) {
+                utils.generateNotification("System", "Could not connect to server.")
+                return "F"
+            }
+            if (SID) {
+
+                return SID
+            }
+    }
 }
 
 socket.onopen = function (event) {
-    socket.send(JSON.stringify({ type: '01', message: utils.getUserData()}));
+    socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
 };
 
 socket.onmessage = function (event) {
     const data = JSON.parse(event.data)
+    console.log(event.data)
     const operations = {
-        "rload":()=>{
+        "rload": () => {
             utils.generateNotification("Admin", "Your data was updated and your page will be automatically refreshed in 3 seconds.")
             setTimeout(() => {
                 location.reload()
-            }, 1000*3);
+            }, 1000 * 3);
         },
-        "connect":()=>{
-            console.log(data[1])
+        "connect": () => {
             utils.generateNotification("Server", data[1])
-            localStorage.setItem("SID", data[2])
+            SID = data[2]
         },
-        "dcl":()=>{
-            if (utils.getUserData()){
-            logOut()
+        "dcl": () => {
+            if (utils.getUserData()) {
+                utils.logOut()
             }
         }
     }
     if (data[0] in operations) {
         operations[data[0]]()
     }
-    else
-    {
+    else {
         utils.generateNotification("Server", data)
     }
-};  
+};
 
 socket.onclose = function (event) {
-    console.log('WebSocket connection closed:', event.reason);
+    utils.generateNotification("Server", "Connection was lost.")
 };
 
 socket.onerror = function (error) {
