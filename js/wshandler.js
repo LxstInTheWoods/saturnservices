@@ -17,7 +17,7 @@ export async function awaitSID() {
             }
     }
 }
-
+window.addEventListener('load', function () {
 socket.onopen = function (event) {
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
 };
@@ -57,4 +57,5 @@ socket.onclose = function (event) {
 socket.onerror = function (error) {
     console.error('WebSocket error:', error.message);
 };
+})
 //make socket connections require password when connecting via username - security/bug

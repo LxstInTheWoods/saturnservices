@@ -1,8 +1,9 @@
 import * as utils from "./modules.js"
 let waitresp = false;
-import { SID } from "./wshandler.js";
+import { SID, awaitSID } from "./wshandler.js";
 (async () => {
     //config wss
+    await awaitSID()
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     function pulseWrong(w) {
         const username = document.getElementsByClassName("emailsign")[1]
@@ -72,16 +73,11 @@ import { SID } from "./wshandler.js";
         //end of login
 
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
-            if (ts) {
                 const checkwait = await Login()
-            } else {
-                console.log("not ts")
-            }
         })
         document.getElementsByClassName("emailsign")[4].addEventListener("click", async () => {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
-            if (ts) {
                 const Data = await fetch("https://api.terminalsaturn.com:444/signup", {
                     method: "POST",
                     mode: "cors",
@@ -95,7 +91,7 @@ import { SID } from "./wshandler.js";
                 else if(result[1] === 301){
                     await Login()
                 } 
-            }
+
         })
 
         let userdata = localStorage.getItem("user")

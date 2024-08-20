@@ -18,6 +18,7 @@ export async function delay(s) {
 export async function generateNotification(source, content) {
     const notificationDiv = document.getElementById("notifscontainer")
     const notificationsStorage = document.getElementById("nfstg")
+    if (!notificationsStorage){return null}
     const container = document.getElementById("notifications")
     const notif = notificationsStorage.children[0].cloneNode(true)
 
