@@ -133,13 +133,6 @@ dnld.addEventListener("mouseleave", () => {
     dnld.animate([{ boxShadow: "0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6" }], { duration: 150, fill: "forwards" })
 })
 
-
-if (ts) {
-    document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = './img/jayden.png'
-    document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = './img/alvar.png'
-    document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = './img/zach.png'
-
-}
 }) ()
 
 function handleImageError(image) {
