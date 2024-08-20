@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="./css/maintheme.css">
 	<link rel="icon" type="image/x-icon" href="./img/SATURNNN.png">
 	<link rel="stylesheet" href="./css/notifications.css">
-
+	<link rel="stylesheet" href="./css/contextmenu.css">
+	<script type="module" src="./js/modules.js"></script>
 
 </head>
 
@@ -172,12 +173,19 @@
 		<div id="ordercont" style="width: fit-content; margin: auto;">
 			<a class="order">Newest project</a>
 		</div>
+		<div id="context-menu">
+			<ul id ='context'>
+				<li >Option 1</li>
+				<li >Option 2</li>
+				<li >Option 3</li>
+			</ul>
+		</div>
 		<iframe class='ext' id="i_set" src="./settings.html"></iframe>
 		<iframe class='ext' id="i_config" src="./admin.html"></iframe>
-		<script src="./js/config.js"></script>
-		<script src="./js/index.js"></script>
+		<script src="./js/config.js" type="module"></script>
+		<script src="./js/index.js" type="module"></script>
 		<script src="./js/localPost.js"></script>
-		<script src="./js/wshandler.js"></script>
+		<script src="./js/wshandler.js" type="module"></script>
 </body>
 
 </html>

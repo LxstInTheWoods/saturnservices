@@ -1,39 +1,37 @@
+import * as utils from "./modules.js"
+
 (async () => {
     //ts checks if server has connected
-    if (!localStorage.getItem("ts")){
+    if (!localStorage.getItem("ts")) {
 
         function delay(ms) {
-            return new Promise (resolve => setTimeout(resolve, ms))
+            return new Promise(resolve => setTimeout(resolve, ms))
         }
-    
-        (async ()=>{
+
+        (async () => {
             while (!localStorage.getItem("ts")) {
                 try {
                     const data = await fetch("https://api.terminalsaturn.com:444/ping", {
-                        mode:"cors",
-                        method:"GET",
-                        headers:{"Content-Type":"application/json"},
+                        mode: "cors",
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
                     })
                     const result = await data.json()
                     if (result) {
                         localStorage.setItem("ts", true)
                     }
-                }catch(err){
+                } catch (err) {
                     warn("server unreachable")
                 }
                 await delay(1000)
             }
         })()
-        
+
     }
 
 
 
     let ts = localStorage.getItem("ts")
-    
-    function getUserData(){
-        return JSON.parse(localStorage.getItem("user"))
-    }
 
     const thing = document.getElementById("SSINTRO")
 
@@ -52,7 +50,7 @@
     //sign in, get info from server if already signed in
     function rmsgnp() {
         function rest() {
-            const parsed = getUserData()
+            const parsed = utils.getUserData()
 
             logged = true
         }
@@ -80,16 +78,11 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify([prs['username'], prs['password']])
+                    body: JSON.stringify([prs['username'], prs['password'], localStorage.getItem("SID")])
                 })
                 const result = await response.json()
-                if (typeof result === "object" ){
+                if (typeof result === "object") {
                     localStorage.setItem('user', JSON.stringify(result))
-                } else if (result ==212 ) {
-                    alert("user doesnt exist")
-                    localStorage.clear()
-                    location.reload()
-                    return
                 }
             }
             rmsgnp()
@@ -117,10 +110,8 @@
         document.body.animate([{ backgroundColor: "#1a1a1a" }], { duration: 250, fill: "forwards" })
         const str = "Where possibility becomes reality."
         var cur = ""
-        _ = async () => {
+        async function r(){
             for (const x of str) {
-
-
                 let p = new Promise((r) => {
                     setTimeout(() => {
                         cur += x
@@ -128,62 +119,59 @@
                         r()
                     }, 7);
                 })
-
-                await p.then(() => { })
+    
+                await p
             }
-        }; _()
-
-
-
+        } r()
     }, 500);
 
 
 
-    for (const [x, v] of Object.entries(document.getElementById("aboutholder").children)) {
-        v.addEventListener("mouseenter", function () {
-            v.animate([{ backgroundColor: "#343434", borderColor: "white" }], { duration: 250, fill: "forwards" })
-        })
-        v.addEventListener("mouseleave", function () {
-            v.animate([{ backgroundColor: "rgb(24,24,24)", borderColor: "rgb(24,24,24)" }], { duration: 250, fill: "forwards" })
-
-        })
-    }
-
-    for (const x of [...document.getElementsByClassName("prefregion")]) {
-        x.addEventListener("mouseenter", () => {
-            x.animate([{ border: "solid white 2px" }], { duration: 250, fill: 'forwards' })
-        })
-
-        x.parentElement.addEventListener("mouseenter", () => {
-
-            x.parentElement.animate([{ border: "solid white 2px" }], { duration: 250, fill: 'forwards' })
-        })
-
-        x.parentElement.addEventListener("mouseleave", () => {
-            x.parentElement.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
-        })
-        x.addEventListener("mouseleave", () => {
-            x.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
-
-        })
-
-    }
-    const dnld = document.getElementsByClassName("order")[0]
-    dnld.addEventListener("mouseenter", () => {
-        dnld.animate([{ boxShadow: "0 0 10px white, 0 0 30px white, 0 0 50px white" }], { duration: 150, fill: "forwards" })
+for (const [x, v] of Object.entries(document.getElementById("aboutholder").children)) {
+    v.addEventListener("mouseenter", function () {
+        v.animate([{ backgroundColor: "#343434", borderColor: "white" }], { duration: 250, fill: "forwards" })
     })
-    dnld.addEventListener("mouseleave", () => {
-        dnld.animate([{ boxShadow: "0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6" }], { duration: 150, fill: "forwards" })
+    v.addEventListener("mouseleave", function () {
+        v.animate([{ backgroundColor: "rgb(24,24,24)", borderColor: "rgb(24,24,24)" }], { duration: 250, fill: "forwards" })
+
+    })
+}
+
+for (const x of [...document.getElementsByClassName("prefregion")]) {
+    x.addEventListener("mouseenter", () => {
+        x.animate([{ border: "solid white 2px" }], { duration: 250, fill: 'forwards' })
     })
 
+    x.parentElement.addEventListener("mouseenter", () => {
 
-    if (ts) {
-        document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = './img/jayden.png'
-        document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = './img/alvar.png'
-        document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = './img/zach.png'
+        x.parentElement.animate([{ border: "solid white 2px" }], { duration: 250, fill: 'forwards' })
+    })
 
-    }
-})()
+    x.parentElement.addEventListener("mouseleave", () => {
+        x.parentElement.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
+    })
+    x.addEventListener("mouseleave", () => {
+        x.animate([{ border: "solid rgb(71, 71, 71) 2px" }], { duration: 250, fill: 'forwards' })
+
+    })
+
+}
+const dnld = document.getElementsByClassName("order")[0]
+dnld.addEventListener("mouseenter", () => {
+    dnld.animate([{ boxShadow: "0 0 10px white, 0 0 30px white, 0 0 50px white" }], { duration: 150, fill: "forwards" })
+})
+dnld.addEventListener("mouseleave", () => {
+    dnld.animate([{ boxShadow: "0 0 10px #115dd6, 0 0 30px #115dd6, 0 0 50px #115dd6" }], { duration: 150, fill: "forwards" })
+})
+
+
+if (ts) {
+    document.getElementsByClassName("teamcard")[0].getElementsByTagName("img")[0].src = './img/jayden.png'
+    document.getElementsByClassName("teamcard")[1].getElementsByTagName("img")[0].src = './img/alvar.png'
+    document.getElementsByClassName("teamcard")[2].getElementsByTagName("img")[0].src = './img/zach.png'
+
+}
+}) ()
 
 function handleImageError(image) {
     image.onerror = null;
@@ -192,19 +180,18 @@ function handleImageError(image) {
 }
 
 //move animation stuff later
-(async () =>{
-const text = "Welcome to TerminalSaturn. We are a front and backend development team focused on delivering minimal yet vibrant creations to the world.".split(/(?=[a-zA-Z0-9])/)
-let newstring = ""
-let addedBr = false
-for (const [i, v] of Object.entries(text)) {
-    if (i > Math.round(text.length / 3) && v.match(/\s+/) && !addedBr) {
-        addedBr = true
-    newstring += `${v} <br>`
+(async () => {
+    const text = "Welcome to TerminalSaturn. We are a front and backend development team focused on delivering minimal yet vibrant creations to the world.".split(/(?=[a-zA-Z0-9])/)
+    let newstring = ""
+    let addedBr = false
+    for (const [i, v] of Object.entries(text)) {
+        if (i > Math.round(text.length / 3) && v.match(/\s+/) && !addedBr) {
+            addedBr = true
+            newstring += `${v} <br>`
+        }
+        else {
+            newstring += `${v}`
+        }
     }
-    else
-    {
-        newstring += `${v}`
-    }
-}
-document.getElementById("tsdesc").innerHTML = newstring
+    document.getElementById("tsdesc").innerHTML = newstring
 })()

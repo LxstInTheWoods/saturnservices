@@ -176,7 +176,7 @@
             const userdata = localStorage.getItem("user")
             if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
                 localStorage.clear()
-                window.parent.location.replace("https://terminalsaturn.com")
+                window.parent.location.reload()
             }
         })
 
@@ -260,5 +260,5 @@
 
 
     </script>
-    <script src="./js/config.js"></script>
+    <script src="./js/config.js" type="module"></script>
 </body>

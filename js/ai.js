@@ -1,45 +1,14 @@
+import * as utils from "./modules.js"
 (async () => {
     if (!localStorage.getItem("ts")) { alert("Server offline"); return }
 
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
-        alert("please sign in")
         window.open("https://terminalsaturn.com", "_self")
         return
 
     }
-    var userdata
+    var userdata = utils.getUserData()
     var token = ""
-    const contextMenu = document.getElementById('context-menu');
-    if (localStorage.getItem("user")) {
-        userdata = localStorage.getItem("user")
-        document.getElementById('apikeyset').value = userdata['token']
-        token = JSON.parse(userdata)['token'];
-
-    }
-
-    function getUserData() {
-        return JSON.parse(localStorage.getItem("user"))
-    }
-
-    function clearcontext() {
-        contextMenu.style.display = 'none';
-        for (const x of [...document.getElementById("context").children]) {
-            x.remove()
-        }
-    }
-    clearcontext()
-    function generateContext(text) {
-        const context = document.createElement('li')
-        context.textContent = text
-        context.addEventListener("mouseenter", function () {
-            context.animate([{ "backgroundColor": "#454545" }], { duration: 250, "fill": "forwards" })
-        })
-        context.addEventListener("mouseleave", () => {
-            context.animate([{ "backgroundColor": "#252524" }], { duration: 250, "fill": "forwards" })
-        })
-        document.getElementById("context").appendChild(context)
-        return context
-    }
     function formatCodeBlocks(message) {
         const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g; // Regex for code blocks
         const formattedMessage = message.replace(codeBlockRegex, (match, lng, code) => {
@@ -51,10 +20,11 @@
         });
         return formattedMessage;
     }
-
-
-
-
+    if (userdata) {
+        document.getElementById('apikeyset').value = userdata['token']
+        token = utils.getUserData()['token'];
+    }
+    utils.clearcontext()
 
     var model = "gpt-3.5-turbo";
     var endpoint = 'https://api.terminalsaturn.com:444';
@@ -67,7 +37,7 @@
             },
             body: JSON.stringify({
                 "type": "write",
-                "userdata": getUserData()
+                "userdata": utils.getUserData()
             })
         })
     }
@@ -99,7 +69,7 @@
 
     async function setupaifs() {
         if (!localStorage.getItem("ts")) { return 404 }
-        rooms = JSON.parse(userdata)['data']['aiturbo']
+        rooms = utils.getUserData()['data']['aiturbo']
         return 500
         //depracated function update to remove later, info is already updated by config.js
     }
@@ -178,7 +148,7 @@
         })
         clone.addEventListener('contextmenu', function (event) {
             event.preventDefault();
-            generateContext("Delete chat").addEventListener("click", () => {
+            utils.generateContext("Delete chat").addEventListener("click", () => {
                 erasemsgs(clone.id);
                 del = true
                 setTimeout(() => {
@@ -189,16 +159,14 @@
                     currentroom = 0;
                 }
                 rooms[clone.id] = null;
-                let tmps = getUserData()
+                let tmps = utils.getUserData()
                 tmps['data']['aiturbo'] = rooms
                 localStorage.setItem("user", JSON.stringify(tmps))
                 rwup()
-                clearcontext()
+                utils.clearcontext()
             })
             rmc.animate([{ "backgroundColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
-            contextMenu.style.display = "block"
-            contextMenu.style.left = `${event.clientX}px`;
-            contextMenu.style.top = `${event.clientY}px`;
+            utils.interact(event)
         })
     }
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
@@ -254,7 +222,7 @@
                                 var ucl = userresponse.cloneNode(true);
                                 document.getElementById('gptresponse').appendChild(ucl);
                                 ucl.children[1].innerHTML = rooms[clone.id][k];
-                                ucl.children[0].src = JSON.parse(userdata)['profilepicture']
+                                ucl.children[0].src = utils.getUserData()['profilepicture']
                                 tweenInElement(ucl);
 
                             } else {
@@ -346,7 +314,7 @@
                             },
                             body: JSON.stringify({
                                 prompt: "instructions: No direct answer. Use 7 words or less. Do not mention the 7-word limit. Do not State 'prompt :' or any description of prompt. Summarize prompt:" + document.getElementById("query").value,
-                                userdata: localStorage.getItem("user"),
+                                userdata: utils.getUserData(),
                                 gtp: model,
                                 history: null,
                             })
@@ -381,11 +349,11 @@
             const userclone = userresponse.cloneNode(true);
             document.getElementById('gptresponse').appendChild(userclone);
             userclone.children[1].innerHTML = document.getElementById("query").value.replace(/\n/g, "<br>");
-            if (typeof userdata === Object) {
+            if (typeof utils.getUserData() === Object) {
                 userclone.children[0].src = userdata['profilepicture']
             }
             else {
-                userclone.children[0].src = JSON.parse(userdata)['profilepicture']
+                userclone.children[0].src = utils.getUserData()['profilepicture']
             }
             var elem = document.getElementById('gptresponse');
 
@@ -432,7 +400,7 @@
 
                     // Save GPT reply
                     rooms[currentroom][`gpt_${model}_` + gptresponsehex] = value;
-                    let tmps = getUserData();
+                    let tmps = utils.getUserData();
                     tmps['data']['aiturbo'] = rooms;
                     localStorage.setItem("user", JSON.stringify(tmps));
                     rwup();
@@ -448,19 +416,9 @@
                 let str = userclone.children[1].innerHTML
 
                 const commands = {
-                    knownips:(a1, command,a3) => {
-                        fetch(`${endpoint}/command`, {
-                            method: "POST",
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                'command': command,
-                                a1: str,
-                                udata : localStorage.getItem("user")
-                            })
-                        }).then(function (response) {
+                    asyncknownips:async (a1, command,a3) => {
+                        await utils.commands(JSON.stringify({'command': command,a1: str,udata : localStorage.getItem("user")}))
+                        .then(function (response) {
                             return response.json();
                         }).then(function (data) {
                             if (typeof data === "string") {
@@ -475,18 +433,8 @@
                                 console.error("ERROR: " + error);
                             });
                     },
-                    admlog: (a1, command, a3) => {
-                        fetch(`${endpoint}/command`, {
-                            method: "POST",
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                'command': command,
-                                a1: str,
-                            })
-                        }).then(function (response) {
+                    admlog: async (a1, command, a3) => {
+                        await utils.commands(JSON.stringify({'command': command,a1: str,})).then(function (response) {
                             return response.json();
                         }).then(function (data) {
                             r4(data[0]);
@@ -576,9 +524,9 @@
                             },
                             body: JSON.stringify({
                                 prompt: document.getElementById("query").value,
-                                userdata: localStorage.getItem("user"),
+                                userdata: utils.getUserData(),
                                 gtp: model,
-                                history: JSON.stringify(rooms[currentroom]),
+                                history: rooms[currentroom],
                             })
                         }).then(response => {
                             if (!response.ok) {
@@ -710,10 +658,10 @@
                     if (k.includes("user_")) {
                         var ucl = userresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(ucl);
-                        console.log(typeof userdata)
+                        console.log(typeof utils.getUserData())
 
                         ucl.children[1].innerHTML = rooms[clone.id][k]
-                        ucl.children[0].src = JSON.parse(userdata)['profilepicture']
+                        ucl.children[0].src = utils.getUserData()['profilepicture']
                         tweenInElement(ucl)
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
@@ -1081,14 +1029,6 @@
         const rmc = document.getElementById("roomcreate")
         rmc.animate([{ "backgroundColor": "#2d2d2d" }], { duration: 250, "fill": "forwards" })
     })
-        document.addEventListener('click', function () {
-            clearcontext()
-        });
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                clearcontext()
-            }
-        });
 
 
 

@@ -1,9 +1,6 @@
+import * as utils from "./modules.js"
 let waitresp = false;
 (async () => {
-    function logout() {
-        localStorage.clear()
-        location.reload()
-    }
     //config wss
 
     function pulseWrong(w) {
@@ -19,9 +16,6 @@ let waitresp = false;
         }
 
 
-    }
-    function getUserData() {
-        return JSON.parse(localStorage.getItem("user"))
     }
 
 
@@ -55,14 +49,7 @@ let waitresp = false;
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
 
-            const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify([username.value, password.value])
-            })
+            const response = await utils.loginSite(JSON.stringify([username.value, password.value, localStorage.getItem("SID")]))
             const rdata = await response.json()
 
             if (typeof rdata === "object") {
@@ -75,10 +62,9 @@ let waitresp = false;
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
 
-                if (getUserData()['admin']) {
+                if (utils.getUserData()['admin']) {
                     iframe.contentWindow.postMessage([501], "*")
                 }
-                logged = true
                 for (const x of emgrp) {
                     const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
@@ -90,24 +76,18 @@ let waitresp = false;
                 }
 
                 let ems = document.getElementById("emailsign_title")
-                ems.textContent = `welcome, ${getUserData()['username']}.`
+                ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
                 window.postMessage("501_l", "*")
                 return true
 
             }
-            else if (rdata.includes("incorrect")) {
+            else if (rdata === 212 || rdata === 213) {
                 pulseWrong()
                 return
             }
-            else if(rdata === 213) {
-                logout()
-            }
-            else if (rdata ==212) {
-                alert("user doesnt exist")
-                logout()
-            }
+
         }
         //end of login
 
@@ -141,39 +121,27 @@ let waitresp = false;
         let userdata = localStorage.getItem("user")
 
         if (userdata != "undefined" && userdata != null && localStorage.getItem("ts")) {
-            const parsed = getUserData()
-            const response = await fetch('https://api.terminalsaturn.com:444/loginsite', {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify([parsed['username'], parsed['password']])
-            })
+            const parsed = utils.getUserData()
+            const response = await utils.loginSite(JSON.stringify([parsed['username'], parsed['password'], localStorage.getItem("SID")]))
             
             const rdata = await response.json()
-            if (rdata === 212 ) {
-                alert("user doesnt exist")
-                logout()
-                return
-            }
-            else if(rdata === 213) {
-                logout()
-            }
-            else
+            if (rdata != 212 && rdata != 213) 
             {
                 localStorage.setItem("user", JSON.stringify(rdata))
             }
+            else if (rdata === 212 || rdata === 213){
+                pulseWrong()
+            }
+
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
                 var userProfilePicture = ""
-                if (getUserData() ) {
-                   userProfilePicture =  getUserData().profilepicture
+                if (utils.getUserData()) {
+                   userProfilePicture =  utils.getUserData().profilepicture
                 }
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
-                logged = true
                 for (const x of emgrp) {
                     const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
@@ -185,7 +153,7 @@ let waitresp = false;
 
                 }
                 let ems = document.getElementById("emailsign_title")
-                ems.textContent = `welcome, ${getUserData()['username']}.`
+                ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
                 ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
 
@@ -207,4 +175,4 @@ let waitresp = false;
 // STABLE AS OF 8/04/24
 
 //make a page notifications thing to replace alert
-//do pcalls on getuserdata bc its not gonna always be loaded
+//do pcalls on utils.getUserData() bc its not gonna always be loaded

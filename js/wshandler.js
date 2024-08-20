@@ -1,57 +1,44 @@
+import * as utils from "./modules.js"
 const wsUrl = 'wss://api.terminalsaturn.com:1111';
 const socket = new WebSocket(wsUrl);
 
-async function generateNotification(source, content) {
-    const notificationDiv = document.getElementById("notifscontainer")
-    const notificationsStorage = document.getElementById("nfstg")
-    const container = document.getElementById("notifications")
-    const notif = notificationsStorage.children[0].cloneNode(true)
-
-    notif.children[0].textContent = source
-    notif.children[1].textContent = content
-    container.appendChild(notif)
-    notif.animate([{"opacity":1}], {duration:250, "fill":"forwards"})
-
-
-    function fadeOut() {
-        const anim = notif.animate([{"opacity":0}], {duration:250, "fill":"forwards"})
-        anim.onfinish = () => {
-            notif.remove()
-        }
-    }
-    notif.addEventListener("mouseenter", ()=>{
-        notif.animate([{"backgroundColor":"#363636"}], {duration:250, "fill":"forwards"})
-
-    })
-    notif.addEventListener("mouseleave", ()=>{
-        notif.animate([{"backgroundColor":"#2c2c2c"}], {duration:250, "fill":"forwards"})
-    })
-    notif.addEventListener("click", () =>{
-        fadeOut()
-    })
-    setTimeout(() => {
-        fadeOut()
-    }, 5000);
-    
-    
+function logOut(){
+    localStorage.clear()
+    location.reload() 
 }
 
 socket.onopen = function (event) {
-    socket.send(JSON.stringify({ type: '01', message: localStorage.getItem("user")}));
+    socket.send(JSON.stringify({ type: '01', message: utils.getUserData()}));
 };
 
 socket.onmessage = function (event) {
-    if (event.data === "rload") {
-        console.log("ok")
-        generateNotification("Admin", "Your data was updated and your page will be automatically refreshed in 3 seconds.")
-        setTimeout(() => {
-            location.reload()
-        }, 1000*3);
-    }else
-    {
-        generateNotification("Server", event.data)
+    const data = JSON.parse(event.data)
+    const operations = {
+        "rload":()=>{
+            utils.generateNotification("Admin", "Your data was updated and your page will be automatically refreshed in 3 seconds.")
+            setTimeout(() => {
+                location.reload()
+            }, 1000*3);
+        },
+        "connect":()=>{
+            console.log(data[1])
+            utils.generateNotification("Server", data[1])
+            localStorage.setItem("SID", data[2])
+        },
+        "dcl":()=>{
+            if (utils.getUserData()){
+            logOut()
+            }
+        }
     }
-};
+    if (data[0] in operations) {
+        operations[data[0]]()
+    }
+    else
+    {
+        utils.generateNotification("Server", data)
+    }
+};  
 
 socket.onclose = function (event) {
     console.log('WebSocket connection closed:', event.reason);
