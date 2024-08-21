@@ -6,15 +6,14 @@ export var SID
 
 export async function awaitSID() {
     for (let k = 0; k < 20; k++) {
-        await utils.delay(0.2)
-            if (k > 15) {
-                utils.generateNotification("System", "Could not connect to server.")
-                return "F"
-            }
-            if (SID) {
-
-                return SID
-            }
+        if (k > 20) {
+            utils.generateNotification("System", "Could not connect to server. Please refresh to try again.")
+            return "F"
+        }
+        if (SID) {
+            return SID
+        }
+        await utils.delay(1)
     }
 }
 window.addEventListener('load', function () {
