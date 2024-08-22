@@ -7,6 +7,7 @@ export var SID = null
 
 window.addEventListener('load', function () {
 socket.onopen = function (event) {
+    console.log("opened")
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
 };
 
