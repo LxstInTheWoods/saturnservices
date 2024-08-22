@@ -78,7 +78,7 @@ import { SID, awaitSID } from "./wshandler.js";
         document.getElementsByClassName("emailsign")[4].addEventListener("click", async () => {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
-                const Data = await fetch("https://api.terminalsaturn.com:444/signup", {
+                const Data = await fetch("https://terminalsaturn.com/signup", {
                     method: "POST",
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },

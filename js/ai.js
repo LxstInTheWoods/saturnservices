@@ -29,7 +29,7 @@ import { SID, awaitSID } from "./wshandler.js";
     utils.clearcontext()
 
     var model = "gpt-3.5-turbo";
-    var endpoint = 'https://api.terminalsaturn.com:444';
+    var endpoint = 'https://terminalsaturn.com';
     function rwup() {
         fetch(`${endpoint}/readwrite`, {
             method: 'POST',
@@ -454,7 +454,7 @@ import { SID, awaitSID } from "./wshandler.js";
                     \n\n -help [returns info about console and commands]
                     \n -admlog:user:pass [allows you to log into an administrator account and autofill their account API token.]
                     \n-requests:user [returns the amount of AI requests the user has made.]                    
-                    \n-connected: [returns users connected to api.terminalsaturn.com via WS.]
+                    \n-connected: [returns users connected to terminalsaturn.com via WS.]
                     \n-debug [returns a value based on what the developer is attempting to debug (set in script)]`)
                     },
                     connected: (a1, command, a3) => {

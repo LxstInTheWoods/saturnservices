@@ -213,7 +213,7 @@
                         apply.addEventListener("click", async () => {
                             apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
 
-                           const changed = await fetch(`https://api.terminalsaturn.com:444/readwrite`, {
+                           const changed = await fetch(`https://terminalsaturn.com/readwrite`, {
                                 method: 'POST',
                                 mode: 'cors',
                                 headers: {

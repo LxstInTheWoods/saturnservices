@@ -1,5 +1,5 @@
 let userdata
-const endpoint = "https://api.terminalsaturn.com:444/"
+const endpoint = "https://terminalsaturn.com/"
 export const contextMenu = document.getElementById('context-menu');
 if (localStorage.getItem("user")) {
     userdata = localStorage.getItem("user")
@@ -74,7 +74,7 @@ export async function commands(fbody) {
 
 export async function ping() {
     try {
-       await fetch("https://api.terminalsaturn.com:444/ping", {
+       await fetch("https://terminalsaturn.com/ping", {
             mode: "cors",
             method: "GET",
             headers: { "Content-Type": "application/json" },

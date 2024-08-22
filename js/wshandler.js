@@ -1,18 +1,17 @@
 import * as utils from "./modules.js"
-const wsUrl = 'wss://api.terminalsaturn.com/ws';
+const wsUrl = 'wss://terminalsaturn.com/ws';
 const socket = new WebSocket(wsUrl);
-console.log(socket)
 export var SID = null
 
 
-window.addEventListener('load', function () {
 socket.onopen = function (event) {
-    console.log("opened")
+    console.log(event)
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
 };
 
 socket.onmessage = function (event) {
     const data = JSON.parse(event.data)
+    console.log("got msgs")
     console.log(event.data)
     const operations = {
         "rload": () => {
@@ -48,7 +47,6 @@ socket.onclose = function (event) {
 socket.onerror = function (error) {
     console.error('WebSocket error:', error.message);
 };
-})
 export async function awaitSID() {
     for (let k = 0; k < 20; k++) {
         console.log("looping", SID)
