@@ -1,5 +1,5 @@
 import * as utils from "./modules.js"
-const wsUrl = 'wss://api.terminalsaturn.com:1111';
+const wsUrl = 'wss://api.terminalsaturn.com/ws';
 const socket = new WebSocket(wsUrl);
 console.log(socket)
 export var SID = null
@@ -41,6 +41,7 @@ socket.onmessage = function (event) {
 };
 
 socket.onclose = function (event) {
+    console.log("closed")
     utils.generateNotification("Server", "Connection was lost.")
 };
 
