@@ -1,8 +1,8 @@
 import * as utils from "./modules.js"
-const wsUrl = 'wss://api.terminalsaturn.com:445';
+const wsUrl = 'wss://api.terminalsaturn.com:1111';
 const socket = new WebSocket(wsUrl);
 console.log(socket)
-export var SID
+export var SID = null
 
 
 window.addEventListener('load', function () {
@@ -21,6 +21,7 @@ socket.onmessage = function (event) {
             }, 1000 * 3);
         },
         "connect": () => {
+            console.log("connected")
             utils.generateNotification("Server", data[1])
             SID = data[2]
         },
@@ -48,10 +49,12 @@ socket.onerror = function (error) {
 })
 export async function awaitSID() {
     for (let k = 0; k < 20; k++) {
+        console.log("looping", SID)
         if (k > 20) {
             utils.generateNotification("System", "Could not connect to server. Please refresh to try again.")
             return "F"
         }
+        else
         if (SID) {
             return SID
         }
