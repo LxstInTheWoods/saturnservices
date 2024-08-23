@@ -1,17 +1,21 @@
 import * as utils from "./modules.js"
-const wsUrl = 'wss://terminalsaturn.com/ws';
-const socket = new WebSocket(wsUrl);
 export var SID = null
+const wsUrl = 'wss://webservice.terminalsaturn.com:1111';
+const socket = new WebSocket(wsUrl);
 
 
-socket.onopen = function (event) {
-    console.log(event)
+
+socket.onopen = async function (event) {
+    console.log('open')
+    console.log("WebSocket readyState:", socket.readyState);
+
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
+
 };
 
-socket.onmessage = function (event) {
-    const data = JSON.parse(event.data)
+socket.onmessage = async function (event) {
     console.log("got msgs")
+    const data = JSON.parse(event.data)
     console.log(event.data)
     const operations = {
         "rload": () => {
@@ -39,12 +43,12 @@ socket.onmessage = function (event) {
     }
 };
 
-socket.onclose = function (event) {
+socket.onclose = async function (event) {
     console.log("closed")
     utils.generateNotification("Server", "Connection was lost.")
 };
 
-socket.onerror = function (error) {
+socket.onerror = async function (error) {
     console.error('WebSocket error:', error.message);
 };
 export async function awaitSID() {

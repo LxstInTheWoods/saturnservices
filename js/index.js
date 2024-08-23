@@ -43,7 +43,7 @@ import { SID , awaitSID} from "./wshandler.js"
             const prs = JSON.parse(data)
 
 
-                const response = await fetch('https://terminalsaturn.com/loginsite', {
+                const response = await fetch('https://webservice.terminalsaturn.com:444/loginsite', {
                     method: "POST",
                     mode: "cors",
                     headers: {
