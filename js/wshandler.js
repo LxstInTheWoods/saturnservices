@@ -1,6 +1,6 @@
 import * as utils from "./modules.js"
 export var SID = null
-const wsUrl = 'wss://terminalsaturn.com/ws';
+const wsUrl = 'https://terminalsaturn.com/ws';
 const socket = new WebSocket(wsUrl);
 
 

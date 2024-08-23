@@ -418,7 +418,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 let str = userclone.children[1].innerHTML
 
                 const commands = {
-                    asyncknownips:async (a1, command,a3) => {
+                    knownips:async (a1, command,a3) => {
                         await utils.commands({'command': command,a1: str,udata : localStorage.getItem("user")})
                         .then(function (response) {
                             return response.json();

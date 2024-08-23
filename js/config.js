@@ -59,7 +59,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 let ems = document.getElementById("emailsign_title")
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                ems.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: "forwards" })
+                ems.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" })
                 window.postMessage("501_l", "*")
                 return true
 
