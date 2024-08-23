@@ -228,7 +228,7 @@
             }
             async function lookup() {
                 try {
-                    const result = await fetch("https://webservice.terminalsaturn.com:444/.com/admintools", {
+                    const result = await fetch("https://terminalsaturn.com/.com/admintools", {
                         method: "POST",
                         mode: 'cors',
                         headers: { "Content-Type": "application/json" },
@@ -270,7 +270,7 @@
                             apply.animate([{ 'opacity': 0 }], { duration: 250, fill: "forwards" })
                             async function modify() {
                                 try {
-                                    const changed = await fetch(`https://webservice.terminalsaturn.com:444/.com/admintools`, {
+                                    const changed = await fetch(`https://terminalsaturn.com/.com/admintools`, {
                                         method: 'POST',
                                         mode: 'cors',
                                         headers: {

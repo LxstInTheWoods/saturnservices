@@ -1,14 +1,11 @@
 import * as utils from "./modules.js"
 export var SID = null
-const wsUrl = 'wss://webservice.terminalsaturn.com:1111';
+const wsUrl = 'wss://terminalsaturn.com/ws';
 const socket = new WebSocket(wsUrl);
 
 
 
 socket.onopen = async function (event) {
-    console.log('open')
-    console.log("WebSocket readyState:", socket.readyState);
-
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
 
 };
@@ -25,7 +22,6 @@ socket.onmessage = async function (event) {
             }, 1000 * 3);
         },
         "connect": () => {
-            console.log("connected")
             utils.generateNotification("Server", data[1])
             SID = data[2]
         },
@@ -44,7 +40,7 @@ socket.onmessage = async function (event) {
 };
 
 socket.onclose = async function (event) {
-    console.log("closed")
+
     utils.generateNotification("Server", "Connection was lost.")
 };
 

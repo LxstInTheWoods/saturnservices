@@ -24,7 +24,7 @@ import { SID, awaitSID } from "./wshandler.js";
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
 
 
-    if (window.location.href.includes("index") || window.location.href === "https://webservice.terminalsaturn.com:444/") {
+    if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
 
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1]
@@ -78,7 +78,7 @@ import { SID, awaitSID } from "./wshandler.js";
         document.getElementsByClassName("emailsign")[4].addEventListener("click", async () => {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
-                const Data = await fetch("https://webservice.terminalsaturn.com:444/signup", {
+                const Data = await fetch("https://terminalsaturn.com/signup", {
                     method: "POST",
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -109,7 +109,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 pulseWrong()
             }
 
-            if (window.location.href.includes("index") || window.location.href === "https://webservice.terminalsaturn.com:444/") {
+            if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
                 var userProfilePicture = ""
