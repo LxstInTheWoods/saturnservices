@@ -47,7 +47,7 @@ import { SID, awaitSID } from "./wshandler.js";
                     iframe.contentWindow.postMessage([501], "*")
                 }
                 for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
+                    const animation = x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
                         if (x.tagName != "LABEL") {
                             x.style.display = "none";
@@ -119,7 +119,7 @@ import { SID, awaitSID } from "./wshandler.js";
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
                 for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
+                    const animation = x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
                         if (x.tagName != "LABEL") {
 
