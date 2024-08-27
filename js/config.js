@@ -46,7 +46,7 @@ import { SID, awaitSID } from "./wshandler.js";
                     iframe.contentWindow.postMessage([501], "*")
                 }
                 for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" });
+                    const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
                         if (x.tagName != "LABEL") {
                             x.style.display = "none";
@@ -96,9 +96,9 @@ import { SID, awaitSID } from "./wshandler.js";
         let userdata = localStorage.getItem("user")
 
         if (userdata != "undefined" && userdata != null ) {
+            try{
             const parsed = utils.getUserData()
             const response = await utils.loginSite([parsed['username'], parsed['password'], SID])
-            
             const rdata = await response.json()
             if (rdata != 212 && rdata != 213) 
             {
@@ -130,9 +130,14 @@ import { SID, awaitSID } from "./wshandler.js";
                 let ems = document.getElementById("emailsign_title")
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                setTimeout(() => {
+                    ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                }, 50);
 
             }
+        }catch(err){
+            utils.generateNotification("Client", "Failed to load data from server")
+        }
         }
 
         //if topbar becomes global consider removing this from index check
