@@ -26,11 +26,12 @@ import { SID , awaitSID} from "./wshandler.js"
             logged = true
         }
         for (const x of emgrp) {
-            const animation = x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" });
+            const animation = x.animate([{ opacity: 0}], { duration: 250, fill: "forwards" });
+            if (x.id != "emailsign_title"){
             animation.onfinish = () => {
-                if (x.id != "emailsign_title")
                     x.style.display = "none";
             };
+        }
 
         }
         rest()

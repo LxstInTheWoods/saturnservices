@@ -29,7 +29,6 @@ import { SID, awaitSID } from "./wshandler.js";
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1]
             const password = document.getElementsByClassName("emailsign")[2]
-
             const response = await utils.loginSite([username.value, password.value, SID])
             const rdata = await response.json()
 
@@ -59,7 +58,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 let ems = document.getElementById("emailsign_title")
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                ems.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" })
+                ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
                 window.postMessage("501_l", "*")
                 return true
 
@@ -73,7 +72,7 @@ import { SID, awaitSID } from "./wshandler.js";
         //end of login
 
         document.getElementsByClassName('emailsign')[3].addEventListener("click", async () => {
-                const checkwait = await Login()
+                const checkwait = await Login(false)
         })
         document.getElementsByClassName("emailsign")[4].addEventListener("click", async () => {
             const username = document.getElementsByClassName("emailsign")[1]
@@ -119,19 +118,19 @@ import { SID, awaitSID } from "./wshandler.js";
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
                 for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" });
+                    const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
                     animation.onfinish = () => {
-                        if (x.tagName != "LABEL") {
-
+                        if (x.id != "emailsign_title") {
                             x.style.display = "none";
                         }
                     };
 
                 }
+
                 let ems = document.getElementById("emailsign_title")
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                ems.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" })
+                ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
 
             }
         }
