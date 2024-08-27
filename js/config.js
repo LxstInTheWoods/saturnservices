@@ -107,7 +107,7 @@ import { SID, awaitSID } from "./wshandler.js";
             else if (rdata === 212 || rdata === 213){
                 pulseWrong()
             }
-
+ 
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
                 const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
