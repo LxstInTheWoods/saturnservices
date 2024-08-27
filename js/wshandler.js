@@ -11,9 +11,7 @@ socket.onopen = async function (event) {
 };
 
 socket.onmessage = async function (event) {
-    console.log("got msgs")
     const data = JSON.parse(event.data)
-    console.log(event.data)
     const operations = {
         "rload": () => {
             utils.generateNotification("Admin", "Your data was updated and your page will be automatically refreshed in 3 seconds.")
@@ -49,7 +47,6 @@ socket.onerror = async function (error) {
 };
 export async function awaitSID() {
     for (let k = 0; k < 20; k++) {
-        console.log("looping", SID)
         if (k > 20) {
             utils.generateNotification("System", "Could not connect to server. Please refresh to try again.")
             return "F"

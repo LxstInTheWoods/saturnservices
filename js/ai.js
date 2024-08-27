@@ -473,7 +473,6 @@ import { SID, awaitSID } from "./wshandler.js";
                         }).then((response) => {
                             return response.json()
                         }).then((data) => {
-                            console.log(data[0])
                             r4(`connected users: \n \n ${data[0]}`)
                         })
                     },
@@ -517,7 +516,6 @@ import { SID, awaitSID } from "./wshandler.js";
                         r4("Query too long.")
                     } else {
                         responseclone.children[1].innerHTML = "generating response...";
-                        console.log(typeof localStorage.getItem("user"))
                         fetch(`${endpoint}/getGPTResponse`, {
                             method: 'POST',
                             mode: 'cors',
@@ -659,8 +657,6 @@ import { SID, awaitSID } from "./wshandler.js";
                     if (k.includes("user_")) {
                         var ucl = userresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(ucl);
-                        console.log(typeof utils.getUserData())
-
                         ucl.children[1].innerHTML = rooms[clone.id][k]
                         ucl.children[0].src = utils.getUserData()['profilepicture']
                         tweenInElement(ucl)
@@ -715,7 +711,6 @@ import { SID, awaitSID } from "./wshandler.js";
                 var currentroominternal = currentroom
                 var str = ""
                 var touse = index && data["ROOMNAME"] ? data["ROOMNAME"] : "Untitled room"
-                console.log(index, data)
                 for (const x of touse) {
                     let p = new Promise((r) => {
                         setTimeout(function () {
@@ -750,7 +745,6 @@ import { SID, awaitSID } from "./wshandler.js";
         }
         for (const x of Object.keys(rooms)) {
             if (rooms[x]) {
-                console.log(x)
                 ctrr(x, rooms[x])
             }
         }

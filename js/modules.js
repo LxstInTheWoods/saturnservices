@@ -54,7 +54,6 @@ export function getUserData() {
 }
 
 export async function loginSite(fbody) {
-    console.log(fbody)
     return await fetch(`${endpoint}loginsite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -87,7 +86,6 @@ export async function ping() {
 
 
 export function clearcontext() {
-    console.log("ok")
     contextMenu.style.display = 'none';
     for (const x of [...document.getElementById("context").children]) {
         x.remove()
