@@ -179,7 +179,7 @@ import { SID, awaitSID } from "./wshandler.js";
 
         if (hasLetters || hasNumbers) {
 
-            if (currentroom === 0 || document.getElementById(currentroom).children[0].innerHTML === "New chat") {
+            if (currentroom === 0 || document.getElementById(currentroom).children[0].innerHTML === "Untitled chat") {
                 var clone;
                 if (currentroom === 0) {
                     currentroom = genRanHex(12);
@@ -286,7 +286,7 @@ import { SID, awaitSID } from "./wshandler.js";
                     clone = document.getElementById(currentroom);
                 }
 
-                document.getElementById(currentroom).children[0].innerHTML = "New chat"
+                document.getElementById(currentroom).children[0].innerHTML = "Untitled chat"
 
                 async function tx34(response) {
                     var str = "";
@@ -604,7 +604,7 @@ import { SID, awaitSID } from "./wshandler.js";
         currentroom = hex;
         if (!index) {
             rooms[currentroom] = {
-                "ROOMNAME": "New chat"
+                "ROOMNAME": "Untitled chat"
             }
         }
 
@@ -710,7 +710,7 @@ import { SID, awaitSID } from "./wshandler.js";
             try {
                 var currentroominternal = currentroom
                 var str = ""
-                var touse = index && data["ROOMNAME"] ? data["ROOMNAME"] : "New chat"
+                var touse = index && data["ROOMNAME"] ? data["ROOMNAME"] : "Untitled chat"
                 for (const x of touse) {
                     let p = new Promise((r) => {
                         setTimeout(function () {
