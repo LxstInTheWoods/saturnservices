@@ -156,3 +156,5 @@ import { SID, awaitSID } from "./wshandler.js";
 
 //make a page notifications thing to replace alert
 //do pcalls on utils.getUserData() bc its not gonna always be loaded
+//animation for welcome username fades out and doesnt fade back in one occassion
+//when signing out settings load with some duplicate properties.
