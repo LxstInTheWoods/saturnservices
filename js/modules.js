@@ -50,7 +50,8 @@ export async function generateNotification(source, content) {
 }
 
 export function getUserData() {
-    return JSON.parse(localStorage.getItem("user"))
+    const ud = JSON.parse(localStorage.getItem("user"));
+    return ud && typeof ud === "object" ? ud : null
 }
 
 export async function loginSite(fbody) {

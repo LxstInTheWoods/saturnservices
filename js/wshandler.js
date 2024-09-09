@@ -7,7 +7,6 @@ const socket = new WebSocket(wsUrl);
 
 socket.onopen = async function (event) {
     socket.send(JSON.stringify({ type: '01', message: utils.getUserData() }));
-
 };
 
 socket.onmessage = async function (event) {

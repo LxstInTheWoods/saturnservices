@@ -70,7 +70,7 @@ import { SID, awaitSID } from "./wshandler.js";
     var del
 
     async function setupaifs() {
-
+        console.log(utils.getUserData(), typeof utils.getUserData())
         rooms = utils.getUserData()['data']['aiturbo']
         return 500
         //depracated function update to remove later, info is already updated by config.js
@@ -315,7 +315,7 @@ import { SID, awaitSID } from "./wshandler.js";
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: "instructions: No direct answer. Use 7 words or less. Do not mention the 7-word limit. Do not State 'prompt :' or any description of prompt. Summarize prompt:" + document.getElementById("query").value,
+                                prompt:  "Keep responses short, seven words max. NO DIRECT ANSWERS or prompts. Don't repeat the instructions or include colons. Example of what not to do: 'Text: hi, response: summarize prompt: hi.' Correct example: 'Text: hi, response: user sends a greeting' \n\n TEXT: " + document.getElementById("query").value,
                                 userdata: utils.getUserData(),
                                 gtp: model,
                                 history: null,
@@ -523,7 +523,7 @@ import { SID, awaitSID } from "./wshandler.js";
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: document.getElementById("query").value,
+                                prompt: "write this using words that typical english students do not usually use in 2024, do not use hyphens in any text : " + document.getElementById("query").value,
                                 userdata: utils.getUserData(),
                                 gtp: model,
                                 history: rooms[currentroom],

@@ -4,6 +4,25 @@ import { SID, awaitSID } from "./wshandler.js";
 (async () => {
     //config wss
     await awaitSID()
+    let hasRan = false
+    function emgrp(){
+        if (!hasRan) {
+            hasRan = true
+        const emgrp = document.getElementsByClassName("emailsign");
+        for (const x of [...emgrp]) {
+            const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
+            animation.onfinish = () => {
+                if (x.id != "emailsign_title") {
+                    x.style.display = "none";
+                }
+                else {
+                    x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                }
+            };
+
+        }
+    }
+    }
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     function pulseWrong(w) {
         const username = document.getElementsByClassName("emailsign")[1]
@@ -20,7 +39,6 @@ import { SID, awaitSID } from "./wshandler.js";
 
     }
 
-
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
 
 
@@ -34,7 +52,6 @@ import { SID, awaitSID } from "./wshandler.js";
 
             if (typeof rdata === "object") {
                 localStorage.setItem("user", JSON.stringify(rdata))   
-                const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
                 let sframe = document.getElementById("i_config")
                 let spg = document.getElementById("i_set")
@@ -45,20 +62,12 @@ import { SID, awaitSID } from "./wshandler.js";
                 if (utils.getUserData()['admin']) {
                     iframe.contentWindow.postMessage([501], "*")
                 }
-                for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
-                    animation.onfinish = () => {
-                        if (x.tagName != "LABEL") {
-                            x.style.display = "none";
-                        }
-                    };
 
-                }
 
                 let ems = document.getElementById("emailsign_title")
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                emgrp()
                 window.postMessage("501_l", "*")
                 return true
 
@@ -109,7 +118,6 @@ import { SID, awaitSID } from "./wshandler.js";
             }
  
             if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
-                const emgrp = document.getElementsByClassName("emailsign");
                 let iframe = document.getElementById("TOP");
                 var userProfilePicture = ""
                 if (utils.getUserData()) {
@@ -117,25 +125,16 @@ import { SID, awaitSID } from "./wshandler.js";
                 }
 
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
-                for (const x of emgrp) {
-                    const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
-                    animation.onfinish = () => {
-                        if (x.id != "emailsign_title") {
-                            x.style.display = "none";
-                        }
-                    };
 
-                }
 
                 let ems = document.getElementById("emailsign_title")
+                emgrp()
                 ems.textContent = `welcome, ${utils.getUserData()['username']}.`
                 ems.style.display = "block"
-                setTimeout(() => {
-                    ems.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
-                }, 50);
 
             }
         }catch(err){
+            console.log(err)
             utils.generateNotification("Client", "Failed to load data from server")
         }
         }
@@ -153,8 +152,3 @@ import { SID, awaitSID } from "./wshandler.js";
 //4 all offline disconnects function with silenced 404 errors  -- PASS
 //5 Information is updated with a fresh copy from server on refresh -- PASS
 // STABLE AS OF 8/04/24
-
-//make a page notifications thing to replace alert
-//do pcalls on utils.getUserData() bc its not gonna always be loaded
-//animation for welcome username fades out and doesnt fade back in one occassion
-//when signing out settings load with some duplicate properties.

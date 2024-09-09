@@ -182,7 +182,7 @@
 
         function loadSettings(parsed){
             if (parsed) {
-                for (const x of document.getElementsByClassName("datahold")[0].children) {
+                for (const x of [...document.getElementsByClassName("datahold")[0].children]) {
                     if (x.tagName === "SPAN") {
                         x.remove()
                     }
