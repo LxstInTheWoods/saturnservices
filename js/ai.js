@@ -315,7 +315,7 @@ import { SID, awaitSID } from "./wshandler.js";
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt:  "Keep responses short, seven words max. NO DIRECT ANSWERS or prompts. Don't repeat the instructions or include colons. Example of what not to do: 'Text: hi, response: summarize prompt: hi.' Correct example: 'Text: hi, response: user sends a greeting' \n\n TEXT: " + document.getElementById("query").value,
+                                prompt:  "Create a short description describing this prompt, less than 7 words, do not answer the prompt should only describe, do not restate prompt \n\n TEXT: " + document.getElementById("query").value,
                                 userdata: utils.getUserData(),
                                 gtp: model,
                                 history: null,
@@ -523,7 +523,7 @@ import { SID, awaitSID } from "./wshandler.js";
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                prompt: "write this using words that typical english students do not usually use in 2024, do not use hyphens in any text : " + document.getElementById("query").value,
+                                prompt: document.getElementById("query").value,
                                 userdata: utils.getUserData(),
                                 gtp: model,
                                 history: rooms[currentroom],
