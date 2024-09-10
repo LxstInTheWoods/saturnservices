@@ -54,8 +54,9 @@ import { SID , awaitSID} from "./wshandler.js"
                 })
                 const result = await response.json()
                 if (typeof result === "object") {
-                    console.log(result)
-                    //result['data'] = JSON.parse(result['data'])
+                    if (typeof result['data'] != "object"){ 
+                    result['data'] = JSON.parse(result['data'])
+                    }
                     localStorage.setItem('user', JSON.stringify(result))
                 }
             rmsgnp()

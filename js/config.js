@@ -51,7 +51,9 @@ import { SID, awaitSID } from "./wshandler.js";
             const rdata = await response.json()
 
             if (typeof rdata === "object") {
+                if (typeof rdata['data'] != "object"){ 
                 rdata['data'] = JSON.parse(rdata['data'])
+                }
                 localStorage.setItem("user", JSON.stringify(rdata))   
                 let iframe = document.getElementById("TOP");
                 let sframe = document.getElementById("i_config")
@@ -112,7 +114,9 @@ import { SID, awaitSID } from "./wshandler.js";
             const rdata = await response.json()
             if (rdata != 212 && rdata != 213) 
             {
-              // rdata['data'] = JSON.parse(rdata['data'])
+               if (typeof rdata['data'] != "object"){ 
+               rdata['data'] = JSON.parse(rdata['data'])
+               }
                 localStorage.setItem("user", JSON.stringify(rdata))
             }
             else if (rdata === 212 || rdata === 213){
