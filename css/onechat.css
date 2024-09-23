@@ -1,0 +1,226 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: #ffffff;
+    display: flex;
+    height: 100vh;
+}
+
+#chat-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#chat-header {
+    background-color: #61dafb;
+    padding: 10px;
+    text-align: center;
+}
+
+
+#sidebar {
+    width: 13vw;
+    height: 98vh;
+    background-color: #3c4043;
+    padding: 10px;
+    overflow-y: hidden;
+    border-radius: 9px;
+    margin: .5rem;
+    overflow-x: hidden;
+}
+
+
+textarea{
+    resize: none;
+    border-radius: 8px;
+    max-height: 120px;
+}
+textarea:focus{
+    height: auto; /* Allow the textarea to grow in height when focused */
+
+}
+
+.sidebar-section {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.search-components input{
+    display: block;
+    margin: auto;
+    width: 95%;
+    margin-left: 0;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    height: 1.4rem;
+    font-size: 15px;
+    font-weight: bold;
+    background: none;
+    color: black;
+}
+.search-components span{
+    display: flex;
+    background-color: white;
+    border-radius: 6px;
+}
+.search-components label {
+    width: fit-content;
+    color: rgb(40, 40, 40);
+    font-weight: bold;
+    margin-right: 0.1rem;
+}
+
+#search {
+    background-color: #323232;
+    border-radius: 9px;
+    padding: 0.3rem;
+
+}
+
+.sidebar-section h2{
+    font-size: 15px;
+    text-align: left;
+}
+
+.chat-list,
+.friend-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%; /* Ensures the lists take full width */
+}
+
+.chat-room,
+.friend {
+    display: flex; /* Use flex to align items horizontally */
+    align-items: center; /* Vertically center items */
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-room:hover,
+.friend:hover {
+    background-color: #4a4d51; /* Highlight on hover */
+}
+
+.chat-list img,
+.friend-list img {
+    max-width: 35px;
+    min-width: 35px;
+    max-height: 35px;
+    min-height: 35px;
+    width: 35px; /* Fixed dimensions */
+    height: 35px;
+    border-radius: 50%; /* Make images circular */
+    margin-right: 10px; /* Space between image and text */
+}
+
+.chat-list span,
+.friend-list span {
+    display: block; /* Keep the text below the image */
+}
+
+/* Additional specific styling for group chat rooms */
+.sidebar-section > h2 {
+    text-align: left; /* Center align section headers */
+}
+
+.sidebar-section {
+    margin-bottom: 15px; /* Space between sections */
+}
+
+.chat-room:hover, .friend:hover {
+    background-color: #4a4d51;
+}
+
+#chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.message {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+}
+.message-content {
+    display: block;
+}
+.message img {
+    max-width: 35px;
+    min-width: 35px;
+    max-height: 35px;
+    min-height: 35px;
+    margin: auto;
+    margin-left: 0;
+    margin-right: 0.2rem;
+    border-radius: 9999px;
+    margin-top: 0;
+}
+.message p , label{
+    margin: auto;
+    margin-left: .3rem;
+    height: auto;
+    width: 98%;
+
+}
+
+.sent {
+    color: white;
+    align-self: flex-end;
+}
+
+.received {
+    background-color: #343a40;
+    color: white;
+    align-self: flex-start;
+}
+
+#message-input {
+    display: flex;
+    padding: 10px;
+    background-color: #3c4043;
+    border-radius: 9px;
+    margin-bottom: 0.5rem;
+    width: 99%;
+}
+
+#message {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #494b50;
+    color: #ffffff;
+}
+
+
+#send-button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #61dafb;
+    color: white;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #55b3d3;
+}
