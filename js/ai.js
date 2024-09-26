@@ -118,7 +118,6 @@ import { SID, awaitSID } from "./wshandler.js";
             T1input.value = value.substring(0, start) + '\n' + value.substring(end);
             T1input.selectionStart = T1input.selectionEnd = start + 1;
             T1input.scrollTop = T1input.scrollHeight;
-
         }
     });
 

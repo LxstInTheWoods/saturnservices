@@ -4,7 +4,7 @@
 <head>
    <link rel='stylesheet' href="./css/onechat.css">
    <title>oneChat</title>
-   <link rel="icon" type="image/x-icon" href="./img/chat-icon.png">
+   <link rel="icon" type="image/x-icon" href="./img/Saturnai.png">
 </head>
 
 <body>
@@ -15,7 +15,11 @@
          <div class="sidebar-section" id="search">
             <h2>Search</h2>
             <div class="search-components">
-               <span><label>@</label><input></span>
+               <span>
+                  <label>@</label>
+                  <input id="search-input">
+                  <button id="search-for-user">Search</button>
+               </span>
             </div>
          </div>
 
@@ -26,7 +30,7 @@
                <span class="room-storage" style="display: none;">
                   <!--begin room storage-->
                   <div class="chat-room">
-                     <img src="./img/user.jpg">
+                     <img src="./img/user.jpg" class="pfp">
                      <span class="room-name">General</span>
                   </div>
                   <!--end room storage-->
@@ -44,7 +48,7 @@
                <span class="friend-storage" style="display: none;">
                   <!--begin friend storage-->
                   <div class="friend">
-                     <img src="./img/user.jpg">
+                     <img src="./img/user.jpg" class="pfp">
                      <span class="friend-name">Alice</span>
                   </div>
                   <!--end friend storage-->
@@ -54,25 +58,37 @@
 
             </div>
          </div>
+         <div id="profile">
+            <img src="./img/user.jpg" class="pfp">
+            <label>@</label><label>Label</label>
+         </div>
       </div>
 
       <div id="chat-area">
-         <div id="messages">
 
+         <div id="toolbar">
+            <span class="tbs">
+               <img class="toolbar_pfp pfp" src="./img/user.jpg">
+               <label class="toolbar-at">@</label>
+               <label class="toolbar-username">John</label>
+            </span>
+
+         </div>
+         <div id="messages">
             <span class="message-storage" style="display: none;">
                <!--begin storage-->
                <div class="message sent">
-                  <img src="./img/user.jpg">
+                  <img src="./img/user.jpg" class="pfp">
                   <span class="message-content">
-                     <label><strong>You</strong></label>
+                     <label>You</label>
                      <p>Hello everyone! lorem99</p>
                   </span>
                </div>
 
                <div class="message recieved">
-                  <img src="./img/user.jpg">
+                  <img src="./img/user.jpg" class="pfp">
                   <span class="message-content">
-                     <label><strong>Alice</strong></label>
+                     <label>Alice</label>
                      <p>Hello everyone! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut corporis animi quod
                         saepe esse consequuntur natus. Dolores laborum nemo nobis tempora iste, hic soluta est porro
                         doloribus deserunt numquam quibusdam nam dolor possimus assumenda explicabo quaerat ipsum
@@ -93,8 +109,10 @@
          </div>
       </div>
    </div>
+   <scripts src="./js/chat/connectionservice.js" type="module"></scripts>
+   <script src="./js/chat/chat.js" type="module"></script>
+   <script src="./js/chat/chatmodules.js" type="module"></script>
 
-   <script src="./js/chat.js"></script>
 
 </body>
 

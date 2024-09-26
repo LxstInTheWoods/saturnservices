@@ -42,8 +42,6 @@ import { SID , awaitSID} from "./wshandler.js"
     if (data != "undefined" && data != null) {
         (async () => {
             const prs = JSON.parse(data)
-
-
                 const response = await fetch('https://terminalsaturn.com/loginsite', {
                     method: "POST",
                     mode: "cors",
