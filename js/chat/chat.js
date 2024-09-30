@@ -7,6 +7,7 @@ const requests = "https://terminalsaturn.com/chat"
 
 const input = document.getElementById("message")
 const T1input = document.getElementById("message")
+
 function adjustTextareaHeight() {
     T1input.style.height = 'auto';
     T1input.style.height = T1input.scrollHeight + 'px';
@@ -37,15 +38,19 @@ T1input.addEventListener('keydown', (event) => {
 });
 adjustTextareaHeight()
 
-document.getElementById("search-for-user").addEventListener("click", ()=>{
+module.init_self()
+
+document.getElementById("search-for-user").addEventListener("click", async ()=>{
     const searchinput = document.getElementById("search-input")
-    if (typeof module.load_chat(searchinput.value) != "array"){ //test later
-        console.log("exists")
+    const lr = await module.load_chat(searchinput.value)
+    if (typeof lr != "array"){ //test later
+        console.log(lr, "chat.js")
     }
     else {
         utils.generateNotification("Client", "You do not have permission to access this chat.")
     }
 })
+
 
 /*
 ____________  ___  ___  ___ _____ _    _  ___________ _   __

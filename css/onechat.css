@@ -159,6 +159,7 @@ textarea:focus {
 /* Additional specific styling for group chat rooms */
 .sidebar-section>h2 {
     text-align: left;
+    margin-bottom: 0.2rem;
     /* Center align section headers */
 }
 

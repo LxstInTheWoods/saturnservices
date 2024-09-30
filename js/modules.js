@@ -12,6 +12,11 @@ export function logOut() {
     }, 200);
 }
 
+export function create_atag(str, link){
+    const style = `style="color:wheat; text-decoration:none;"`
+    return `<a ${style} href="${link}">${str}</a>`
+}
+
 export async function delay(s) {
     return new Promise(resolve => setTimeout(resolve, s * 1000));
 }
@@ -23,7 +28,7 @@ export async function generateNotification(source, content) {
     const notif = notificationsStorage.children[0].cloneNode(true)
 
     notif.children[0].textContent = source
-    notif.children[1].textContent = content
+    notif.children[1].innerHTML = content
     container.appendChild(notif)
     notif.animate([{ "opacity": 1 }], { duration: 250, "fill": "forwards" })
 
