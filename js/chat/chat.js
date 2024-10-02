@@ -1,12 +1,20 @@
 import * as module from "./chatmodules.js"
 import * as utils from "../modules.js"
 //send message handler 
-
 const endpoint_websocket = "https://terminalsaturn.com/ws_chat"
 const requests = "https://terminalsaturn.com/chat"
 
+var chats = utils.getUserData()['data']['chat']
+
 const input = document.getElementById("message")
 const T1input = document.getElementById("message")
+var current_chat = "3"
+
+export async function local_update(type, data){
+    if (type === 1) {
+        current_chat = data
+    }
+}
 
 function adjustTextareaHeight() {
     T1input.style.height = 'auto';
@@ -25,31 +33,46 @@ T1input.addEventListener('keydown', (event) => {
         const start = T1input.selectionStart;
         const end = T1input.selectionEnd;
         const value = T1input.value;
+
         T1input.value = value.substring(0, start) + '\n' + value.substring(end);
         T1input.selectionStart = T1input.selectionEnd = start + 1;
         T1input.scrollTop = T1input.scrollHeight;
 
-    }else if(event.key === "Enter" && !event.shiftKey) {
+    } else if (event.key === "Enter" && !event.shiftKey) {
+        const udata = utils.getUserData()
         event.preventDefault()
-        module.send_message("sent", ["profilepicture", "username", T1input.value])
+        module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value])
         adjustTextareaHeight()
-        
+
     }
 });
 adjustTextareaHeight()
 
 module.init_self()
 
-document.getElementById("search-for-user").addEventListener("click", async ()=>{
+document.getElementById("search-for-user").addEventListener("click", async () => {
     const searchinput = document.getElementById("search-input")
-    const lr = await module.load_chat(searchinput.value)
-    if (typeof lr != "array"){ //test later
-        console.log(lr, "chat.js")
+    const lr = await module.load_chat(searchinput.value, chats, true)
+    console.log(lr, 'jtest')
+    
+    if (!Array.isArray(lr) ) { //test later
+        chats[lr['targetData'][0]['username']] = lr
+
+        let copy = structuredClone(utils.getUserData())
+        console.log(copy)
+        copy['data']['chat'][lr['targetData'][0]['username']] = lr
+        
+        //make it so if the user doesnt already exist inside to preserve resources
+        utils.writeData(copy)
+
+
     }
     else {
-        utils.generateNotification("Client", "You do not have permission to access this chat.")
+        utils.generateNotification("Client", "User not found")
     }
 })
+
+
 
 
 /*
@@ -68,6 +91,8 @@ adding users: must search by full username, no friend requests required. blockin
 
 chats should save under collection with id(1), id(2) and only be accessible if accessing user's PW matches
 
+
+chats need to be cached and loaded, not loaded all at once. can do later so you dont have to script limitations for saving
 
 
 */

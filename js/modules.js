@@ -12,6 +12,17 @@ export function logOut() {
     }, 200);
 }
 
+export async function writeData(updated){
+    const response = await fetch(`${endpoint}/readwrite`, {
+        method:"POST",
+        mode:"cors",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            "type": "write",
+            "userdata": updated
+        })
+    })
+}
 export function create_atag(str, link){
     const style = `style="color:wheat; text-decoration:none;"`
     return `<a ${style} href="${link}">${str}</a>`

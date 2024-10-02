@@ -128,6 +128,23 @@ textarea:focus {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #3c4043;
+
+}
+.friend button{
+    margin: auto;
+    margin-right: 0.1rem;
+    border: none;
+    background:none;
+    color: white;
+    font-weight: bolder;
+    padding: 0.15rem;
+    display: none;
+    opacity: 0;
+    z-index: 2435;
+}
+.friend button:hover{
+    cursor: pointer;
 }
 
 .chat-room:hover,
