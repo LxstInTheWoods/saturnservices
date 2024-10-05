@@ -92,8 +92,6 @@ import { SID, awaitSID } from "./wshandler.js";
         }
     }
 
-    const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-
     const T1input = document.getElementById("query");
 
     function adjustTextareaHeight() {
@@ -181,7 +179,7 @@ import { SID, awaitSID } from "./wshandler.js";
             if (currentroom === 0 || document.getElementById(currentroom).children[0].innerHTML === "Untitled chat") {
                 var clone;
                 if (currentroom === 0) {
-                    currentroom = genRanHex(12);
+                    currentroom = utils.randomHex(12);
                     rooms[currentroom] = {};
                     clone = document.getElementById("cloneroom").cloneNode(true);
                     clone.id = currentroom;
@@ -358,13 +356,13 @@ import { SID, awaitSID } from "./wshandler.js";
             }
             var elem = document.getElementById('gptresponse');
 
-            rooms[currentroom]['user_' + genRanHex(8)] = document.getElementById("query").value;
+            rooms[currentroom]['user_' + utils.randomHex(8)] = document.getElementById("query").value;
             elem.scrollTop = elem.scrollHeight;
             tweenInElement(userclone);
             document.getElementById('gptresponse').scrollTop = document.getElementById('gptresponse').scrollHeight;
 
 
-            const gptresponsehex = genRanHex(8)
+            const gptresponsehex = utils.randomHex(8)
             rooms[currentroom][`gpt_${model}_` + gptresponsehex] = "generating response...";
             var gptanswer = "";
 
@@ -598,7 +596,7 @@ import { SID, awaitSID } from "./wshandler.js";
         if (!data) { return 404 }
         erasemsgs()
 
-        var hex = genRanHex(12);
+        var hex = utils.randomHex(12);
         if (index) { hex = index }
         currentroom = hex;
         if (!index) {

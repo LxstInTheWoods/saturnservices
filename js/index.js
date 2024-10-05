@@ -20,8 +20,9 @@ import { SID , awaitSID} from "./wshandler.js"
 
     //sign in, get info from server if already signed in
     function rmsgnp() {
+        const parsed = utils.getUserData()
+
         function rest() {
-            const parsed = utils.getUserData()
 
             logged = true
         }
@@ -30,7 +31,13 @@ import { SID , awaitSID} from "./wshandler.js"
             if (x.id != "emailsign_title"){
             animation.onfinish = () => {
                     x.style.display = "none";
-            };
+            }
+
+        }
+        else{
+            x.textContent =  `welcome, ${parsed['username']}.`
+            x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+            
         }
 
         }

@@ -4,17 +4,26 @@ import * as utils from "../modules.js"
 const endpoint_websocket = "https://terminalsaturn.com/ws_chat"
 const requests = "https://terminalsaturn.com/chat"
 
-var chats = utils.getUserData()['data']['chat']
 
-const input = document.getElementById("message")
-const T1input = document.getElementById("message")
+const user_data = utils.getUserData()
+
 var current_chat = "3"
 
 export async function local_update(type, data){
     if (type === 1) {
         current_chat = data
+    }else if(type === 2){
+        return current_chat
     }
 }
+
+if (!user_data){utils.generateNotification("OneChat", `You must create an account at ${utils.create_atag("TerminalSaturn", "https://terminalsaturn.com")} to use this service`); }else{
+
+    var chats = utils.getUserData()['data']['chat']
+
+
+const input = document.getElementById("message")
+const T1input = document.getElementById("message")
 
 function adjustTextareaHeight() {
     T1input.style.height = 'auto';
@@ -72,7 +81,7 @@ document.getElementById("search-for-user").addEventListener("click", async () =>
     }
 })
 
-
+}
 
 
 /*
@@ -94,5 +103,6 @@ chats should save under collection with id(1), id(2) and only be accessible if a
 
 chats need to be cached and loaded, not loaded all at once. can do later so you dont have to script limitations for saving
 
+make it so you cant message yourself
 
 */

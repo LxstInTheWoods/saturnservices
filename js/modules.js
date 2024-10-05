@@ -12,8 +12,17 @@ export function logOut() {
     }, 200);
 }
 
+
+export function randomHex(size){
+    return  [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+}
+export function update_tab_name(str){
+    const tab_name = document.getElementById("tabnm")
+    tab_name.textContent = str
+}
+
 export async function writeData(updated){
-    const response = await fetch(`${endpoint}/readwrite`, {
+    const response = await fetch(`${endpoint}readwrite`, {
         method:"POST",
         mode:"cors",
         headers:{"Content-Type":"application/json"},

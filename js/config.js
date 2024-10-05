@@ -13,10 +13,13 @@ import { SID, awaitSID } from "./wshandler.js";
             const animation = x.animate([{ opacity: 0 }], { duration: 250, fill: "forwards" });
             animation.onfinish = () => {
                 if (x.id != "emailsign_title") {
+
                     x.style.display = "none";
                 }
                 else {
-                    x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                    setTimeout(() => {
+                        x.animate([{ opacity: 1 }], { duration: 250, fill: "forwards" })
+                    }, 50);
                 }
             };
 
@@ -42,7 +45,7 @@ import { SID, awaitSID } from "./wshandler.js";
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
 
 
-    if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/") {
+    if (window.location.href.includes("index") || window.location.href === "https://terminalsaturn.com/" || window.location.href === "http://127.0.0.1:5500/") {
 
         async function Login() {
             const username = document.getElementsByClassName("emailsign")[1]
@@ -114,6 +117,7 @@ import { SID, awaitSID } from "./wshandler.js";
             const rdata = await response.json()
             if (rdata != 212 && rdata != 213) 
             {
+
                if (typeof rdata['data'] != "object"){ 
                rdata['data'] = JSON.parse(rdata['data'])
                }

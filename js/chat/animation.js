@@ -1,6 +1,8 @@
+import * as utils from "../modules.js"
 //opacity 1 = visible; opacity 0 = invisible
 async function animation_close_chat_hover(object, value) {
     //hovering over close chat button
+
     if (value === 1) {
         const goal = {
             "color": "#c23e3e"
@@ -25,31 +27,16 @@ async function animation_close_chat_hover(object, value) {
 }
 async function animation_close_chat_visibility(object, value) {
     //making the close chat button fade in
+    const animations = object.getAnimations();
+
     if (value === 1) {
         object.style.display = "block"
-        const goal = {
-            "opacity": value
-        }
-        const animation = {
-            duration: 250,
-            fill: "forwards"
-        }
-        return object.animate([goal], animation)
+
     }
     else {
-        const goal = {
-            "opacity": value
-        }
-        const animation = {
-            duration: 250,
-            fill: "forwards"
-        }
 
-        const anim = object.animate([goal], animation);
-        anim.onfinish = () => {
             object.style.display = "none"
-        }
-        return anim
+
     }
 }
 
