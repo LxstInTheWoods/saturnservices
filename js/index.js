@@ -1,7 +1,9 @@
 import * as utils from "./modules.js"
 import { SID , awaitSID} from "./wshandler.js"
 
+
 (async () => {
+    utils.generateNotification("Developer", "This page is a work in progress, expect bugs!");
     await awaitSID()
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     const thing = document.getElementById("SSINTRO")

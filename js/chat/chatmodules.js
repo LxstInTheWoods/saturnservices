@@ -184,7 +184,6 @@ export async function load_chat(target, chats, messages, bypass) {
             message_frame.innerHTML = "";
             local.local_update(1, d['targetData']['order']);
             utils.update_tab_name(`Onechat - @${d['targetData']['username']}`);
-            console.log(d['targetData']['username'], chats)
             load_chat(d['targetData']['username'], chats, "only", true);
         } : null);
 
@@ -290,10 +289,11 @@ export async function send_message(...args) {
 
     create_message_clone(...args)
     adjustTextareaHeight()
+    console.log(...args)
     async function to_database() {
         let s = await postSocket({
             "code": "send_message",
-            "chat": local.local_update(2),
+            "chat_id": local.local_update(2),
             "message": {
                 "sender": user_data['username'],
                 "content": input.value

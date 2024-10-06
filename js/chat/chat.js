@@ -7,11 +7,12 @@ const requests = "https://terminalsaturn.com/chat"
 
 const user_data = utils.getUserData()
 
-var current_chat = "3"
+var current_chat = null
 
 export async function local_update(type, data){
     if (type === 1) {
         current_chat = data
+        console.log(current_chat)
     }else if(type === 2){
         return current_chat
     }
@@ -50,7 +51,10 @@ T1input.addEventListener('keydown', (event) => {
     } else if (event.key === "Enter" && !event.shiftKey) {
         const udata = utils.getUserData()
         event.preventDefault()
-        module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value])
+        console.log(current_chat)
+        if (current_chat){
+        module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value], current_chat)
+        }
         adjustTextareaHeight()
 
     }
