@@ -1,6 +1,7 @@
 const topbar = document.getElementById("topbar")
 
 window.addEventListener('message', function(event) {
+    console.log(event.data)
         if (!event.data[1]){return}
         document.getElementById('cscpfp').src = event.data[1];
 

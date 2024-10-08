@@ -62,7 +62,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 let sframe = document.getElementById("i_config")
                 let spg = document.getElementById("i_set")
                 const userProfilePicture = rdata.profilepicture;
-
+                
                 iframe.contentWindow.postMessage([500, userProfilePicture], '*');
 
                 if (utils.getUserData()['admin']) {

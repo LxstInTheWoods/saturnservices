@@ -29,12 +29,15 @@ socket.onmessage = (event) => {
 
 
 async function postSocket(body) {
+    if (!body) {
+        console.warn("post failed - No body provided")
+    }
     if (socket_open) {
         const ray_id = utils.randomHex(20)
         return new Promise((resolve, reject) => {
             //listening
             socket_rays[ray_id] = { resolve, reject }
-            const toSend = JSON.stringify({ body: {code:body['code'], data:body}, ray_id: ray_id })
+            const toSend = JSON.stringify({ body: { code: body['code'], data: body }, ray_id: ray_id })
             socket.send(toSend);
         })
     } else {
@@ -111,7 +114,7 @@ export async function load_chat(target, chats, messages, bypass) {
     function load_messages(d) {
         // Check if messages exist in chatData
         console.log(d)
-        if (typeof d['chatData']['messages'] === "undefined") { console.log('return') ;return; }
+        if (typeof d['chatData']['messages'] === "undefined") { console.log('return'); return; }
         if (d === "undefined") { return; }
 
         // Loop through the messages and display them in the chat UI
@@ -148,57 +151,63 @@ export async function load_chat(target, chats, messages, bypass) {
 
     // Function to load target chat and display friend info
     function load(d, skip_toolbar) {
-        console.log("running load")
-        // Extract target user's data from the provided data
-        const str_username = d['targetData']['username'];
-        const str_pfp = d['targetData']['pfp'];
+        try {
+            console.log("running load")
+            console.log(d)
+            // Extract target user's data from the provided data
+            const str_username = d['targetData']['username'];
+            const str_pfp = d['targetData']['pfp'];
 
-        // Update the toolbar with the target user's username and profile picture
-        if (!skip_toolbar){
-        toolbar_username.textContent = str_username;
-        toolbar_pfp.src = str_pfp.length > 0 ? str_pfp : "./img/user.jpg";
-        text_area.placeholder = `Message @${str_username}`;
+            // Update the toolbar with the target user's username and profile picture
+            if (!skip_toolbar) {
+                toolbar_username.textContent = str_username;
+                toolbar_pfp.src = str_pfp.length > 0 ? str_pfp : "./img/user.jpg";
+                text_area.placeholder = `Message @${str_username}`;
+            }
+
+            // If only loading messages, skip friend list update
+            if (messages === "only") {
+                console.log("yeah")
+                load_messages(d);
+                return;
+            }
+
+            // Clone the friend card template and set the user's profile and username
+            const clone = friend_card.cloneNode(true);
+            clone.children[0].src = str_pfp.length > 0 ? str_pfp : "./img/user.jpg";
+            clone.children[1].textContent = str_username;
+            friend_list.appendChild(clone);
+
+            const close_room = clone.children[2];
+
+            // Set up animations for the hover and close button on the friend card
+            const closeState = new animations.setup_room_hover(clone);
+
+            // Add click event to load chat when clicking on the friend card (if not closing)
+            clone.addEventListener("click", closeState ? (__loadmessages__) => {
+                // Clear previous messages, update local state, and load new chat
+                message_frame.innerHTML = "";
+                local.local_update(1, d['targetData']['order']);
+                utils.update_tab_name(`Onechat - @${d['targetData']['username']}`);
+                load_chat(d['targetData']['username'], chats, "only", true);
+            } : null);
+
+            // Handle closing of the chat room when clicking the close button
+            close_room.addEventListener("click", (__closeroom__) => {
+                console.log("oka");
+            });
+
+            // Set up hover animations for the close button
+            animations.setup_closebutton_hover(clone.children[2]);
+
+            // Load messages if needed
+            if (messages) {
+                load_messages(d);
+            }
+        }catch (err) {
+            console.log("an error occured in load: ", err)
         }
 
-        // If only loading messages, skip friend list update
-        if (messages === "only") {
-            console.log("yeah")
-            load_messages(d);
-            return;
-        }
-
-        // Clone the friend card template and set the user's profile and username
-        const clone = friend_card.cloneNode(true);
-        clone.children[0].src = str_pfp.length > 0 ? str_pfp : "./img/user.jpg";
-        clone.children[1].textContent = str_username;
-        friend_list.appendChild(clone);
-
-        const close_room = clone.children[2];
-
-        // Set up animations for the hover and close button on the friend card
-        const closeState = new animations.setup_room_hover(clone);
-
-        // Add click event to load chat when clicking on the friend card (if not closing)
-        clone.addEventListener("click", closeState ? (__loadmessages__) => {
-            // Clear previous messages, update local state, and load new chat
-            message_frame.innerHTML = "";
-            local.local_update(1, d['targetData']['order']);
-            utils.update_tab_name(`Onechat - @${d['targetData']['username']}`);
-            load_chat(d['targetData']['username'], chats, "only", true);
-        } : null);
-
-        // Handle closing of the chat room when clicking the close button
-        close_room.addEventListener("click", (__closeroom__) => {
-            console.log("oka");
-        });
-
-        // Set up hover animations for the close button
-        animations.setup_closebutton_hover(clone.children[2]);
-
-        // Load messages if needed
-        if (messages) {
-            load_messages(d);
-        }
     }
 
     // Function to load multiple chats from a dictionary
@@ -220,7 +229,7 @@ export async function load_chat(target, chats, messages, bypass) {
                 "target": target
             })
             load(dpost)
-            return  dpost
+            return dpost
         }
 
         // If the target chat exists in cache (chats), return cached chat
@@ -285,23 +294,28 @@ export function init_self() {
 
 export async function send_message(...args) {
     //work on this next
+    if (!args[2]) { utils.generateNotification("Error!", "no chat is selected!"); return; }
     const input = document.getElementById("message")
 
     create_message_clone(...args)
     adjustTextareaHeight()
-    console.log(...args)
+
     async function to_database() {
-        let s = await postSocket({
+        const send_data = {
             "code": "send_message",
-            "chat_id": local.local_update(2),
+            "chat_id": await local.local_update(2),
             "message": {
-                "sender": user_data['username'],
+                "sender": args[1][1],
                 "content": input.value
             }
 
-        })
+        }
+        console.log(send_data)
+        let s = await postSocket(send_data)
         input.value = ""
     }
+
+    to_database()
 
 
 

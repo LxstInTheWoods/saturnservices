@@ -47,7 +47,7 @@ socket.onerror = async function (error) {
     console.error('WebSocket error:', error.message);
 };
 export async function awaitSID() {
-    for (let k = 0; k < 20; k++) {
+    for (let k = 0; k < 50; k++) {
         if (k > 20) {
             utils.generateNotification("System", "Could not connect to server. Please refresh to try again.")
             return "F"
@@ -56,7 +56,7 @@ export async function awaitSID() {
         if (SID) {
             return SID
         }
-        await utils.delay(1)
+        await utils.delay(.1)
     }
 }
 //make socket connections require password when connecting via username - security/bug

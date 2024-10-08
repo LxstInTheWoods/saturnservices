@@ -51,10 +51,7 @@ T1input.addEventListener('keydown', (event) => {
     } else if (event.key === "Enter" && !event.shiftKey) {
         const udata = utils.getUserData()
         event.preventDefault()
-        console.log(current_chat)
-        if (current_chat){
         module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value], current_chat)
-        }
         adjustTextareaHeight()
 
     }
@@ -69,11 +66,11 @@ document.getElementById("search-for-user").addEventListener("click", async () =>
     console.log(lr, 'jtest')
     
     if (!Array.isArray(lr) ) { //test later
-        chats[lr['targetData'][0]['username']] = lr
+        chats[lr['targetData']['username']] = lr
 
         let copy = structuredClone(utils.getUserData())
         console.log(copy)
-        copy['data']['chat'][lr['targetData'][0]['username']] = lr
+        copy['data']['chat'][lr['targetData']['username']] = lr
         
         //make it so if the user doesnt already exist inside to preserve resources
         utils.writeData(copy)
@@ -86,6 +83,8 @@ document.getElementById("search-for-user").addEventListener("click", async () =>
 })
 
 }
+
+console.log(await utils.readData())
 
 
 /*
