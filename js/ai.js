@@ -460,7 +460,7 @@ import { SID, awaitSID } from "./wshandler.js";
                             a1: str,
                             udata: localStorage.getItem("user")
 
-                        }))
+                        })) 
                     },
                     requests: (a1, command, a3) => {
                         utils.
