@@ -455,25 +455,15 @@ import { SID, awaitSID } from "./wshandler.js";
                     \n-debug [returns a value based on what the developer is attempting to debug (set in script)]`)
                     },
                     connected: (a1, command, a3) => {
-                        fetch(`${endpoint}/command`, {
-                            method: "POST",
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                'command': command,
-                                a1: str,
-                                udata: localStorage.getItem("user")
+                        utils.commands(JSON.stringify({
+                            'command': command,
+                            a1: str,
+                            udata: localStorage.getItem("user")
 
-                            })
-                        }).then((response) => {
-                            return response.json()
-                        }).then((data) => {
-                            r4(`connected users: \n \n ${data[0]}`)
-                        })
+                        }))
                     },
                     requests: (a1, command, a3) => {
+                        utils.
                         fetch(`${endpoint}/command`, {
                             method: "POST",
                             mode: 'cors',

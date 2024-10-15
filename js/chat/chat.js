@@ -63,13 +63,11 @@ module.init_self()
 document.getElementById("search-for-user").addEventListener("click", async () => {
     const searchinput = document.getElementById("search-input")
     const lr = await module.load_chat(searchinput.value, chats, true)
-    console.log(lr, 'jtest')
     
     if (!Array.isArray(lr) ) { //test later
         chats[lr['targetData']['username']] = lr
 
         let copy = structuredClone(utils.getUserData())
-        console.log(copy)
         copy['data']['chat'][lr['targetData']['username']] = lr
         
         //make it so if the user doesnt already exist inside to preserve resources
