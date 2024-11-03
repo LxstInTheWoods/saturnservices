@@ -2,6 +2,15 @@ body{
     margin: 0;
     height: min-content;
     overflow-x: hidden;
+    overflow-y: hidden;
+}
+html {
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#topbar{
+    height: 50px;
 }
 
 nav{
