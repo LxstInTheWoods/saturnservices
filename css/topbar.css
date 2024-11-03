@@ -3,6 +3,7 @@ body{
     height: min-content;
     overflow-x: hidden;
     overflow-y: hidden;
+
 }
 html {
     margin: 0;
@@ -83,6 +84,12 @@ hr{
         max-width: 90px;
         max-width: 90px;
         width: 90px;
+        height: 90px;
+    }
+    #topbar{
+        height: 70px;
+    }
+    body, html{
         height: 90px;
     }
 

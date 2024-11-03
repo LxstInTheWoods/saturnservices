@@ -1,3 +1,12 @@
+async function run_anim_queue(object, keyframes, options) {
+    const activeAnimations = object.getAnimations();
+    if (activeAnimations.length > 0) {
+        await Promise.all(activeAnimations.map(animation => animation.finished));
+    }
+
+    return object.animate(keyframes, options);
+} 
+
 window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY; // Current scroll position
     const windowHeight = window.innerHeight; // Full height of the viewport
@@ -10,24 +19,30 @@ window.addEventListener("scroll", () => {
     document.querySelector('.s01').style.transform = `translateY(${100 - (translateY / windowHeight) * 100}%)`;
 
     // Prevent scrolling past the total height of both sections
-    console.log(scrollTop, sectionHeight)
     if (scrollTop >= sectionHeight / 2) {
         window.scrollTo(0, sectionHeight / 2); // Keep at the last section
     }
 });
 
+for (const x of document.getElementsByClassName("linkhome")){
+   x.addEventListener("mouseenter", () =>{
+        run_anim_queue(x, [{'color':'wheat'}], {duration:250, fill:"forwards"})
+    });
+    
+   x.addEventListener("mouseleave", () =>{
+        run_anim_queue(x, [{'color':'white'}], {duration:250, fill:"forwards"})
+    
+    });
+   x.addEventListener("click", ()=>{
+        window.location.href = "https://terminalsaturn.com"
+    })
+}
+
+
 (async ()=>{
     const viewframe = document.getElementById('viewframe');
     let selected;
     
-    async function run_anim_queue(object, keyframes, options) {
-        const activeAnimations = object.getAnimations();
-        if (activeAnimations.length > 0) {
-            await Promise.all(activeAnimations.map(animation => animation.finished));
-        }
-    
-        return object.animate(keyframes, options);
-    } 
     
     function updateVF(path) {
         console.log(path);
