@@ -11,7 +11,7 @@ import * as utils from "./modules.js"
         }
     
         return object.animate(keyframes, options);
-    }
+    } 
     
     function updateVF(path) {
         console.log(path);
