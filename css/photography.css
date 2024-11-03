@@ -104,7 +104,7 @@ html{
     width: fit-content;
     height: fit-content;
     display: block;
-    top: 25vh;
+    top: 15vh;
     transform: translateX(3rem);
 }
 .unanchored-1  *{
@@ -153,16 +153,19 @@ html{
     display: flex;
     height: 20%;
     width: fit-content;
-    background-color: #47463e;
+    background-color: #191410;
+    opacity:.98;
+    box-shadow: -20px 15px 20px #191410; 
+
 
 }
 .quality-card{
     display: block;
     height: 80%;
     width: 12rem;
-    background-color: #47463e;
+    background-color: #191410;
     padding: 1.7rem;
-    opacity: 0.85;
+    opacity: 1;
     backdrop-filter:blur(5px);
 }
 .border {
