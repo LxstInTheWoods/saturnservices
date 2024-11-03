@@ -200,6 +200,9 @@ html{
     width: 35px;
     margin: auto;
 }
+.mobileborder{
+    display: none;
+}
 
 @media only screen and (max-width:1200px){ /* mobile opt */
     .unanchored-1 {        
@@ -223,6 +226,23 @@ html{
     }
     .selector{
     padding-top: .7rem;
+    }
+    .mainsection-info h1{
+        width: 90%;
+        font-size: 25px;
+        margin-bottom: .25rem;
+    }
+    .mainsection-info h4{
+        width: 85%;
+    }
+    #qualities{
+        display: block;
+    }
+    .mobileborder{
+        display: flex;
+    }
+    .border{
+        display: none;
     }
 
 }
