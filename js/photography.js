@@ -45,7 +45,6 @@ for (const x of document.getElementsByClassName("linkhome")){
     
     
     function updateVF(path) {
-        console.log(path);
     
         const animation = run_anim_queue(viewframe, [{ 'opacity': 0 }], { "duration": 150, "fill": "forwards" });
         animation.then(anim => {
@@ -98,7 +97,6 @@ for (const x of document.getElementsByClassName("linkhome")){
                 blur(x.children[0])
                 unFocusLabel(x.children[1])
             }
-            console.log("done")
         }
 
         if (index === 1) {
