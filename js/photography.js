@@ -1,6 +1,6 @@
 import * as utils from "./modules.js"
 (async ()=>{
-    
+
     const viewframe = document.getElementById('viewframe');
     let selected;
     
@@ -33,6 +33,7 @@ import * as utils from "./modules.js"
     })
     const done = await fileNames_raw.json()
     done.forEach((path, index) => {
+        if (path === ".DS_Store") {return}
         index += 1
         const selector = document.getElementById("selectorholder")
         const img_span = document.getElementsByClassName("cloneimg-select")[0].cloneNode(true);
