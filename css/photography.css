@@ -11,6 +11,8 @@ body{
 }
 html{
     overflow-x: hidden;
+    position: relative;
+    margin: 0;
 }
 #TOP{
     border: none;
@@ -26,6 +28,8 @@ html{
     width: 98vw;
     height: var(--img-viewer-height);
     margin-bottom: 0.3rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 #main-viewer-border{
     width: 1800px;
@@ -98,8 +102,8 @@ html{
     width: fit-content;
     height: fit-content;
     display: block;
-    left: 10vw;
     top: 25vh;
+    transform: translateX(3rem);
 }
 .unanchored-1  *{
     margin: 0;
@@ -111,8 +115,28 @@ html{
     margin: auto;
 }
 
-@media only screen and (max-width:1000px){ /* mobile opt */
-    #TOP{
-        height: 96px;
+@media only screen and (max-width:1200px){ /* mobile opt */
+    .unanchored-1 {        
+        display: none;
     }
+
+}
+@media only screen and (max-width:600px) {
+    .selector{
+        width: 90vw;
+    }
+
+    #main-viewer {
+        width: 75vw;
+        height: 65vh;
+        margin: auto;
+        margin-bottom: 1rem;
+        .selector {
+            overflow-x: scroll;
+        }
+    }
+    .selector{
+    padding-top: .7rem;
+    }
+
 }

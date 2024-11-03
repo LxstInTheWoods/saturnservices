@@ -10,7 +10,6 @@ import * as utils from "./modules.js"
             await Promise.all(activeAnimations.map(animation => animation.finished));
         }
     
-        // Return the actual animation
         return object.animate(keyframes, options);
     }
     
