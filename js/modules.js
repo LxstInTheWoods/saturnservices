@@ -128,6 +128,7 @@ export async function ping() {
 }
 
 
+
 export function clearcontext() {
     contextMenu.style.display = 'none';
     for (const x of [...document.getElementById("context").children]) {

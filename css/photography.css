@@ -1,15 +1,16 @@
 body{
+    position: relative;
     overflow-x: hidden;
     margin: 0;
-    overflow-y:hidden;
-    background-color: #1a1a1a;
+    background-color: black;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 :root{
     --img-viewer-height:80%;
 }
 html{
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 #TOP{
     border: none;
@@ -22,8 +23,9 @@ html{
 }
 #main-viewer{
     display: flex;
-    width: 100%;
+    width: 98vw;
     height: var(--img-viewer-height);
+    margin-bottom: 0.3rem;
 }
 #main-viewer-border{
     width: 1800px;
@@ -38,32 +40,79 @@ html{
     width: 100vw;
     height: 100vh;
     margin-top: 60px;
+    background-color: black;
 }
 #viewframe{
     display: flex;
     max-width: 1600px;
     max-height: 100%;
     margin: auto;
-    border-radius: 7px;
     object-fit: cover;
     object-position: center;
+    z-index: 99;
 }
 
 .selector{
     display: flex;
     width: 98vw;
-    border-radius: 7px;
     margin: auto;
     height: calc(98% - calc(var(--img-viewer-height) + 60px));
     flex-grow: 1;
-    background-color: black;
     padding: 0.3rem;
+    padding-bottom: 0.05rem;
+    border-top: solid 1.5px rgb(196, 196, 196);
+    border-bottom: solid 1.5px rgb(196, 196, 196);
+
+}
+#selectorholder{
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    margin: auto;
 }
 .selector img{
-    max-height: 90%;
-    max-width: 5rem;
-    border-radius: 7px;
+    display: block;
+    height: 5rem;
+    max-width: 4rem;
+    min-width: 4rem;
+    filter: blur(2px);
+    z-index: 9;
+
+}
+.selector label {
+    display: block;
+    font-weight: bolder;
+    text-align-last: center;
+    font-size: 10px;
+    margin-top: 6%;
+    color: #4b4b4b;
+}
+.cloneimg-select{
+    display: block;
+    overflow-y: hidden;
+    height: 100%;
+    margin-right: 2rem;
+}
+.unanchored-1 {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    display: block;
+    left: 10vw;
+    top: 25vh;
+}
+.unanchored-1  *{
+    margin: 0;
+    display: block;
+}
+.unanchored-1 img{
+    width: 60px;
+    height: 60px;
     margin: auto;
-    margin-left: 0;
-    margin-right: 0.3rem;
+}
+
+@media only screen and (max-width:1000px){ /* mobile opt */
+    #TOP{
+        height: 96px;
+    }
 }
