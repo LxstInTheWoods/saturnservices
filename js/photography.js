@@ -1,14 +1,19 @@
-import * as utils from "./modules.js"
 window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY; // Current scroll position
     const windowHeight = window.innerHeight; // Full height of the viewport
-    const sectionHeight = document.querySelector('#viewer-selector-container').offsetHeight;
+    const sectionHeight = document.querySelector('.s01').offsetHeight; // Height of the second section
 
     // Calculate the translate value for the sliding effect
     const translateY = Math.max(0, Math.min(scrollTop, sectionHeight));
 
     // Apply the translation to the second section
     document.querySelector('.s01').style.transform = `translateY(${100 - (translateY / windowHeight) * 100}%)`;
+
+    // Prevent scrolling past the total height of both sections
+    console.log(scrollTop, sectionHeight)
+    if (scrollTop >= sectionHeight / 2) {
+        window.scrollTo(0, sectionHeight / 2); // Keep at the last section
+    }
 });
 
 (async ()=>{
