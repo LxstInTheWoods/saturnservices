@@ -62,12 +62,15 @@ hr{
     visibility: hidden;
 }
 .tbel img{
-    border-radius: 9000px;
+
     min-width: 35px;
     min-height: 35px;
     max-height: 35px;
     max-width: 35px;
 
+}
+#csc img{
+    border-radius: 999999px;
 }
 .tbel img:hover {
     cursor: pointer;
