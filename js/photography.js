@@ -1,6 +1,17 @@
 import * as utils from "./modules.js"
-(async ()=>{
+window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY; // Current scroll position
+    const windowHeight = window.innerHeight; // Full height of the viewport
+    const sectionHeight = document.querySelector('#viewer-selector-container').offsetHeight;
 
+    // Calculate the translate value for the sliding effect
+    const translateY = Math.max(0, Math.min(scrollTop, sectionHeight));
+
+    // Apply the translation to the second section
+    document.querySelector('.s01').style.transform = `translateY(${100 - (translateY / windowHeight) * 100}%)`;
+});
+
+(async ()=>{
     const viewframe = document.getElementById('viewframe');
     let selected;
     
