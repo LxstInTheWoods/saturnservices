@@ -13,18 +13,30 @@ socket.onclose = (event) => {
     utils.generateNotification("Server", `Connection to the ${utils.create_atag("server", endpoint_websocket)} was lost.`)
 }
 
-socket.onmessage = (event) => {
+socket.onmessage = async (event) => {
     const data = JSON.parse(event.data)
     const ray_id = data[0]
-    if (ray_id in socket_rays) {
-        const { resolve } = socket_rays[ray_id]
-        resolve(data[1])
-        delete socket_rays[ray_id]
+
+
+    if (data['rb']) {
+
+        //recieving an instant message
+        if (data['type'] === "instant_message" && await local.local_update(2, null) === data['chat_id']){
+            create_message_clone("recieved", [data['pfp'], data['sender'], data['content']])
+            scrollToBottomMsgs()
+        }
+    }else {
+        if (ray_id in socket_rays) {
+            const { resolve } = socket_rays[ray_id]
+            resolve(data[1])
+            delete socket_rays[ray_id]
+        }
+        else {
+            console.warn("ray mismatch, not listening for this request")
+            return null
+        }        
     }
-    else {
-        console.warn("ray mismatch, not listening for this request")
-        return null
-    }
+
 }
 
 
@@ -68,6 +80,12 @@ async function post(_body) {
     return tr
 }
 
+
+function scrollToBottomMsgs() {
+    const messageMain = document.getElementById('messages');
+    messageMain.scrollTop = messageMain.scrollHeight;
+}
+
 async function create_message_clone(type, data) {
     const message_main = document.getElementById('messages')
     const message_storage = document.getElementsByClassName("message-storage")[0]
@@ -79,11 +97,12 @@ async function create_message_clone(type, data) {
     const username = (clone.children[1]).children[0]
     const profile_picture = clone.children[0]
     const content = (clone.children[1]).children[1]
-    profile_picture.src = data[0]
+    profile_picture.src = data[0].length > 0 ? data[0] : "./img/user.jpg"
     username.textContent = data[1]
     content.textContent = data[2]
 
     message_main.appendChild(clone)
+    scrollToBottomMsgs()
 
 }
 
@@ -113,9 +132,13 @@ export async function load_chat(target, chats, messages, bypass) {
     // Function to load chat messages
     function load_messages(d) {
         // Check if messages exist in chatData
-        console.log(d)
         if (typeof d['chatData']['messages'] === "undefined") { console.log('return'); return; }
         if (d === "undefined") { return; }
+        if (bypass){
+            console.log("ok")
+            chats = d
+        }
+        console.log(chats)
 
         // Loop through the messages and display them in the chat UI
         for (const [i, x] of Object.entries(d['chatData']['messages'])) {
@@ -133,27 +156,26 @@ export async function load_chat(target, chats, messages, bypass) {
             // Check if profile picture should come from cached chats or targetData
 
             //might need debugging later
+            console.log(udata['username'], x['sender'])
             if (udata['username'] === x['sender']) {
+                clone_username.style.color = "wheat"
                 clone_pfp.src = udata['profilepicture'].length > 0 ? udata['profilepicture'] : "./img/user.jpg"
             }
             else {
-                if (chats != null && chats.length > 0 && chats[x['sender']]['profilepicture'].length > 0) {
-                    clone_pfp.src = chats[x['sender']]['profilepicture']
+                if (chats['targetData']['username'] === x['sender'] && chats['targetData']['pfp'].length > 0 ) {
+                    clone_pfp.src = chats['targetData']['pfp']
                 } else {
                     clone_pfp.src = "./img/user.jpg"
 
                 }
             }
-            // Append the message to the message frame
             message_frame.appendChild(message_clone);
         }
     }
 
-    // Function to load target chat and display friend info
     function load(d, skip_toolbar) {
         try {
-            console.log("running load")
-            console.log(d)
+            if (!d) {console.warn("d is null"); return}
             // Extract target user's data from the provided data
             const str_username = d['targetData']['username'];
             const str_pfp = d['targetData']['pfp'];
@@ -167,7 +189,6 @@ export async function load_chat(target, chats, messages, bypass) {
 
             // If only loading messages, skip friend list update
             if (messages === "only") {
-                console.log("yeah")
                 load_messages(d);
                 return;
             }
@@ -228,6 +249,7 @@ export async function load_chat(target, chats, messages, bypass) {
                 "requested_by": udata,
                 "target": target
             })
+            console.log(dpost)
             load(dpost)
             return dpost
         }
@@ -259,6 +281,7 @@ export async function load_chat(target, chats, messages, bypass) {
         loop_load();
         return;
     }
+    scrollToBottomMsgs()
 }
 
 
@@ -296,7 +319,7 @@ export async function send_message(...args) {
     //work on this next
     if (!args[2]) { utils.generateNotification("Error!", "no chat is selected!"); return; }
     const input = document.getElementById("message")
-
+    console.log(...args)
     create_message_clone(...args)
     adjustTextareaHeight()
 
@@ -306,6 +329,7 @@ export async function send_message(...args) {
             "chat_id": await local.local_update(2),
             "message": {
                 "sender": args[1][1],
+                "pfp":utils.getUserData()['profilepicture'],
                 "content": input.value
             }
 
