@@ -99,6 +99,11 @@ async function create_message_clone(type, data) {
     const content = (clone.children[1]).children[1]
     profile_picture.src = data[0].length > 0 ? data[0] : "./img/user.jpg"
     username.textContent = data[1]
+
+    if (data[1] === utils.getUserData()['username']) {
+        username.style.color = "wheat"
+    }
+
     content.textContent = data[2]
 
     message_main.appendChild(clone)

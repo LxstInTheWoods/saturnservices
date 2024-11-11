@@ -36,6 +36,12 @@ function adjustTextareaHeight() {
         T1input.style.overflowY = "auto";
     }
 }
+
+function send_message_actual(){
+    const udata = utils.getUserData()
+    module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value], current_chat)
+    adjustTextareaHeight()
+}
 T1input.addEventListener('input', adjustTextareaHeight);
 T1input.addEventListener('keydown', (event) => {
     if (event.shiftKey && event.key === 'Enter') {
@@ -47,15 +53,18 @@ T1input.addEventListener('keydown', (event) => {
         T1input.value = value.substring(0, start) + '\n' + value.substring(end);
         T1input.selectionStart = T1input.selectionEnd = start + 1;
         T1input.scrollTop = T1input.scrollHeight;
+        adjustTextareaHeight()
 
     } else if (event.key === "Enter" && !event.shiftKey) {
-        const udata = utils.getUserData()
         event.preventDefault()
-        module.send_message("sent", [udata['profilepicture'], udata['username'], T1input.value], current_chat)
-        adjustTextareaHeight()
+        send_message_actual()
 
     }
 });
+
+document.getElementById('send-button').addEventListener("click", ()=>{
+    send_message_actual()
+})
 adjustTextareaHeight()
 
 module.init_self()
