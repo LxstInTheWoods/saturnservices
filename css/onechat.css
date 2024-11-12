@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #282c34;
+    background-color: #1c1c1c;
     color: #ffffff;
     display: flex;
     height: 100vh;
@@ -45,8 +45,8 @@ body {
     position: relative;
     width: 15vw;
     height: 98vh;
-    background-color: #3c4043;
-    padding: 10px;
+    background:none;
+    padding: .2rem;
     overflow-y: hidden;
     border-radius: 9px;
     margin: .5rem;
@@ -72,11 +72,15 @@ textarea:focus {
 .sidebar-section {
     width: 100%;
     overflow-x: hidden;
+    border-radius: 7px;
+    padding: 0.3rem;
+    background-color: #292929;
+    margin-bottom: 0.75rem;
 }
 
 .search-components button{
     width: 20%;
-    border: solid #3c4043 1px;
+    border: solid #323232 1px;
     background-color:#3c4043 ;
     border-radius: 5px;
     color: white;
@@ -92,13 +96,24 @@ textarea:focus {
     height: 1.4rem;
     font-size: 15px;
     font-weight: bold;
-    background: none;
+    background:none;
     color: black;
 }
-
+#search-for-user{
+    flex-grow: 1;
+    width: fit-content;
+    height: 40%;
+    margin:auto;
+    margin-right: 0.3rem;
+    border: none;
+    font-size: 12px;
+    padding: 0.2rem;
+    font-weight: bolder;
+    background: none;
+}
 .search-components span {
     display: flex;
-    background-color: white;
+    background-color: #464646;
     border-radius: 6px;
 }
 
@@ -114,7 +129,6 @@ textarea:focus {
 }
 
 #search {
-    background-color: #323232;
     border-radius: 9px;
     padding: 0.3rem;
     padding-bottom: 0.6rem;
@@ -134,6 +148,7 @@ textarea:focus {
     /* Ensures the lists take full width */
 }
 
+
 .chat-room,
 .friend {
     display: flex;
@@ -143,7 +158,7 @@ textarea:focus {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #3c4043;
+    background:none;
 
 }
 .friend button{
@@ -162,11 +177,6 @@ textarea:focus {
     cursor: pointer;
 }
 
-.chat-room:hover,
-.friend:hover {
-    background-color: #4a4d51;
-    /* Highlight on hover */
-}
 
 .chat-list img,
 .friend-list img {
@@ -192,18 +202,18 @@ textarea:focus {
 .sidebar-section>h2 {
     text-align: left;
     margin-bottom: 0.2rem;
+    font-weight: bolder;
     /* Center align section headers */
 }
 
-.sidebar-section {
-    margin-bottom: 15px;
-    /* Space between sections */
+.friend {
+    border-bottom: solid 2px #2e2e2e;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-bottom: 0.3rem;
 }
 
-.chat-room:hover,
-.friend:hover {
-    background-color: #4a4d51;
-}
+
 
 #chat-area {
     flex-grow: 1;
@@ -267,8 +277,7 @@ label {
 
 #message-input {
     display: flex;
-    padding: 10px;
-    background-color: #3c4043;
+    padding: 6px;
     border-radius: 9px;
     margin-bottom: 0.7rem;
     width: 99%;
@@ -279,7 +288,8 @@ label {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #494b50;
+    border: none;
+    outline: none;
     color: #ffffff;
 }
 
@@ -289,27 +299,28 @@ label {
     margin-left: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #61dafb;
+    background-color: 1693db;
     color: white;
     cursor: pointer;
 }
 
 #send-button:hover {
-    background-color: #55b3d3;
+    background-color: #1693db;
 }
 
+
+.sidebar-color{
+    background-color: #2e2e2e !important;
+}
 /* main chat stuff */
 
 #toolbar {
     width: 99%;
     height: fit-content;
-    background-color: #3c4043;
     border-radius: 8px;
-    margin-top: 0.5rem;
-    display: flex;
     margin: auto;
     padding: 0.5rem;
-    margin-top: 0.52rem;
+    margin-top: 0.7rem;
 
 }
 
@@ -345,7 +356,7 @@ label {
 }
 
 .toolbar-at {
-    color: #61dafb;
+    color: #1693db !important;
     font-weight: bolder;
     font-size: 20px;
 }
@@ -368,7 +379,6 @@ label {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #323232;
     padding: 0.5rem;
     margin-bottom: 0.2rem;
 }

@@ -24,18 +24,18 @@
    <div id="chat-container">
       <div id="sidebar">
 
-         <div class="sidebar-section" id="search">
+         <div  id="search" class="sidebar-section sidebar-color">
             <h2>Search</h2>
             <div class="search-components">
                <span>
-                  <label>@</label>
+                  <label class="toolbar-at">@</label>
                   <input id="search-input">
                   <button id="search-for-user">Search</button>
                </span>
             </div>
          </div>
 
-         <div class="sidebar-section">
+         <div class="sidebar-section sidebar-color">
             <h2>Groups</h2>
             <div class="chat-list">
 
@@ -52,7 +52,7 @@
             </div>
          </div>
 
-         <div class="sidebar-section">
+         <div class="sidebar-section sidebar-color">
             <h2>Direct Messages</h2>
             <div class="friend-list">
                   <!--begin friend storage-->
@@ -71,15 +71,15 @@
 
             </div>
          </div>
-         <div id="profile">
+         <div class="sidebar-section sidebar-color" id="profile">
             <img src="./img/user.jpg" class="pfp">
-            <label>@</label><label></label>
+            <label class="toolbar-at">@</label><label></label>
          </div>
       </div>
 
       <div id="chat-area">
 
-         <div id="toolbar">
+         <div id="toolbar" class="sidebar-color">
             <span class="tbs">
                <img class="toolbar-pfp pfp" src="./img/user.jpg">
                <label class="toolbar-at">@</label>
@@ -110,8 +110,8 @@
 
          </span>
 
-         <div id="message-input">
-            <textarea id="message" placeholder="Type your message..." rows="1" style="resize:none;"></textarea>
+         <div id="message-input" class="sidebar-color">
+            <textarea id="message" class="sidebar-color" placeholder="Type your message..." rows="1" style="resize:none;"></textarea>
             <button id="send-button">Send</button>
          </div>
       </div>

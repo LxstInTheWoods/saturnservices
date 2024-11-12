@@ -101,7 +101,7 @@ async function create_message_clone(type, data) {
     username.textContent = data[1]
 
     if (data[1] === utils.getUserData()['username']) {
-        username.style.color = "wheat"
+        username.style.color = "#1693db"
     }
 
     content.textContent = data[2]
@@ -163,7 +163,7 @@ export async function load_chat(target, chats, messages, bypass) {
             //might need debugging later
             console.log(udata['username'], x['sender'])
             if (udata['username'] === x['sender']) {
-                clone_username.style.color = "wheat"
+                clone_username.style.color = "#1693db"
                 clone_pfp.src = udata['profilepicture'].length > 0 ? udata['profilepicture'] : "./img/user.jpg"
             }
             else {

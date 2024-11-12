@@ -44,7 +44,7 @@ async function animation_friend_hover(object, value) {
     //hovering over friend card
     if (value === 1) {
         const goal = {
-            "backgroundColor": "#303030"
+            "borderColor": "#1693db"
         }
         const animation = {
             duration: 250,
@@ -54,7 +54,7 @@ async function animation_friend_hover(object, value) {
     }
     else {
         const goal = {
-            "backgroundColor": "#3c4043"
+            "borderColor": "#2e2e2e"
         }
         const animation = {
             duration: 250,
