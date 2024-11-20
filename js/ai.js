@@ -3,7 +3,7 @@ import { SID, awaitSID } from "./wshandler.js";
 (async () => {
     if (!utils.ping()){utils.generateNotification("System", "Server Offline") ;return}
     if (localStorage.getItem("user") === 'undefined' || localStorage.getItem("user") === null) {
-        utils.generateNotification("AI Turbo", `You must create an account at ${utils.create_atag("TerminalSaturn", "https://terminalsaturn.com")} to use this service`)
+        utils.generateNotification("AI Turbo", `You must create an account at ${utils.create_atag("TerminalSaturn", "https://terminalsaturn.com")} to use this service.`, "inf")
         return
     }
     await awaitSID()

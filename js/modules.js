@@ -39,7 +39,8 @@ export function update_tab_name(str){
 }
 
 export async function writeData(updated){
-    const response = await fetch(`${endpoint}readwrite`, {
+    localStorage.setItem("user", JSON.stringify(updated))
+    await fetch(`${endpoint}readwrite`, {
         method:"POST",
         mode:"cors",
         headers:{"Content-Type":"application/json"},
@@ -57,7 +58,7 @@ export function create_atag(str, link){
 export async function delay(s) {
     return new Promise(resolve => setTimeout(resolve, s * 1000));
 }
-export async function generateNotification(source, content) {
+export async function generateNotification(source, content, dur) {
     const notificationDiv = document.getElementById("notifscontainer")
     const notificationsStorage = document.getElementById("nfstg")
     if (!notificationsStorage){return null}
@@ -67,8 +68,9 @@ export async function generateNotification(source, content) {
     notif.children[0].textContent = source
     notif.children[1].innerHTML = content
     container.appendChild(notif)
-    notif.animate([{ "opacity": 1 }], { duration: 250, "fill": "forwards" })
-
+    if (dur != "inf"){
+        notif.animate([{ "opacity": 1 }], { duration: dur ? dur : 250, "fill": "forwards" })   
+    }
 
     function fadeOut() {
         const anim = notif.animate([{ "opacity": 0 }], { duration: 250, "fill": "forwards" })

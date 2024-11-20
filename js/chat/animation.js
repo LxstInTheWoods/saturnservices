@@ -89,19 +89,20 @@ export class setup_room_hover {
         })
     }
 
-    get_close_hover_state() {
-        return this.hover
-    }
 
 }
 
-export async function setup_closebutton_hover(obj) {
-    obj.addEventListener("mouseenter", () => {
-        animation_close_chat_hover(obj, 1)
-    })
-    obj.addEventListener("mouseleave", () => {
-        animation_close_chat_hover(obj, 0)
-    })
-
-
+export class setup_closeroom_hover {
+    constructor(obj) {
+        this.hover = false
+        obj.addEventListener("mouseenter", () => {
+            this.hover = true
+            animation_close_chat_hover(obj, 1)
+        })
+        obj.addEventListener("mouseleave", () => {
+            this.hover = false
+            animation_close_chat_hover(obj, 0)
+        })
+    
+    }
 }

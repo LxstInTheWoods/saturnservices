@@ -13,6 +13,27 @@ socket.onclose = (event) => {
     utils.generateNotification("Server", `Connection to the ${utils.create_atag("server", endpoint_websocket)} was lost.`)
 }
 
+
+export function comparestrings(str1, str2){
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+        
+        for (let i = 0; i < Math.min(str1.length, str2.length); i++) {
+            if (str1[i] < str2[i]) {
+                return [str1, str2].join("___");
+            } else if (str1[i] > str2[i]) {
+                return [str2, str1].join("___");
+            }
+        }
+        
+
+        if (str1.length < str2.length) {
+            return [str1, str2].join("___");
+        } else {
+            return [str2, str1].join("___");
+        }
+}
+
 socket.onmessage = async (event) => {
     const data = JSON.parse(event.data)
     const ray_id = data[0]
@@ -161,7 +182,6 @@ export async function load_chat(target, chats, messages, bypass) {
             // Check if profile picture should come from cached chats or targetData
 
             //might need debugging later
-            console.log(udata['username'], x['sender'])
             if (udata['username'] === x['sender']) {
                 clone_username.style.color = "#1693db"
                 clone_pfp.src = udata['profilepicture'].length > 0 ? udata['profilepicture'] : "./img/user.jpg"
@@ -207,12 +227,19 @@ export async function load_chat(target, chats, messages, bypass) {
             const close_room = clone.children[2];
 
             // Set up animations for the hover and close button on the friend card
-            const closeState = new animations.setup_room_hover(clone);
+            new animations.setup_room_hover(clone);
+            var closeState = new animations.setup_closeroom_hover(clone.children[2]);
 
             // Add click event to load chat when clicking on the friend card (if not closing)
-            clone.addEventListener("click", closeState ? (__loadmessages__) => {
+            console.log(closeState.hover)
+            clone.addEventListener("click", !closeState.hover ? (__loadmessages__) => {
+                console.log("clickeddd")
                 // Clear previous messages, update local state, and load new chat
+                localStorage.setItem("lastchat", str_username)
+
                 message_frame.innerHTML = "";
+                console.log("ok")
+                
                 local.local_update(1, d['targetData']['order']);
                 utils.update_tab_name(`Onechat - @${d['targetData']['username']}`);
                 load_chat(d['targetData']['username'], chats, "only", true);
@@ -220,14 +247,26 @@ export async function load_chat(target, chats, messages, bypass) {
 
             // Handle closing of the chat room when clicking the close button
             close_room.addEventListener("click", (__closeroom__) => {
-                console.log("oka");
+
+                __closeroom__.stopPropagation()
+                let scl = structuredClone(utils.getUserData());
+
+                delete scl['data']['chat'][str_username]
+                message_frame.innerHTML = "";
+                
+                local.local_update(3)
+                
+                utils.writeData(scl)
+
+                clone.remove()
+                
             });
 
             // Set up hover animations for the close button
-            animations.setup_closebutton_hover(clone.children[2]);
 
             // Load messages if needed
             if (messages) {
+                local.local_update(1, d['targetData']['order'])
                 load_messages(d);
             }
         }catch (err) {
@@ -260,17 +299,13 @@ export async function load_chat(target, chats, messages, bypass) {
         }
 
         // If the target chat exists in cache (chats), return cached chat
-        if (target in chats) {
-            return chats[target];
-        }
-        else {
+
             // Otherwise, load chat data from the server
-            const dpost = await postSocket({
+            const dpost = target in chats ? chats[target]: await postSocket({
                 "code": "get_chat",
                 "requested_by": udata,
                 "target": target
             });
-            console.log(dpost)
 
             // If chat data is found, load it; if not, return empty array
             if (typeof dpost === "object") {
@@ -280,7 +315,6 @@ export async function load_chat(target, chats, messages, bypass) {
                 // If user not found
                 return [];
             }
-        }
     } else {
         // If target is a dictionary, load all chats using loop_load
         loop_load();

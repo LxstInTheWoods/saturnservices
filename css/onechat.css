@@ -134,6 +134,9 @@ textarea:focus {
     padding-bottom: 0.6rem;
 
 }
+#search input{
+    color: white;;
+}
 
 .sidebar-section h2 {
     font-size: 15px;
