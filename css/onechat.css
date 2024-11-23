@@ -266,6 +266,10 @@ label {
     color: white;
     align-self: flex-end;
 }
+.sent,
+.recieved {
+    opacity: 0;
+}
 
 .received {
     background-color: #343a40;

@@ -164,7 +164,6 @@ export async function load_chat(target, chats, messages, bypass) {
             console.log("ok")
             chats = d
         }
-        console.log(chats)
 
         // Loop through the messages and display them in the chat UI
         for (const [i, x] of Object.entries(d['chatData']['messages'])) {
@@ -178,6 +177,9 @@ export async function load_chat(target, chats, messages, bypass) {
 
             clone_username.textContent = x['sender'];
             clone_content.textContent = x['content'];
+
+            const thing = new animations.chatFadein(message_clone)
+            thing.fadeIn()
 
             // Check if profile picture should come from cached chats or targetData
 

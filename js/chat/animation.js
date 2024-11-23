@@ -106,3 +106,16 @@ export class setup_closeroom_hover {
     
     }
 }
+
+export class chatFadein {
+    constructor (obj){
+        this.obj = obj
+    }
+
+     fadeIn(){
+        this.obj.animate([{"opacity":1}], {duration:250, fill:"forwards"})
+    }
+     fadeOut(){
+        this.obj.animate([{"opacity":0}], {duration:250, fill:"forwards"})
+    }
+}
