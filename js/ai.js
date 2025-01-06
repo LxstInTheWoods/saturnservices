@@ -324,7 +324,7 @@ import { SID, awaitSID } from "./wshandler.js";
                             return response.json();
                         })
                             .then(data => {
-                                gptanswer = data.value;
+                                gptanswer = formatCodeBlocks(data.value);
                                 rooms[currentroom]['ROOMNAME'] = data.value
                                 tx34(data.value);
                             })
@@ -380,7 +380,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 try {
                     let str = "";
 
-                    for (const x of value) {
+                    for (const x of formatCodeBlocks(value)) {
                         let p = new Promise((r) => {
                             setTimeout(function () {
                                 r();
@@ -650,7 +650,7 @@ import { SID, awaitSID } from "./wshandler.js";
                     } else {
                         const responseclone = gptresponse.cloneNode(true);
                         document.getElementById('gptresponse').appendChild(responseclone);
-                        responseclone.children[1].innerHTML = rooms[clone.id][k]
+                        responseclone.children[1].innerHTML = formatCodeBlocks(rooms[clone.id][k])
 
 
                         const modelselector = k.split("_")[1]
