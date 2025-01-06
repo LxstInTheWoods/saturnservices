@@ -128,6 +128,9 @@ async function create_message_clone(type, data) {
     content.textContent = data[2]
 
     message_main.appendChild(clone)
+
+    clone.animate([{"opacity":1}], {"duration":250, "fill":"forwards"})
+
     scrollToBottomMsgs()
 
 }
@@ -212,6 +215,7 @@ export async function load_chat(target, chats, messages, bypass) {
                 toolbar_username.textContent = str_username;
                 toolbar_pfp.src = str_pfp.length > 0 ? str_pfp : "./img/user.jpg";
                 text_area.placeholder = `Message @${str_username}`;
+                
             }
 
             // If only loading messages, skip friend list update
@@ -341,12 +345,15 @@ export function adjustTextareaHeight() {
 
 export function init_self() {
     if (utils.getUserData()) {
+
+        //loads personal data (bottom profile card)
         const prfl = document.getElementById("profile")
         const my_pfp = prfl.children[0]
         const my_username = prfl.children[2]
         const my_data = utils.getUserData()
         my_username.textContent = my_data['username']
         my_pfp.src = my_data["profilepicture"].length > 0 ? my_data['profilepicture'] : "./img/user.jpg"
+        //loads sidebar profiles
         load_chat(my_data['data']['chat'], null)
     }
     else {

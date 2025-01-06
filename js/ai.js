@@ -380,7 +380,7 @@ import { SID, awaitSID } from "./wshandler.js";
                 try {
                     let str = "";
 
-                    for (const x of formatCodeBlocks(value)) {
+                    for (const x of formatCodeBlocks(value) ? formatCodeBlocks(value) : value) {
                         let p = new Promise((r) => {
                             setTimeout(function () {
                                 r();

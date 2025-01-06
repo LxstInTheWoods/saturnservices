@@ -45,7 +45,6 @@ if (!user_data) { utils.generateNotification("OneChat", `You must create an acco
             let copy = structuredClone(utils.getUserData())
             copy['data']['chat'][lr['targetData']['username']] = lr
 
-            //make it so if the user doesnt already exist inside to preserve resources
             utils.writeData(copy)
     
     
@@ -130,10 +129,7 @@ adding users: must search by full username, no friend requests required. blockin
 
 chats should save under collection with id(1), id(2) and only be accessible if accessing user's PW matches
 
-
-chats need to be cached and loaded, not loaded all at once. can do later so you dont have to script limitations for saving
-
-make it so you cant message yourself
+chats need to be cached and loaded, not loaded all at once. can do later so you dont have to script limitations for saving; !IMPORTANT
 
 */
 
